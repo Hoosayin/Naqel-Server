@@ -1,0 +1,33 @@
+var express = require("express");
+var cors = require("cors");
+var bodyParser = require("body-parser");
+var passport = require("./helpers/passportHelper");
+
+var app = express();
+const port = process.env.PORT || 5000;
+
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use("/users", require("./routes/login"));
+app.use("/users", require("./routes/register"));
+app.use("/users", require("./routes/accountSetup"));
+app.use("/users", require("./routes/generalSettings"));
+app.use("/users", require("./routes/usernameAndEmailSettings"));
+app.use("/users", require("./routes/passwordSettings"));
+app.use("/users", require("./routes/validateUsername"));
+app.use("/users", require("./routes/validateEmail"));
+app.use("/users", require("./routes/validatePassword"));
+app.use("/users", require("./routes/sendCode"));
+
+app.get("/", (req, res) => {
+    res.send("Nagel Server - Up and Running!");
+});
+
+app.listen(port, () => {
+    console.log("Server is running on port: " + port)
+})
