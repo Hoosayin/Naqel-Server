@@ -3,7 +3,10 @@ const cors = require("cors");
 const jsonWebToken = require("jsonwebtoken");
 const passport = require("../helpers/passportHelper");
 const jwtConfiguration = require("../helpers/jwtConfiguration");
+
 const Drivers = require("../models/drivers");
+const DriverProfilePhotos = require("../models/driverProfilePhotos");
+
 const Op = require("sequelize").Op;
 
 var router = express.Router();
@@ -33,6 +36,19 @@ router.post("/login", (req, res, next) => {
                 })
                     .then(driver => {
                         if (driver) {
+                            DriverProfilePhotos.findOne({
+                                where: { DriverID: driver.dataValues.DriverID }
+                            })
+                                .then(driverProfilePhoto => {
+                                    if (driverProfilePhoto) {
+                                        driver.dataValues["DriverProfilePhoto"] = driverProfilePhoto;
+                                    }
+                                    else {
+                                        driver.dataValues["DriverProfilePhoto"] = null;
+                                    }
+                                });
+
+
                             let token = jsonWebToken.sign(driver.dataValues, jwtConfiguration.secret);
                             res.send(token);
                         }
