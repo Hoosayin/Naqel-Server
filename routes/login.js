@@ -36,21 +36,22 @@ router.post("/login", (req, res, next) => {
                 })
                     .then(driver => {
                         if (driver) {
+                            let driverData = driver.dataValues;
                             DriverProfilePhotos.findOne({
                                 where: { DriverID: driver.dataValues.DriverID }
                             })
                                 .then(driverProfilePhoto => {
                                     if (driverProfilePhoto) {
-                                        driver.dataValues["DriverProfilePhoto"] = driverProfilePhoto.dataValues;
+                                        driverData["DriverProfilePhoto"] = driverProfilePhoto.dataValues;
                                     }
                                     else {
-                                        driver.dataValues["DriverProfilePhoto"] = null;
+                                        driverData["DriverProfilePhoto"] = null;
                                     }
-                                });
 
-
-                            let token = jsonWebToken.sign(driver.dataValues, jwtConfiguration.secret);
-                            res.send(token);
+                                    console.log(driverData);
+                                    let token = jsonWebToken.sign(driver.dataValues, jwtConfiguration.secret);
+                                    res.send(token);
+                                });                            
                         }
                     });
             });     
