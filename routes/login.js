@@ -41,7 +41,7 @@ router.post("/login", (req, res, next) => {
                             })
                                 .then(driverProfilePhoto => {
                                     if (driverProfilePhoto) {
-                                        driver.dataValues["DriverProfilePhoto"] = driverProfilePhoto;
+                                        driver.dataValues["DriverProfilePhoto"] = driverProfilePhoto.dataValues;
                                     }
                                     else {
                                         driver.dataValues["DriverProfilePhoto"] = null;
