@@ -7,7 +7,7 @@ const Drivers = require("../models/drivers");
 var router = express.Router();
 router.use(cors());
 
-// POST: accountSetup
+// POST: generalSettings
 router.post("/dashboard/generalSettings", (req, res, next) => {
     try {
         Drivers.findOne({
@@ -15,7 +15,7 @@ router.post("/dashboard/generalSettings", (req, res, next) => {
         })
             .then(driver => {
                 if (!driver) {
-                    return done(null, false, { message: "Username not found." });
+                    res.send("Driver not found." );
                 }
                 else {
                     console.log(driver);
@@ -39,7 +39,7 @@ router.post("/dashboard/generalSettings", (req, res, next) => {
 
             });
     } catch (error) {
-        return done(error);
+        return res.send(error);
     }
 });
 
