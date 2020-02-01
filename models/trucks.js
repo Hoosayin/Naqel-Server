@@ -34,11 +34,6 @@ module.exports = databaseHelper.sequelize.define(
             type: databaseHelper.Sequelize.STRING(100),
             allowNull: false
         },
-        IDNumber:
-        {
-            type: databaseHelper.Sequelize.STRING(100),
-            allowNull: false
-        },
         Owner:
         {
             type: databaseHelper.Sequelize.TEXT,
@@ -69,7 +64,7 @@ module.exports = databaseHelper.sequelize.define(
             type: databaseHelper.Sequelize.FLOAT,
             allowNull: false
         },
-        PhotoLink:
+        PhotoURL:
         {
             type: databaseHelper.Sequelize.TEXT,
             allowNull: false
