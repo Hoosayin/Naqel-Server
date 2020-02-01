@@ -159,16 +159,15 @@ passport.use('jwt', new JWTStrategy(opts, (jwtPayload, done) => {
     try {
         Drivers.findOne({
             where: { DriverID: jwtPayload.DriverID },
-        })
-            .then(driver => {
-                if (driver) {
-                    console.log("Driver found in database in passport");
-                    done(null, driver);
-                } else {
-                    console.log("Driver not found in database");
-                    done(null, false);
-                }
-            });
+        }).then(driver => {
+            if (driver) {
+                console.log("Driver found in database in passport");
+                done(null, driver);
+            } else {
+                console.log("Driver not found in database");
+                done(null, false);
+            }
+        });
     } catch (error) {
         done(error);
     }
