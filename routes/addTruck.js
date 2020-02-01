@@ -28,7 +28,7 @@ router.post("/dashboard/addTruck", (req, res) => {
                     else {
                         let newTruck = {
                             DriverID: driver.DriverID,
-                            TransportCompanyID: 1,
+                            TransportCompanyID: null,
                             PlateNumber: req.body.PlateNumber,
                             Owner: req.body.Owner,
                             ProductionYear: req.body.ProductionYear,
@@ -36,7 +36,7 @@ router.post("/dashboard/addTruck", (req, res) => {
                             Model: req.body.Model,
                             Type: req.body.Type,
                             MaximumWeight: req.body.MaximumWeight,
-                            PhotoURL: req.body.MaximumWeight,
+                            PhotoURL: req.body.PhotoURL,
                         };
 
                         Trucks.create(newTruck).then(() => {

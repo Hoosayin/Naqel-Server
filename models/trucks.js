@@ -41,7 +41,7 @@ module.exports = databaseHelper.sequelize.define(
         },
         ProductionYear:
         {
-            type: "YEAR(4)",
+            type: databaseHelper.Sequelize.BIGINT,
             allowNull: false
         },
         Brand:
@@ -61,7 +61,7 @@ module.exports = databaseHelper.sequelize.define(
         },
         MaximumWeight:
         {
-            type: databaseHelper.Sequelize.FLOAT,
+            type: databaseHelper.Sequelize.BIGINT,
             allowNull: false
         },
         PhotoURL:
