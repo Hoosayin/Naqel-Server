@@ -1,7 +1,7 @@
-var databaseHelper = require('../helpers/databaseHelper');
+var databaseHelper = require("../helpers/databaseHelper");
 
 module.exports = databaseHelper.sequelize.define(
-    'Trucks',
+    "Trucks",
     {
         TruckID:
         {
@@ -25,8 +25,8 @@ module.exports = databaseHelper.sequelize.define(
             allowNull: true,
             references:
             {
-                model: 'TransportCompany',
-                key: 'TCID'
+                model: "TransportCompany",
+                key: 'TransportComapnyID'
             }
         },
         PlateNumber:

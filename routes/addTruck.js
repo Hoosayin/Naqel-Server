@@ -10,10 +10,10 @@ router.use(cors());
 // POST: addTruck
 router.post("/dashboard/addTruck", (req, res) => {
     try {
-        const driver = jwtDecode(req.body.Token);
+        let driverToken = jwtDecode(req.body.Token);
 
         Drivers.findOne({
-            where: { DriverID: driver.DriverID },
+            where: { DriverID: driverToken.DriverID },
         }).then(driver => {
             if (!driver) {
                 res.send("Driver not found.");
@@ -27,16 +27,16 @@ router.post("/dashboard/addTruck", (req, res) => {
                     }
                     else {
                         let newTruck = {
-                            DriverID = driver.DriverID,
-                            TransportCompanyID = null,
-                            PlateNumber = req.body.PlateNumber,
-                            Owner = req.body.Owner,
-                            ProductionYear = req.body.ProductionYear,
-                            Brand = req.body.Brand,
-                            Model = req.body.Model,
-                            Type = req.body.Type,
-                            MaximumWeight = req.body.MaximumWeight,
-                            PhotoURL = req.body.MaximumWeight,
+                            DriverID: driver.DriverID,
+                            TransportCompanyID: 1,
+                            PlateNumber: req.body.PlateNumber,
+                            Owner: req.body.Owner,
+                            ProductionYear: req.body.ProductionYear,
+                            Brand: req.body.Brand,
+                            Model: req.body.Model,
+                            Type: req.body.Type,
+                            MaximumWeight: req.body.MaximumWeight,
+                            PhotoURL: req.body.MaximumWeight,
                         };
 
                         Trucks.create(newTruck).then(() => {
