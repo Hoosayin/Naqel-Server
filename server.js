@@ -25,6 +25,7 @@ app.use("/users", require("./routes/validatePassword"));
 app.use("/users", require("./routes/sendCode"));
 app.use("/users", require("./routes/uploadDriverProfilePhoto"));
 app.use("/users", require("./routes/addTruck"));
+app.use("/users", require("./routes/updateTruckPhoto"));
 
 app.get("/", (req, res) => {
     res.send("Nagel Server - Up and Running!");
