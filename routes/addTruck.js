@@ -3,6 +3,7 @@ const cors = require("cors");
 const jwtDecode = require("jwt-decode");
 const Drivers = require("../models/drivers");
 const Trucks = require("../models/trucks");
+const tokenGenerator = require("../helpers/tokenGenerator");
 
 var router = express.Router();
 router.use(cors());
@@ -40,7 +41,13 @@ router.post("/dashboard/addTruck", (req, res) => {
                         };
 
                         Trucks.create(newTruck).then(() => {
-                            res.send("Driver's truck is added.");
+                            tokenGenerator.generateDriverToken(driver.DriverID, token => {
+                                res.json({
+                                    Message: "Driver's truck is added.",
+                                    Token: token
+                                });
+                            });
+                            
                         });
                     }
                 })
