@@ -33,6 +33,7 @@
     <Content Include="helpers\databaseHelper.js" />
     <Content Include="helpers\jwtConfiguration.js" />
     <Content Include="helpers\passportHelper.js" />
+    <Content Include="helpers\emailHelper.js" />
     <Content Include="helpers\tokenGenerator.js" />
     <Content Include="models\driverProfilePhotos.js" />
     <Content Include="models\drivers.js" />

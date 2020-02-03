@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const passport = require("../helpers/passportHelper");
-const Drivers = require("../models/drivers");
+const codeGenerator = require("../helpers/codeGenerator");
+const emailHelper = require("../helpers/emailHelper");
 const jsonWebToken = require("jsonwebtoken");
 const jwtConfiguration = require("../helpers/jwtConfiguration");
 
@@ -24,15 +25,24 @@ router.post("/register", (req, res, next) => {
             req.logIn(driver, error => {
                 console.log(driver);
 
-                const newCredentails = {
-                    Username: req.body.Username,
-                    Email: req.body.Email,
-                    Password: req.body.Password,
-                    RegisterAs: req.body.RegisterAs,
-                };
+                const code = codeGenerator(6);
 
-                let token = jsonWebToken.sign(newCredentails, jwtConfiguration.secret);
-                res.send(token);
+                const to = req.body.Email;
+                const subject = "Confirmation Code";
+                const message = `Your confirmation code is ${code}`;
+
+                emailHelper.sendEmail(to, subject, message, () => {
+                    const newCredentails = {
+                        Username: req.body.Username,
+                        Email: req.body.Email,
+                        Password: req.body.Password,
+                        RegisterAs: req.body.RegisterAs,
+                        Code: code
+                    };
+
+                    let token = jsonWebToken.sign(newCredentails, jwtConfiguration.secret);
+                    res.send(token);
+                });               
             });
         }
     })(req, res, next);

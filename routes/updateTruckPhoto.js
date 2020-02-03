@@ -1,14 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 const jwtDecode = require("jwt-decode");
-const Drivers = require("../models/drivers");
 const Trucks = require("../models/trucks");
 const tokenGenerator = require("../helpers/tokenGenerator");
 
 var router = express.Router();
 router.use(cors());
 
-// POST: addTruck
+// POST: updateTruckPhoto
 router.post("/dashboard/updateTruckPhoto", (req, res) => {
     try {
         let driverToken = jwtDecode(req.body.Token);
