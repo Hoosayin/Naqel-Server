@@ -30,7 +30,7 @@ router.post("/dashboard/updateTruck", (req, res) => {
                     console.log("Truck is updated in database.");
                     tokenGenerator.generateDriverToken(driverToken.DriverID, token => {
                         res.json({
-                            Message: "Truck photo updated.",
+                            Message: "Truck is updated in database.",
                             Token: token
                         });
                     });
@@ -38,8 +38,7 @@ router.post("/dashboard/updateTruck", (req, res) => {
             }
             else {
                 res.json({
-                    Message: "Truck not found.",
-                    Token: token
+                    Message: "Truck not found."
                 });
             }
         });
