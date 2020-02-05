@@ -1,7 +1,7 @@
-var databaseHelper = require('../helpers/databaseHelper');
+var databaseHelper = require("../helpers/databaseHelper");
 
 module.exports = databaseHelper.sequelize.define(
-    'Trailers',
+    "Trailers",
     {
         TrailerID:
         {
@@ -16,16 +16,16 @@ module.exports = databaseHelper.sequelize.define(
             allowNull: false,
             references:
             {
-                model: 'Truck',
-                key: 'TruckID'
+                model: "Trucks",
+                key: "TruckID"
             }
         },
         MaximumWeight:
         {
-            type: databaseHelper.Sequelize.FLOAT,
+            type: databaseHelper.Sequelize.BIGINT,
             allowNull: false
         },
-        PhotoLink:
+        PhotoURL:
         {
             type: databaseHelper.Sequelize.TEXT,
             allowNull: false
