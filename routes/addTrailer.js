@@ -58,7 +58,7 @@ router.post("/dashboard/addTrailer", (req, res) => {
                             Message: "Truck not found."
                         });
                     }
-                })
+                });
             }
         });
     } catch (error) {
