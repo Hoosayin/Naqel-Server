@@ -39,6 +39,7 @@
     <Content Include="models\drivers.js" />
     <Content Include="models\trailers.js" />
     <Content Include="models\trucks.js" />
+    <Content Include="routes\updateTrailer.js" />
     <Content Include="routes\deleteTrailer.js" />
     <Content Include="routes\findAllTrailers.js" />
     <Content Include="routes\addTrailer.js" />
