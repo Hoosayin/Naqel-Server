@@ -44,7 +44,12 @@ tokenGenerator.generateDriverToken = (driverID, onTokenGenerated) => {
                             let token = jsonWebToken.sign(driverData, jwtConfiguration.secret);
                             onTokenGenerated(token);
                         });
-                    }                    
+                    }
+                    else {
+                        console.log(driverData);
+                        let token = jsonWebToken.sign(driverData, jwtConfiguration.secret);
+                        onTokenGenerated(token);
+                    }
                 });
             });
         }
