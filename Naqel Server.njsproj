@@ -37,12 +37,17 @@
     <Content Include="helpers\tokenGenerator.js" />
     <Content Include="models\driverProfilePhotos.js" />
     <Content Include="models\drivers.js" />
+    <Content Include="models\TProfilePhoto.js" />
+    <Content Include="models\TraderBroker.js" />
     <Content Include="models\trailers.js" />
     <Content Include="models\trucks.js" />
-    <Content Include="routes\updateTrailer.js" />
-    <Content Include="routes\deleteTrailer.js" />
     <Content Include="routes\findAllTrailers.js" />
     <Content Include="routes\addTrailer.js" />
+    <Content Include="routes\tbgeneralSettings.js" />
+    <Content Include="routes\tbpasswordSettings.js" />
+    <Content Include="routes\tbusernameAndEmailSettings.js" />
+    <Content Include="routes\traderBrokerLogin.js" />
+    <Content Include="routes\traderRegister.js" />
     <Content Include="routes\updateTruck.js" />
     <Content Include="routes\updateTruckPhoto.js" />
     <Content Include="routes\addTruck.js" />
@@ -53,6 +58,7 @@
     <Content Include="routes\passwordSettings.js" />
     <Content Include="routes\register.js" />
     <Content Include="routes\sendCode.js" />
+    <Content Include="routes\uploadTraderBrokerProfilePhoto.js" />
     <Content Include="routes\usernameAndEmailSettings.js" />
     <Content Include="routes\validateEmail.js" />
     <Content Include="routes\validatePassword.js" />

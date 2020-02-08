@@ -10,6 +10,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const JWTStrategy = require("passport-jwt").Strategy;
 const ExtractJWT = require("passport-jwt").ExtractJwt;
 const Drivers = require("../models/drivers");
+const TraderBroker = require("../models/TraderBroker");
 
 // Register
 passport.use("register", new LocalStrategy(
@@ -52,6 +53,48 @@ passport.use("register", new LocalStrategy(
     }
 ));
 
+//Trader Register
+passport.use("traderregister", new LocalStrategy(
+    {
+        usernameField: "Username",
+        passwordField: "Password",
+        passReqToCallback: true,
+        session: false,
+    },
+    (req, Username, Password, done) => {
+
+        const newCredentails = {
+            Username: req.body.Username,
+            Email: req.body.Email,
+        };
+
+        try {
+            TraderBroker.findOne({
+                where: {
+                    [Op.or]: [
+                        { Username: req.body.Username },
+                        { EmailAdrs: req.body.Email },
+                    ],
+                },
+            }).then(traderborker => {
+                if (traderborker) {
+                    console.log('Username or email is already taken.');
+                    return done(null, false, {
+                        message: "Username or email is already taken.",
+                    });
+                }
+                else {
+                    console.log("Credentials are new.");
+                    return done(null, newCredentails);
+                }
+            });
+        } catch (error) {
+            return done(error);
+        }
+    }
+));
+
+
 // AccountSetup
 passport.use("accountSetup", new LocalStrategy(
     {
@@ -78,20 +121,98 @@ passport.use("accountSetup", new LocalStrategy(
             Created: new Date(),
             Active: 1
         }
+        newTrader = {
+            UserName: req.body.Username,
+            Password: req.body.Password,
+            MobileNum: req.body.PhoneNumber,
+            FName: req.body.FirstName,
+            LName: req.body.LastName,
+            Nationality: req.body.Nationality,
+            EmailAdrs: req.body.Email,
+            Gender: req.body.Gender,
+            BirthDate: req.body.DateOfBirth,
+            RegistrationD: new Date(),
+            Address: req.body.Address,
+            Active: 1,
+            Type: "Trader",
+            BankName: "",
+            IBAN: ""
 
-        try {
-            bcrypt.hash(req.body.Password, BCRYPT_SALT_ROUNDS)
-                .then(passwordHash => {
-                    newDriver.Password = passwordHash;
-                    Drivers.create(newDriver)
-                        .then(driver => {
-                            console.log(driver.Username + " registered.");
-                            return done(null, driver);
-                        });
-                });
-        } catch (error) {
-            return done(error);
         }
+        newBroker = {
+            UserName: req.body.Username,
+            Password: req.body.Password,
+            MobileNum: req.body.PhoneNumber,
+            FName: req.body.FirstName,
+            LName: req.body.LastName,
+            Nationality: req.body.Nationality,
+            EmailAdrs: req.body.Email,
+            Gender: req.body.Gender,
+            BirthDate: req.body.DateOfBirth,
+            RegistrationD: new Date(),
+            Address: req.body.Address,
+            Active: 1,
+            Type: "Broker",
+            BankName: "",
+            IBAN: ""
+
+        }
+    
+
+        if (req.body.RegisterAs == "Driver") {
+            try {
+                bcrypt.hash(req.body.Password, BCRYPT_SALT_ROUNDS)
+                    .then(passwordHash => {
+                        newDriver.Password = passwordHash;
+                        Drivers.create(newDriver)
+                            .then(driver => {
+                                console.log(driver.Username + " registered.");
+                                return done(null, driver);
+                            });
+                    });
+
+
+            } catch (error) {
+                return done(error);
+            }
+        }
+        else if (req.body.RegisterAs == "Trader") {
+            try {
+                bcrypt.hash(req.body.Password, BCRYPT_SALT_ROUNDS)
+                    .then(passwordHash => {
+                        newTrader.Password = passwordHash;
+                        TraderBroker.create(newTrader)
+                            .then(trader => {
+                                console.log(trader.Username + " registered.");
+                                return done(null, trader);
+                            });
+                    });
+
+
+            } catch (error) {
+                return done(error);
+            }
+        }
+        else if (req.body.RegisterAs == "Broker") {
+            try {
+                bcrypt.hash(req.body.Password, BCRYPT_SALT_ROUNDS)
+                    .then(passwordHash => {
+                        newBroker.Password = passwordHash;
+                        TraderBroker.create(newBroker)
+                            .then(broker => {
+                                console.log(broker.Username + " registered.");
+                                return done(null, broker);
+                            });
+                    });
+
+
+            } catch (error) {
+                return done(error);
+            }
+        }
+
+
+
     }
 ));
 
@@ -135,6 +256,48 @@ passport.use("login", new LocalStrategy(
         }
     }
 ));
+
+// TraderLogin
+passport.use("traderlogin", new LocalStrategy(
+    {
+        usernameField: "EmailOrUsername",
+        passwordField: "Password",
+        passReqToCallback: true,
+        session: false,
+    },
+    (req, EmailOrUsername, Password, done) => {
+        try {
+            TraderBroker.findOne({
+                where: {
+                    [Op.or]: [
+                        { UserName: req.body.EmailOrUsername },
+                        { EmailAdrs: req.body.EmailOrUsername },
+                    ],
+                },
+            })
+                .then(traderbroker => {
+                    if (!traderbroker) {
+                        return done(null, false, { message: "Username not found." });
+                    }
+                    else {
+                        bcrypt.compare(req.body.Password, traderbroker.Password)
+                            .then(response => {
+                                if (!response) {
+                                    console.log("Invalid password.");
+                                    return done(null, false, { message: "Invalid password." });
+                                }
+                                console.log("Trader/Broker found and authenticated");
+                                return done(null, traderbroker);
+                            });
+                    }
+                });
+        }
+        catch (error) {
+            done(error);
+        }
+    }
+));
+
 
 // GeneralSettings
 passport.use("generalSettings", new LocalStrategy(

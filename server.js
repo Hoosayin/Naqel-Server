@@ -14,22 +14,29 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/users", require("./routes/login"));
+app.use("/users", require("./routes/traderBrokerLogin"));
 app.use("/users", require("./routes/register"));
+app.use("/users", require("./routes/traderRegister")); 
+
 app.use("/users", require("./routes/accountSetup"));
 app.use("/users", require("./routes/generalSettings"));
+app.use("/users", require("./routes/tbgeneralSettings"));
 app.use("/users", require("./routes/usernameAndEmailSettings"));
+app.use("/users", require("./routes/tbusernameAndEmailSettings"));
 app.use("/users", require("./routes/passwordSettings"));
+app.use("/users", require("./routes/tbpasswordSettings"));
 app.use("/users", require("./routes/validateUsername"));
 app.use("/users", require("./routes/validateEmail"));
 app.use("/users", require("./routes/validatePassword"));
 app.use("/users", require("./routes/sendCode"));
 app.use("/users", require("./routes/uploadDriverProfilePhoto"));
+app.use("/users", require("./routes/uploadTraderBrokerProfilePhoto"));
 app.use("/users", require("./routes/addTruck"));
 app.use("/users", require("./routes/updateTruckPhoto"));
 app.use("/users", require("./routes/updateTruck"));
 app.use("/users", require("./routes/addTrailer"));
-app.use("/users", require("./routes/deleteTrailer"));
 app.use("/users", require("./routes/findAllTrailers"));
+app.use("/users", require("./routes/deleteTrailer"));
 app.use("/users", require("./routes/updateTrailer"));
 
 app.get("/", (req, res) => {

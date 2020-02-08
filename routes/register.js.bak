@@ -7,31 +7,35 @@ const Drivers = require("../models/drivers");
 var router = express.Router();
 router.use(cors());
 
-// POST: accountSetup
-router.post("/accountSetup", (req, res, next) => {
-    passport.authenticate("accountSetup", (error, driver, information) => {
+// POST: Register
+router.post("/register", (req, res, next) => {
+    passport.authenticate("register", (error, driver, information) => {
         if (error) {
             console.error(`error: ${error}`);
         }
 
-        req.logIn(driver, error => {
-            console.log(driver);
+        if (information) {
+            console.error(information.message);
+            res.json({ error: information.message });
+        }
+        else {
+            req.logIn(driver, error => {
+                console.log(driver);
 
-            const newDriver = {
-                FirstName: req.body.FirstName,
-                LastName: req.body.LastName,
-                Email: req.body.Email,
-                Address: req.body.Address,
-                PhoneNumber: req.body.PhoneNumber,
-                Gender: req.body.Gender,
-                Nationality: req.body.Nationality,
-                Username: driver.Username,
-                Active: '1',
-            };
+                const newDriver = {
+                    FirstName: req.body.FirstName,
+                    LastName: req.body.LastName,
+                    Email: req.body.Email,
+                    Address: req.body.Address,
+                    PhoneNumber: req.body.PhoneNumber,
+                    Gender: req.body.Gender,
+                    Nationality: req.body.Nationality,
+                    Username: driver.Username,
+                    Active: '1',
+                };
 
-            console.log(newDriver);
+                console.log(newDriver);
 
-            if (req.body.RegisterAs == "Driver") {
                 Drivers.findOne({
                     where: { Username: newDriver.Username },
                 })
@@ -51,18 +55,11 @@ router.post("/accountSetup", (req, res, next) => {
                         Drivers.update(updatedDriver, { where: { Username: newDriver.Username } })
                             .then(() => {
                                 console.log("New driver created in database.");
-                                res.send("Driver created.");
+                                res.json({ message: "Driver created." });
                             });
                     });
-            }
-            if (req.body.RegisterAs == "Trader" || req.body.RegisterAs == "Broker") {
-                console.log("New Trader/Broker created in database.");
-                res.send("Trader/Broker created.");
-            }
-
-
-        
-        });
+            });
+        }
     })(req, res, next);
 });
 
