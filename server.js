@@ -38,6 +38,7 @@ app.use("/users", require("./routes/addTrailer"));
 app.use("/users", require("./routes/findAllTrailers"));
 app.use("/users", require("./routes/deleteTrailer"));
 app.use("/users", require("./routes/updateTrailer"));
+app.use("/users", require("./routes/addDrivingLicence"));
 
 app.get("/", (req, res) => {
     res.send("Nagel Server - Up and Running!");

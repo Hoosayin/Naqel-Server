@@ -43,7 +43,7 @@ router.post("/dashboard/addTrailer", (req, res) => {
                                             Message: "Trailer is added.",
                                             Token: token
                                         });
-                                    })
+                                    });
                                 });
                             }
                             else {
