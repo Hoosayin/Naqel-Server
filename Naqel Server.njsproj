@@ -42,6 +42,7 @@
     <Content Include="models\TraderBroker.js" />
     <Content Include="models\trailers.js" />
     <Content Include="models\trucks.js" />
+    <Content Include="routes\updateDrivingLicence.js" />
     <Content Include="routes\addDrivingLicence.js" />
     <Content Include="routes\findAllTrailers.js" />
     <Content Include="routes\addTrailer.js" />
