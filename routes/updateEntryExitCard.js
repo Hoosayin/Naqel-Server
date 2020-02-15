@@ -33,7 +33,7 @@ router.post("/dashboard/updateEntryExitCard", (req, res) => {
                             NumberOfMonths: req.body.NumberOfMonths,
                         };
 
-                        DrivingLicences.update(updatedEntryExitCard, { where: { EntryExitCardID: driverEntryExitCard.EntryExitCardID } }).then(() => {
+                        DriverEntryExitCards.update(updatedEntryExitCard, { where: { EntryExitCardID: driverEntryExitCard.EntryExitCardID } }).then(() => {
                             tokenGenerator.generateDriverToken(driver.DriverID, token => {
                                 res.json({
                                     Message: "Entry/Exit card is updated.",
