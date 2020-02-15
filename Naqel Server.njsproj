@@ -46,6 +46,7 @@
     <Content Include="routes\addEntryExitCard.js" />
     <Content Include="routes\deleteTrailer.js" />
     <Content Include="routes\deleteDrivingLicence.js" />
+    <Content Include="routes\updateEntryExitCard.js" />
     <Content Include="routes\updateDrivingLicence.js" />
     <Content Include="routes\addDrivingLicence.js" />
     <Content Include="routes\findAllTrailers.js" />
