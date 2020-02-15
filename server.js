@@ -17,7 +17,6 @@ app.use("/users", require("./routes/login"));
 app.use("/users", require("./routes/traderBrokerLogin"));
 app.use("/users", require("./routes/register"));
 app.use("/users", require("./routes/traderRegister")); 
-
 app.use("/users", require("./routes/accountSetup"));
 app.use("/users", require("./routes/generalSettings"));
 app.use("/users", require("./routes/tbgeneralSettings"));
@@ -43,6 +42,7 @@ app.use("/users", require("./routes/updateDrivingLicence"));
 app.use("/users", require("./routes/deleteDrivingLicence"));
 app.use("/users", require("./routes/addEntryExitCard"));
 app.use("/users", require("./routes/updateEntryExitCard"));
+app.use("/users", require("./routes/deleteEntryExitCard"));
 
 app.get("/", (req, res) => {
     res.send("Naqel Server - Up and Running!");
