@@ -2,6 +2,7 @@ const jsonWebToken = require("jsonwebtoken");
 const Drivers = require("../models/drivers");
 const DriverProfilePhotos = require("../models/driverProfilePhotos");
 const DrivingLicences = require("../models/drivingLicences");
+const DriverEntryExitCards = require("../models/driverEntryExitCards");
 const Trucks = require("../models/trucks");
 const Trailers = require("../models/trailers");
 const jwtConfiguration = require("../helpers/jwtConfiguration");
@@ -29,35 +30,43 @@ tokenGenerator.generateDriverToken = (driverID, onTokenGenerated) => {
                         driverData.DrivingLicence = drivingLicence.dataValues;
                     }
 
-                    Trucks.findOne({
+                    DriverEntryExitCards.findOne({
                         where: { DriverID: driverData.DriverID }
-                    }).then(truck => {
-                        if (truck) {
-                            driverData.Truck = truck.dataValues;
+                    }).then(driverEntryExitCard => {
+                        if (driverEntryExitCard) {
+                            driverData.EntryExitCard = driverEntryExitCard.dataValues;
+                        }
 
-                            Trailers.findAll({
-                                where: { TruckID: truck.TruckID }
-                            }).then(trailers => {
-                                if (trailers) {
-                                    let trailersArray = [];
+                        Trucks.findOne({
+                            where: { DriverID: driverData.DriverID }
+                        }).then(truck => {
+                            if (truck) {
+                                driverData.Truck = truck.dataValues;
 
-                                    trailers.forEach((value, index) => {
-                                        trailersArray[index] = value.dataValues;
-                                    });
+                                Trailers.findAll({
+                                    where: { TruckID: truck.TruckID }
+                                }).then(trailers => {
+                                    if (trailers) {
+                                        let trailersArray = [];
 
-                                    driverData.Truck.Trailers = trailersArray;
-                                }
+                                        trailers.forEach((value, index) => {
+                                            trailersArray[index] = value.dataValues;
+                                        });
 
+                                        driverData.Truck.Trailers = trailersArray;
+                                    }
+
+                                    console.log(driverData);
+                                    let token = jsonWebToken.sign(driverData, jwtConfiguration.secret);
+                                    onTokenGenerated(token);
+                                });
+                            }
+                            else {
                                 console.log(driverData);
                                 let token = jsonWebToken.sign(driverData, jwtConfiguration.secret);
                                 onTokenGenerated(token);
-                            });
-                        }
-                        else {
-                            console.log(driverData);
-                            let token = jsonWebToken.sign(driverData, jwtConfiguration.secret);
-                            onTokenGenerated(token);
-                        }
+                            }
+                        });
                     });
                 });
             });
