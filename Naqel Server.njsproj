@@ -46,6 +46,7 @@
     <Content Include="models\trucks.js" />
     <Content Include="routes\addIdentityCard.js" />
     <Content Include="routes\addEntryExitCard.js" />
+    <Content Include="routes\deleteIdentityCard.js" />
     <Content Include="routes\deleteEntryExitCard.js" />
     <Content Include="routes\deleteTrailer.js" />
     <Content Include="routes\deleteDrivingLicence.js" />

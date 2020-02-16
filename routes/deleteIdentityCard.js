@@ -8,8 +8,8 @@ const tokenGenerator = require("../helpers/tokenGenerator");
 var router = express.Router();
 router.use(cors());
 
-// POST: updateIdentityCard
-router.post("/dashboard/updateIdentityCard", (req, res) => {
+// POST: deleteIdentityCard
+router.post("/dashboard/deleteIdentityCard", (req, res) => {
     try {
         let driverToken = jwtDecode(req.body.Token);
 
@@ -26,20 +26,14 @@ router.post("/dashboard/updateIdentityCard", (req, res) => {
                     where: { DriverID: driver.DriverID }
                 }).then(driverIdentityCard => {
                     if (driverIdentityCard) {
-                        let updatedIdentityCard = {
-                            IDNumber: req.body.IDNumber,
-                            PhotoURL: req.body.PhotoURL,
-                        };
+                        driverIdentityCard.destroy();
 
-                        DriverIdentityCards.update(updatedIdentityCard, { where: { IdentityCardID: driverIdentityCard.IdentityCardID } }).then(() => {
-                            tokenGenerator.generateDriverToken(driver.DriverID, token => {
-                                res.json({
-                                    Message: "Identity card is updated.",
-                                    Token: token
-                                });
+                        tokenGenerator.generateDriverToken(driver.DriverID, token => {
+                            res.json({
+                                Message: "Identity card is deleted.",
+                                Token: token
                             });
-                        });
-                        
+                        });                       
                     }
                     else {
                         res.json({
