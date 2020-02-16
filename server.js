@@ -43,6 +43,7 @@ app.use("/users", require("./routes/deleteDrivingLicence"));
 app.use("/users", require("./routes/addEntryExitCard"));
 app.use("/users", require("./routes/updateEntryExitCard"));
 app.use("/users", require("./routes/deleteEntryExitCard"));
+app.use("/users", require("./routes/addIdentityCard"));
 
 app.get("/", (req, res) => {
     res.send("Naqel Server - Up and Running!");
