@@ -35,6 +35,7 @@
     <Content Include="helpers\passportHelper.js" />
     <Content Include="helpers\emailHelper.js" />
     <Content Include="helpers\tokenGenerator.js" />
+    <Content Include="models\driverPermitLicences.js" />
     <Content Include="models\driverIdentityCards.js" />
     <Content Include="models\driverEntryExitCards.js" />
     <Content Include="models\drivingLicences.js" />
@@ -44,6 +45,7 @@
     <Content Include="models\TraderBroker.js" />
     <Content Include="models\trailers.js" />
     <Content Include="models\trucks.js" />
+    <Content Include="routes\addPermitLicence.js" />
     <Content Include="routes\addIdentityCard.js" />
     <Content Include="routes\addEntryExitCard.js" />
     <Content Include="routes\deleteIdentityCard.js" />
