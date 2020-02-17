@@ -33,6 +33,16 @@ module.exports = databaseHelper.sequelize.define(
         {
             type: databaseHelper.Sequelize.DATEONLY,
             allowNull: false
+        },
+        Code:
+        {
+            type: databaseHelper.Sequelize.STRING(250),
+            allowNull: false
+        },
+        Place:
+        {
+            type: databaseHelper.Sequelize.TEXT,
+            allowNull: false
         }
     },
     {
