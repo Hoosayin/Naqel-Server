@@ -27,6 +27,8 @@ router.post("/dashboard/addPermitLicence", (req, res) => {
                     PermitNumber: req.body.PermitNumber,
                     ExpiryDate: req.body.ExpiryDate,
                     PhotoURL: req.body.PhotoURL,
+                    Code: req.body.Code,
+                    Place: req.body.Place
                 };
 
                 DriverPermitLicences.create(newPermitLicence).then(() => {
