@@ -11,11 +11,15 @@ router.use(cors());
 // POST: passwordSettings
 router.post("/dashboard/passwordSettings", (req, res) => {
     try {
+        let driverToken = jwtDecode(req.body.Token);
+
         Drivers.findOne({
-            where: { DriverID: req.body.DriverID },
+            where: { DriverID: driverToken.DriverID },
         }).then(driver => {
             if (!driver) {
-                res.send("Driver not found.");
+                res.json({
+                    Message: "Driver not found."
+                });
             }
             else {
                 bcrypt.hash(req.body.Password, BCRYPT_SALT_ROUNDS).then(passwordHash => {
@@ -24,14 +28,20 @@ router.post("/dashboard/passwordSettings", (req, res) => {
                     }
 
                     Drivers.update(updatedDriver, { where: { DriverID: req.body.DriverID } }).then(() => {
-                        console.log("Driver is updated in database.");
-                        res.send("Driver is updated.");
+                        tokenGenerator.generateDriverToken(driver.DriverID, token => {
+                            res.json({
+                                Message: "driver is updated.",
+                                Token: token
+                            });
+                        });
                     });
                 });
             }
         });
     } catch (error) {
-        return res.send(error);
+        return res.json({
+            Message: error
+        });
     }
 });
 

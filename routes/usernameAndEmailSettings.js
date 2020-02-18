@@ -1,8 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const passport = require("../helpers/passportHelper");
 const Drivers = require("../models/drivers");
-
 
 var router = express.Router();
 router.use(cors());
@@ -10,12 +8,16 @@ router.use(cors());
 // POST: usernameAndEmailSettings
 router.post("/dashboard/usernameAndEmailSettings", (req, res, next) => {
     try {
+        let driverToken = jwtDecode(req.body.Token);
+
         Drivers.findOne({
-            where: { DriverID: req.body.DriverID },
+            where: { DriverID: driverToken.DriverID },
         })
             .then(driver => {
                 if (!driver) {
-                    res.send("Driver not found.");
+                    res.json({
+                        Message: "Driver not found."
+                    });
                 }
                 else {
                     let updatedDriver = {
@@ -23,11 +25,14 @@ router.post("/dashboard/usernameAndEmailSettings", (req, res, next) => {
                         Email: req.body.Email,
                     }
 
-                    Drivers.update(updatedDriver, { where: { DriverID: req.body.DriverID } })
-                        .then(() => {
-                            console.log("Driver is updated in database.");
-                            res.send("Driver is updated.");
+                    Drivers.update(updatedDriver, { where: { DriverID: req.body.DriverID } }).then(() => {
+                        tokenGenerator.generateDriverToken(driver.DriverID, token => {
+                            res.json({
+                                Message: "driver is updated.",
+                                Token: token
+                            });
                         });
+                    });
                 }
             });
     } catch (error) {
