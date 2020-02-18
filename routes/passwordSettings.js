@@ -28,7 +28,7 @@ router.post("/dashboard/passwordSettings", (req, res) => {
                         Password: passwordHash,
                     }
 
-                    Drivers.update(updatedDriver, { where: { DriverID: req.body.DriverID } }).then(() => {
+                    Drivers.update(updatedDriver, { where: { DriverID: driverToken.DriverID } }).then(() => {
                         tokenGenerator.generateDriverToken(driver.DriverID, token => {
                             res.json({
                                 Message: "driver is updated.",
