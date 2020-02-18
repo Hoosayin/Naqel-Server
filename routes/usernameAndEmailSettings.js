@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const Drivers = require("../models/drivers");
-const tokenGenerator = require("../helpers/tokenGenerator
+const tokenGenerator = require("../helpers/tokenGenerator");
 
 var router = express.Router();
 router.use(cors());
