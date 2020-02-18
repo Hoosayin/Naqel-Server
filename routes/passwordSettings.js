@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const Drivers = require("../models/drivers");
 const bcrypt = require("bcrypt");
+const tokenGenerator = require("../helpers/tokenGenerator");
 
 const BCRYPT_SALT_ROUNDS = 12;
 
