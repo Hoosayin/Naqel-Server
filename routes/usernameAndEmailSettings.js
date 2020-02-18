@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const jwtDecode = require("jwt-decode");
 const Drivers = require("../models/drivers");
 const tokenGenerator = require("../helpers/tokenGenerator");
 
