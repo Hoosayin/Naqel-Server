@@ -8,7 +8,7 @@ var router = express.Router();
 router.use(cors());
 
 // POST: generalSettings
-router.post("/dashboard/generalSettings", (req, res, next) => {
+router.post("/dashboard/generalSettings", (req, res) => {
     try {
         let driverToken = jwtDecode(req.body.Token);
 
