@@ -35,7 +35,7 @@ router.post("/dashboard/updateJobRequest", (req, res) => {
                             Price: req.body.Price,
                         };
 
-                        JobRequests.update(updatedJobRequest, { where: { JobRequestID: jobRequest.jobRequestID } }).then(() => {
+                        JobRequests.update(updatedJobRequest, { where: { JobRequestID: jobRequest.JobRequestID } }).then(() => {
                             tokenGenerator.generateDriverToken(driver.DriverID, token => {
                                 res.json({
                                     Message: "Job request is updated.",
