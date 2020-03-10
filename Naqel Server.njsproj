@@ -50,6 +50,7 @@
     <Content Include="routes\addPermitLicence.js" />
     <Content Include="routes\addIdentityCard.js" />
     <Content Include="routes\addEntryExitCard.js" />
+    <Content Include="routes\deleteJobRequest.js" />
     <Content Include="routes\deletePermitLicence.js" />
     <Content Include="routes\deleteIdentityCard.js" />
     <Content Include="routes\deleteEntryExitCard.js" />

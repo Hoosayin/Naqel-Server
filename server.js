@@ -53,6 +53,7 @@ app.use("/users", require("./routes/updatePermitLicence"));
 app.use("/users", require("./routes/deletePermitLicence"));
 app.use("/users", require("./routes/addJobRequest"));
 app.use("/users", require("./routes/updateJobRequest"));
+app.use("/users", require("./routes/deleteJobRequest"));
 
 app.get("/", (req, res) => {
     res.send("Naqel Server - Up and Running!");

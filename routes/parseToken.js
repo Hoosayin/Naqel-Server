@@ -5,11 +5,13 @@ const jwtDecode = require("jwt-decode");
 var router = express.Router();
 router.use(cors());
 
-// GET: parseToken
-router.get("/parseToken/:Token", (req, res) => {
-    let decodedToken = jwtDecode(req.params.Token);
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify(decodedToken, null, 3));
+// POST: parseToken
+router.post("/parseToken", (req, res) => {
+    try {
+        res.json(jwtDecode(req.body.Token));
+    } catch (error) {
+        res.send(error);
+    }
 });
 
 module.exports = router;
