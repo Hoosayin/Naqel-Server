@@ -12,7 +12,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.set("json spaces", 4);
 
+app.use("/users", require("./routes/parseToken"));
 app.use("/users", require("./routes/login"));
 app.use("/users", require("./routes/traderBrokerLogin"));
 app.use("/users", require("./routes/register"));

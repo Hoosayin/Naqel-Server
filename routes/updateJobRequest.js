@@ -3,8 +3,6 @@ const cors = require("cors");
 const jwtDecode = require("jwt-decode");
 const Drivers = require("../models/drivers");
 const JobRequests = require("../models/jobRequests");
-const DrivingLicences = require("../models/drivingLicences");
-const DriverPermitLicences = require("../models/driverPermitLicences");
 const tokenGenerator = require("../helpers/tokenGenerator");
 
 var router = express.Router();
