@@ -47,7 +47,7 @@ module.exports = databaseHelper.sequelize.define(
         },
         TimeCreated:
         {
-            type: databaseHelper.Sequelize.DATETIME,
+            type: databaseHelper.Sequelize.DATE,
             allowNull: false
         }
     },
