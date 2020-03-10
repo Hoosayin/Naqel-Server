@@ -5,6 +5,7 @@ const DrivingLicences = require("../models/drivingLicences");
 const DriverEntryExitCards = require("../models/driverEntryExitCards");
 const DriverIdentityCards = require("../models/driverIdentityCards");
 const DriverPermitLicences = require("../models/driverPermitLicences");
+const JobRequests = require("../models/jobRequests");
 const Trucks = require("../models/trucks");
 const Trailers = require("../models/trailers");
 const jwtConfiguration = require("../helpers/jwtConfiguration");
@@ -59,35 +60,49 @@ tokenGenerator.generateDriverToken = (driverID, onTokenGenerated) => {
                                     driverData.PermitLicences = permitLicencesArray;
                                 }
 
-                                Trucks.findOne({
+                                JobRequests.findAll({
                                     where: { DriverID: driverData.DriverID }
-                                }).then(truck => {
-                                    if (truck) {
-                                        driverData.Truck = truck.dataValues;
+                                }).then(jobRequests => {
+                                    if (jobRequests) {
+                                        let jobRequestsArray = [];
 
-                                        Trailers.findAll({
-                                            where: { TruckID: truck.TruckID }
-                                        }).then(trailers => {
-                                            if (trailers) {
-                                                let trailersArray = [];
+                                        jobRequests.forEach((value, index) => {
+                                            jobRequestsArray[index] = value.dataValues;
+                                        });
 
-                                                trailers.forEach((value, index) => {
-                                                    trailersArray[index] = value.dataValues;
-                                                });
+                                        driverData.JobRequests = jobRequestsArray;
+                                    }
 
-                                                driverData.Truck.Trailers = trailersArray;
-                                            }
+                                    Trucks.findOne({
+                                        where: { DriverID: driverData.DriverID }
+                                    }).then(truck => {
+                                        if (truck) {
+                                            driverData.Truck = truck.dataValues;
 
+                                            Trailers.findAll({
+                                                where: { TruckID: truck.TruckID }
+                                            }).then(trailers => {
+                                                if (trailers) {
+                                                    let trailersArray = [];
+
+                                                    trailers.forEach((value, index) => {
+                                                        trailersArray[index] = value.dataValues;
+                                                    });
+
+                                                    driverData.Truck.Trailers = trailersArray;
+                                                }
+
+                                                console.log(driverData);
+                                                let token = jsonWebToken.sign(driverData, jwtConfiguration.secret);
+                                                onTokenGenerated(token);
+                                            });
+                                        }
+                                        else {
                                             console.log(driverData);
                                             let token = jsonWebToken.sign(driverData, jwtConfiguration.secret);
                                             onTokenGenerated(token);
-                                        });
-                                    }
-                                    else {
-                                        console.log(driverData);
-                                        let token = jsonWebToken.sign(driverData, jwtConfiguration.secret);
-                                        onTokenGenerated(token);
-                                    }
+                                        }
+                                    });
                                 });
                             });                            
                         });
