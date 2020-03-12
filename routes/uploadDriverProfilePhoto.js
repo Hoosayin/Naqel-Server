@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const DriverProfilePhotos = require("../models/driverProfilePhotos");
+const tokenGenerator = require("../helpers/tokenGenerator");
+
 
 var router = express.Router();
 router.use(cors());
@@ -8,34 +10,56 @@ router.use(cors());
 // POST: uploadDriverProfilePhoto
 router.post("/uploadDriverProfilePhoto", (req, res) => {
     try {
-        DriverProfilePhotos.findOne({
-            where: { DriverID: req.body.DriverID },
-        })
-            .then(driverProfilePhoto => {
+        let driverToken = jwtDecode(req.body.Token);
 
-                let newDriverProfilePhoto = {
-                    DriverID: req.body.DriverID,
-                    URL: req.body.URL,
-                    DateUploaded: new Date(),
-                    FileName: req.body.FileName,
-                };
+        Drivers.findOne({
+            where: { DriverID: driverToken.DriverID },
+        }).then(driver => {
+            if (!driver) {
+                res.json({
+                    Message: "Driver not found."
+                });
+            }
+            else {
+                DriverProfilePhotos.findOne({
+                    where: { DriverID: driver.DriverID },
+                }).then(driverProfilePhoto => {
 
-                if (driverProfilePhoto) {
-                    DriverProfilePhotos.update(newDriverProfilePhoto, { where: { DriverID: req.body.DriverID } })
-                        .then(() => {
-                            res.send("Driver's profile photo is updated.");
+                    let newDriverProfilePhoto = {
+                        DriverID: driver.DriverID,
+                        URL: req.body.URL,
+                        DateUploaded: new Date(),
+                        FileName: req.body.FileName,
+                    };
+
+                    if (driverProfilePhoto) {
+                        DriverProfilePhotos.update(newDriverProfilePhoto, { where: { DriverID: driver.DriverID } }).then(() => {
+                            tokenGenerator.generateDriverToken(driver.DriverID, token => {
+                                res.json({
+                                    Message: "Driver's profile photo is updated.",
+                                    Token: token
+                                });
+                            });
                         });
-                }
-                else {
-                    DriverProfilePhotos.create(newDriverProfilePhoto)
-                        .then(() => {
-                            res.send("Driver's profile photo is added.");
+                    }
+                    else {
+                        DriverProfilePhotos.create(newDriverProfilePhoto).then(() => {
+                            tokenGenerator.generateDriverToken(driver.DriverID, token => {
+                                res.json({
+                                    Message: "Driver's profile photo is added.",
+                                    Token: token
+                                });
+                            });
                         });
-                }
+                    }
 
-            });
+                });
+            }
+        });
     } catch (error) {
-        return res.send(error);
+        return res.json({
+            Message: error
+        });
     }
 });
 
