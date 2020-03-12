@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const jwtDecode = require("jwt-decode");
+const Drivers = require("../models/drivers");
 const DriverProfilePhotos = require("../models/driverProfilePhotos");
 const tokenGenerator = require("../helpers/tokenGenerator");
 
@@ -32,6 +33,8 @@ router.post("/uploadDriverProfilePhoto", (req, res) => {
                         DateUploaded: new Date(),
                         FileName: req.body.FileName,
                     };
+
+                    console.log(newDriverProfilePhoto);
 
                     if (driverProfilePhoto) {
                         DriverProfilePhotos.update(newDriverProfilePhoto, { where: { DriverID: driver.DriverID } }).then(() => {
