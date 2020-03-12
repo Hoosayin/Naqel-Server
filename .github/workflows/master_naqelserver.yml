@@ -18,7 +18,7 @@ jobs:
     - name: Set up Node.js version
       uses: actions/setup-node@v1
       with:
-        node-version: '12.x'
+        node-version: '10.x'
 
     - name: npm install, build, and test
       run: |
@@ -31,5 +31,5 @@ jobs:
       with:
         app-name: 'naqelserver'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_48017c0da1fd4af5aa3da63a31f882bb }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_e643375b6c10424e83d95246fcbece38 }}
         package: .
