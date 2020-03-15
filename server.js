@@ -1,7 +1,7 @@
 var express = require("express");
 var cors = require("cors");
 var bodyParser = require("body-parser");
-var passport = require("./helpers/passportHelper");
+var passport = require("./helpers/passportHelper.js");
 
 var app = express();
 const port = process.env.PORT || 5000;
@@ -14,49 +14,51 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.set("json spaces", 4);
 
-app.use("/users", require("./routes/parseToken"));
-app.use("/users", require("./routes/login"));
-app.use("/users", require("./routes/traderBrokerLogin"));
-app.use("/users", require("./routes/register"));
-app.use("/users", require("./routes/traderRegister")); 
-app.use("/users", require("./routes/accountSetup"));
-app.use("/users", require("./routes/generalSettings"));
-app.use("/users", require("./routes/tbgeneralSettings"));
-app.use("/users", require("./routes/usernameAndEmailSettings"));
-app.use("/users", require("./routes/tbusernameAndEmailSettings"));
-app.use("/users", require("./routes/passwordSettings"));
-app.use("/users", require("./routes/tbpasswordSettings"));
-app.use("/users", require("./routes/validateUsername"));
-app.use("/users", require("./routes/validateEmail"));
-app.use("/users", require("./routes/validatePassword"));
-app.use("/users", require("./routes/sendCode"));
-app.use("/users", require("./routes/uploadDriverProfilePhoto"));
-app.use("/users", require("./routes/uploadTraderBrokerProfilePhoto"));
-app.use("/users", require("./routes/addTruck"));
-app.use("/users", require("./routes/updateTruckPhoto"));
-app.use("/users", require("./routes/updateTruck"));
-app.use("/users", require("./routes/addTrailer"));
-app.use("/users", require("./routes/findAllTrailers"));
-app.use("/users", require("./routes/deleteTrailer"));
-app.use("/users", require("./routes/updateTrailer"));
-app.use("/users", require("./routes/addDrivingLicence"));
-app.use("/users", require("./routes/updateDrivingLicence"));
-app.use("/users", require("./routes/deleteDrivingLicence"));
-app.use("/users", require("./routes/addEntryExitCard"));
-app.use("/users", require("./routes/updateEntryExitCard"));
-app.use("/users", require("./routes/deleteEntryExitCard"));
-app.use("/users", require("./routes/addIdentityCard"));
-app.use("/users", require("./routes/updateIdentityCard"));
-app.use("/users", require("./routes/deleteIdentityCard"));
-app.use("/users", require("./routes/addPermitLicence"));
-app.use("/users", require("./routes/updatePermitLicence"));
-app.use("/users", require("./routes/deletePermitLicence"));
-app.use("/users", require("./routes/addJobRequest"));
-app.use("/users", require("./routes/updateJobRequest"));
-app.use("/users", require("./routes/deleteJobRequest"));
+// Users' routes.
+app.use("/users", require("./routes/users/parseToken"));
+app.use("/users", require("./routes/users/accountSetup"));
+app.use("/users", require("./routes/users/sendCode"));
 
-app.get("/", (req, res) => {
-    res.send("Naqel Server - Up and Running!");
+// Drivers' routes.
+app.use("/drivers", require("./routes/drivers/login/login"));
+app.use("/drivers", require("./routes/drivers/register/register"));
+app.use("/drivers", require("./routes/drivers/settings/generalSettings"));
+app.use("/drivers", require("./routes/drivers/settings/usernameAndEmailSettings"));
+app.use("/drivers", require("./routes/drivers/settings/passwordSettings"));
+app.use("/drivers", require("./routes/drivers/trucks/addTruck"));
+app.use("/drivers", require("./routes/drivers/trucks/updateTruck"));
+app.use("/drivers", require("./routes/drivers/trucks/updateTruckPhoto"));
+app.use("/drivers", require("./routes/drivers/trucks/trailers/addTrailer"));
+app.use("/drivers", require("./routes/drivers/trucks/trailers/deleteTrailer"));
+app.use("/drivers", require("./routes/drivers/trucks/trailers/updateTrailer"));
+app.use("/drivers", require("./routes/drivers/trucks/trailers/findAllTrailers"));
+app.use("/drivers", require("./routes/drivers/serverSideValidators/validateEmail"));
+app.use("/drivers", require("./routes/drivers/serverSideValidators/validatePassword"));
+app.use("/drivers", require("./routes/drivers/serverSideValidators/validateUsername"));
+app.use("/drivers", require("./routes/drivers/profilePhotos/uploadDriverProfilePhoto"));
+app.use("/drivers", require("./routes/drivers/drivingLicences/addDrivingLicence"));
+app.use("/drivers", require("./routes/drivers/drivingLicences/deleteDrivingLicence"));
+app.use("/drivers", require("./routes/drivers/drivingLicences/updateDrivingLicence"));
+app.use("/drivers", require("./routes/drivers/entryExitCards/addEntryExitCard"));
+app.use("/drivers", require("./routes/drivers/entryExitCards/deleteEntryExitCard"));
+app.use("/drivers", require("./routes/drivers/entryExitCards/updateEntryExitCard"));
+app.use("/drivers", require("./routes/drivers/identityCards/addIdentityCard"));
+app.use("/drivers", require("./routes/drivers/identityCards/deleteIdentityCard"));
+app.use("/drivers", require("./routes/drivers/identityCards/updateIdentityCard"));
+app.use("/drivers", require("./routes/drivers/jobRequests/addJobRequest"));
+app.use("/drivers", require("./routes/drivers/jobRequests/deleteJobRequest"));
+app.use("/drivers", require("./routes/drivers/jobRequests/updateJobRequest"));
+
+// Traders' | Brokers' routes.
+app.use("/traders", require("./routes/traders/login/login"));
+app.use("/traders", require("./routes/traders/register/register"));
+app.use("/traders", require("./routes/traders/profilePhotos/uploadTraderProfilePhoto"));
+app.use("/traders", require("./routes/traders/settings/generalSettings"));
+app.use("/traders", require("./routes/traders/settings/passwordSettings"));
+app.use("/traders", require("./routes/traders/settings/usernameAndEmailSettings"));
+
+app.get("/", (request, response) => {
+    response.send("Naqel Server - Up and Running!");
 });
 
 app.listen(port, () => {
