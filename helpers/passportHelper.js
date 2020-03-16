@@ -73,7 +73,7 @@ passport.use("traderRegister", new LocalStrategy(
                 where: {
                     [Op.or]: [
                         { Username: req.body.Username },
-                        { EmailAdrs: req.body.Email },
+                        { Email: req.body.Email },
                     ],
                 },
             }).then(trader => {
