@@ -245,7 +245,7 @@ passport.use("login", new LocalStrategy(
 ));
 
 // TraderLogin
-passport.use("traderLogin", new LocalStrategy(
+passport.use("loginTrader", new LocalStrategy(
     {
         usernameField: "EmailOrUsername",
         passwordField: "Password",
@@ -272,7 +272,7 @@ passport.use("traderLogin", new LocalStrategy(
                             return done(null, false, { message: "Invalid password." });
                         }
                         console.log("Trader/Broker found and authenticated");
-                        return done(null, traderBroker);
+                        return done(null, trader);
                     });
                 }
             });

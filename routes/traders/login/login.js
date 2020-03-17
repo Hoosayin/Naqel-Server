@@ -11,8 +11,7 @@ router.use(cors());
 
 // POST: Login
 router.post("/login", (req, res, next) => {
-    console.log(req.body.SignInAs);
-    passport.authenticate("traderLogin", (error, driver, information) => {
+    passport.authenticate("loginTrader", (error, trader, information) => {
         if (error) {
             console.error(`error: ${error}.`);
         }
@@ -22,12 +21,12 @@ router.post("/login", (req, res, next) => {
             res.send(information.message);
         }
         else {
-            req.logIn(driver, () => {
+            req.logIn(trader, () => {
                 Traders.findOne({
                     where: {
                         [Op.or]: [
-                            { UserName: req.body.EmailOrUsername },
-                            { EmailAdrs: req.body.EmailOrUsername },
+                            { Username: req.body.EmailOrUsername },
+                            { Email: req.body.EmailOrUsername },
                         ],
                     },
                 }).then(trader => {
