@@ -11,7 +11,7 @@ router.use(cors());
 
 // POST: Register
 router.post("/register", (req, res, next) => {
-    passport.authenticate("traderRegister", (error, trader, information) => {
+    passport.authenticate("RegisterTrader", (error, trader, information) => {
         if (error) {
             console.error(`error: ${error}`);
         }

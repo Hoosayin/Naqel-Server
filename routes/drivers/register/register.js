@@ -11,7 +11,7 @@ router.use(cors());
 
 // POST: Register
 router.post("/register", (req, res, next) => {
-    passport.authenticate("register", (error, driver, information) => {
+    passport.authenticate("RegisterDriver", (error, driver, information) => {
         if (error) {
             console.error(`error: ${error}`);
         }

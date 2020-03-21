@@ -8,7 +8,7 @@ router.use(cors());
 
 // POST: accountSetup
 router.post("/accountSetup", (req, res, next) => {
-    passport.authenticate("accountSetup", (error, driver, information) => {
+    passport.authenticate("SetupAccount", (error, driver, information) => {
         if (error) {
             console.error(`error: ${error}`);
         }

@@ -12,7 +12,7 @@ router.use(cors());
 // POST: Login
 router.post("/login", (req, res, next) => {
     console.log(req.body.SignInAs);
-    passport.authenticate("login", (error, driver, information) => {
+    passport.authenticate("LoginDriver", (error, driver, information) => {
         if (error) {
             console.error(`error: ${error}.`);
         }

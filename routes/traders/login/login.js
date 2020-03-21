@@ -10,34 +10,34 @@ var router = express.Router();
 router.use(cors());
 
 // POST: Login
-router.post("/login", (req, res, next) => {
-    passport.authenticate("loginTrader", (error, trader, information) => {
+router.post("/login", (request, response) => {
+    passport.authenticate("LoginTrader", (error, trader, information) => {
         if (error) {
             console.error(`error: ${error}.`);
         }
 
         if (information) {
-            console.error(information.message);
-            res.send(information.message);
-        }
-        else {
-            req.logIn(trader, () => {
-                Traders.findOne({
-                    where: {
-                        [Op.or]: [
-                            { Username: req.body.EmailOrUsername },
-                            { Email: req.body.EmailOrUsername },
-                        ],
-                    },
-                }).then(trader => {
-                    if (trader) {
-                        let token = jsonWebToken.sign(trader.dataValues, jwtConfiguration.secret);
-                        res.send(token);
-                    }
-                });
+            console.error(information.Message);
+            response.json({
+                Message: "Login failed."
             });
         }
-    })(req, res, next);
+        else {
+            request.logIn(trader, () => {
+                if (trader) {
+                    let JsonPayload = {
+                        TraderID: trader.dataValues.TraderID
+                    };
+
+                    let token = jsonWebToken.sign(JsonPayload, jwtConfiguration.secret);
+                    response.json({
+                        Message: "Login successful.",
+                        Token: token
+                    });
+                }
+            });
+        }
+    })(request, response);
 });
 
 module.exports = router;
