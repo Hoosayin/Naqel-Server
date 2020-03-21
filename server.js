@@ -56,7 +56,8 @@ app.use("/drivers", require("./routes/drivers/permitLicences/updatePermitLicence
 app.use("/traders", require("./routes/traders/login/login"));
 app.use("/traders", require("./routes/traders/register/register"));
 app.use("/traders", require("./routes/traders/profile/getTrader"));
-app.use("/traders", require("./routes/traders/profilePhotos/uploadTraderProfilePhoto"));
+app.use("/traders", require("./routes/traders/profile/getProfilePhoto"));
+app.use("/traders", require("./routes/traders/profile/uploadTraderProfilePhoto"));
 app.use("/traders", require("./routes/traders/settings/generalSettings"));
 app.use("/traders", require("./routes/traders/settings/passwordSettings"));
 app.use("/traders", require("./routes/traders/settings/usernameAndEmailSettings"));

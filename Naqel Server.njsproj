@@ -56,6 +56,7 @@
     <Content Include="routes\drivers\entryExitCards\deleteEntryExitCard.js" />
     <Content Include="routes\drivers\trucks\trailers\deleteTrailer.js" />
     <Content Include="routes\drivers\drivingLicences\deleteDrivingLicence.js" />
+    <Content Include="routes\traders\profile\getProfilePhoto.js" />
     <Content Include="routes\traders\profile\getTrader.js" />
     <Content Include="routes\users\parseToken.js" />
     <Content Include="routes\drivers\jobRequests\updateJobRequest.js" />
@@ -82,7 +83,7 @@
     <Content Include="routes\drivers\settings\passwordSettings.js" />
     <Content Include="routes\drivers\register\register.js" />
     <Content Include="routes\users\sendCode.js" />
-    <Content Include="routes\traders\profilePhotos\uploadTraderProfilePhoto.js" />
+    <Content Include="routes\traders\profile\uploadTraderProfilePhoto.js" />
     <Content Include="routes\drivers\settings\usernameAndEmailSettings.js" />
     <Content Include="routes\drivers\serverSideValidators\validateEmail.js" />
     <Content Include="routes\drivers\serverSideValidators\validatePassword.js" />
@@ -112,7 +113,6 @@
     <Folder Include="routes\users\" />
     <Folder Include="routes\traders\" />
     <Folder Include="routes\traders\login\" />
-    <Folder Include="routes\traders\profilePhotos\" />
     <Folder Include="routes\traders\settings\" />
     <Folder Include="routes\traders\register\" />
   </ItemGroup>
