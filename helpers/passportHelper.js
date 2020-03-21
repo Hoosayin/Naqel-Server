@@ -243,7 +243,7 @@ passport.use("AuthenticateDriver", new JWTStrategy({
 
 
 // Authenticate Trader
-passport.use("AuthenticateTrader", {
+passport.use("AuthenticateTrader", new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme("JWT"),
     secretOrKey: jwtConfiguration.secret,
 }, (JWTPayload, onAuthenticated) => {
@@ -254,7 +254,7 @@ passport.use("AuthenticateTrader", {
             if (trader) {
                 onAuthenticated({
                     Message: "Trader found.",
-                    Trader: trader
+                    Trader: trader.dataValues
                 });
             }
             else {
@@ -268,6 +268,6 @@ passport.use("AuthenticateTrader", {
             Message: error.message
         });
     }
-});
+}));
 
 module.exports = passport;
