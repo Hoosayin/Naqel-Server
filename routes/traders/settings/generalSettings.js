@@ -1,41 +1,43 @@
 const express = require("express");
 const cors = require("cors");
+const passport = require("../../../helpers/passportHelper");
 const Traders = require("../../../models/traders");
 
 var router = express.Router();
 router.use(cors());
 
-// POST: accountSetup
-router.post("/generalSettings", (req, res) => {
-    try {
-        Traders.findOne({
-            where: { TraderID: req.body.TraderID },
-        }).then(trader => {
-            if (!trader) {
-                return done(null, false, { message: "Username not found." });
-            }
-            else {
-                console.log(trader);
-
+// POST: generalSettings
+router.post("/generalSettings", (request, response) => {
+    passport.authenticate("AuthenticateTrader", { session: false }, (result) => {
+        try {
+            if (result.Message === "Trader found.") {
                 let updatedTrader = {
-                    FirstName: req.body.FirstName,
-                    LastName: req.body.LastName,
-                    Address: req.body.Address,
-                    PhoneNumber: req.body.PhoneNumber,
-                    Gender: req.body.Gender,
-                    Nationality: req.body.Nationality,
-                    DateOfBirth: req.body.DateOfBirth,
+                    FirstName: request.body.FirstName,
+                    LastName: request.body.LastName,
+                    Address: request.body.Address,
+                    PhoneNumber: request.body.PhoneNumber,
+                    Gender: request.body.Gender,
+                    Nationality: request.body.Nationality,
+                    DateOfBirth: request.body.DateOfBirth,
                 }
 
-                Traders.update(updatedTrader, { where: { TraderID: req.body.TraderID } }).then(() => {
-                    console.log("Trader/Broker is updated in database.");
-                    res.send("Trader/Broker updated.");
+                Traders.update(updatedTrader, { where: { TraderID: result.Trader.TraderID } }).then(() => {
+                    response.json({
+                        Message: "Trader is updated."
+                    });
                 });
             }
-        });
-    } catch (error) {
-        return done(error);
-    }
+            else {
+                response.json({
+                    Message: "Trader not found."
+                });
+            }
+        } catch (error) {
+            response.json({
+                Message: result.Message,
+            });
+        }
+    })(request, response);
 });
 
 module.exports = router;
