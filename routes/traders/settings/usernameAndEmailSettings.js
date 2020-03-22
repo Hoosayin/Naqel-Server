@@ -12,8 +12,8 @@ router.post("/usernameAndEmailSettings", (request, response) => {
         try {
             if (result.Message === "Trader found.") {
                 let updatedTrader = {
-                    Username: req.body.Username,
-                    Email: req.body.Email,
+                    Username: request.body.Username,
+                    Email: request.body.Email,
                 }
 
                 Traders.update(updatedTrader, { where: { TraderID: result.Trader.TraderID } }).then(() => {
@@ -29,7 +29,7 @@ router.post("/usernameAndEmailSettings", (request, response) => {
             }
         } catch (error) {
             response.json({
-                Message: result.Message,
+                Message: error.Message,
             });
         }
     })(request, response);
