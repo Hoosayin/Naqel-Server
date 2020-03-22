@@ -7,20 +7,25 @@ var router = express.Router();
 router.use(cors());
 
 // POST: sendCode
-router.post("/sendCode", (req, res) => {
+router.post("/sendCode", (request, response) => {
     try {
         const code = codeGenerator(6);
 
-        const to = req.body.Email;
+        const to = request.body.Email;
         const subject = "Confirmation Code";
         const message = `Your confirmation code is ${code}`;
 
         emailHelper.sendEmail(to, subject, message, () => {
-            res.send(code);
-        });      
+            reposne.json({
+                Message: "Code sent.",
+                Code: code
+            });
+        });  
     }
     catch (error) {
-        return res.send(error);
+        response.json({
+            Message: error.message
+        });
     }
 });
 
