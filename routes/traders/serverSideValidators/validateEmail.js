@@ -12,6 +12,7 @@ router.post("/validateEmail", (request, response) => {
             where: { Email: request.body.Email },
         }).then(trader => {
             if (trader) {
+                console.log(trader);
                 response.json({
                     Message: "Email is already taken."
                 });

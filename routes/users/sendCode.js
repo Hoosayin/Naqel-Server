@@ -16,7 +16,7 @@ router.post("/sendCode", (request, response) => {
         const message = `Your confirmation code is ${code}`;
 
         emailHelper.sendEmail(to, subject, message, () => {
-            reposne.json({
+            resposne.json({
                 Message: "Code sent.",
                 Code: code
             });
