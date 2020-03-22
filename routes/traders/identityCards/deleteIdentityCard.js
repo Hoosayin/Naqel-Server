@@ -1,53 +1,44 @@
 const express = require("express");
 const cors = require("cors");
-const jwtDecode = require("jwt-decode");
-const Drivers = require("../../../models/drivers");
-const DriverIdentityCards = require("../../../models/driverIdentityCards");
-const tokenGenerator = require("../../../helpers/tokenGenerator");
+const passport = require("../../../helpers/passportHelper");
+const TraderIdentityCards = require("../../../models/traderIdentityCards");
 
 var router = express.Router();
 router.use(cors());
 
 // POST: deleteIdentityCard
-router.post("/deleteIdentityCard", (req, res) => {
-    try {
-        let driverToken = jwtDecode(req.body.Token);
+router.get("/deleteIdentityCard", (request, response) => {
+    passport.authenticate("AuthenticateTrader", { session: false }, (result) => {
+        try {
+            if (result.Message === "Trader found.") {
+                TraderIdentityCards.findOne({
+                    where: { TraderID: result.Trader.TraderID }
+                }).then(traderIdentityCard => {
+                    if (traderIdentityCard) {
+                        traderIdentityCard.destroy();
 
-        Drivers.findOne({
-            where: { DriverID: driverToken.DriverID },
-        }).then(driver => {
-            if (!driver) {
-                res.json({
-                    Message: "Driver not found."
-                });
-            }
-            else {
-                DriverIdentityCards.findOne({
-                    where: { DriverID: driver.DriverID }
-                }).then(driverIdentityCard => {
-                    if (driverIdentityCard) {
-                        driverIdentityCard.destroy();
-
-                        tokenGenerator.generateDriverToken(driver.DriverID, token => {
-                            res.json({
-                                Message: "Identity card is deleted.",
-                                Token: token
-                            });
-                        });                       
+                        response.json({
+                            Message: "Identity card is deleted."
+                        });
                     }
                     else {
-                        res.json({
+                        response.json({
                             Message: "Identity card not found."
                         });
                     }
                 });
             }
-        });
-    } catch (error) {
-        return res.json({
-            Message: error
-        });
-    }
+            else {
+                response.json({
+                    Message: "Trader not found."
+                });
+            }
+        } catch (error) {
+            response.json({
+                Message: error.Message,
+            });
+        }
+    })(request, response);
 });
 
 module.exports = router;
