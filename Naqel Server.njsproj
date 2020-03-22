@@ -59,6 +59,7 @@
     <Content Include="routes\drivers\drivingLicences\deleteDrivingLicence.js" />
     <Content Include="routes\traders\identityCards\addIdentityCard.js" />
     <Content Include="routes\traders\identityCards\deleteIdentityCard.js" />
+    <Content Include="routes\traders\identityCards\getIdentityCard.js" />
     <Content Include="routes\traders\identityCards\updateIdentityCard.js" />
     <Content Include="routes\traders\profile\getProfilePhoto.js" />
     <Content Include="routes\traders\profile\getTrader.js" />

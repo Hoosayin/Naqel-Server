@@ -6,31 +6,23 @@ const TraderIdentityCards = require("../../../models/traderIdentityCards");
 var router = express.Router();
 router.use(cors());
 
-// POST: addIdentityCard
-router.post("/addIdentityCard", (request, response) => {
+// GET: getProfilePhoto
+router.get("/getIdentityCard", (request, response) => {
     passport.authenticate("AuthenticateTrader", { session: false }, (result) => {
         try {
             if (result.Message === "Trader found.") {
                 TraderIdentityCards.findOne({
-                    where: { Trader: result.Trader.DriverID }
+                    where: { TraderID: result.Trader.TraderID }
                 }).then(traderIdentityCard => {
                     if (traderIdentityCard) {
-                        res.json({
-                            Message: "Identity card already exists."
+                        response.json({
+                            Message: "Identity card found.",
+                            IdentityCard: traderIdentityCard
                         });
                     }
                     else {
-                        let newIdentityCard = {
-                            TraderID: result.Trader.DriverID,
-                            IDNumber: request.body.IDNumber,
-                            PhotoURL: request.body.PhotoURL,
-                            Created: new Date()
-                        };
-
-                        TraderIdentityCards.create(newIdentityCard).then(() => {
-                            response.json({
-                                Message: "Identity card is added."
-                            });
+                        response.json({
+                            Message: "Identity card not found."
                         });
                     }
                 });
@@ -42,7 +34,7 @@ router.post("/addIdentityCard", (request, response) => {
             }
         } catch (error) {
             response.json({
-                Message: result.Message,
+                Message: result.Message ,
             });
         }
     })(request, response);
