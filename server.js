@@ -66,6 +66,7 @@ app.use("/traders", require("./routes/traders/serverSideValidators/validateEmail
 app.use("/traders", require("./routes/traders/serverSideValidators/validatePassword"));
 app.use("/traders", require("./routes/traders/identityCards/addIdentityCard"));
 app.use("/traders", require("./routes/traders/identityCards/getIdentityCard"));
+app.use("/traders", require("./routes/traders/identityCards/updateIdentityCard"));
 
 app.get("/", (request, response) => {
     response.send("Naqel Server - Up and Running!");

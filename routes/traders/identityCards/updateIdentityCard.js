@@ -1,59 +1,50 @@
 const express = require("express");
 const cors = require("cors");
-const jwtDecode = require("jwt-decode");
-const Drivers = require("../../../models/drivers");
-const DriverIdentityCards = require("../../../models/driverIdentityCards");
-const tokenGenerator = require("../../../helpers/tokenGenerator");
+const passport = require("../../../helpers/passportHelper");
+const TraderIdentityCards = require("../../../models/traderIdentityCards");
 
 var router = express.Router();
 router.use(cors());
 
 // POST: updateIdentityCard
-router.post("/updateIdentityCard", (req, res) => {
-    try {
-        let driverToken = jwtDecode(req.body.Token);
-
-        Drivers.findOne({
-            where: { DriverID: driverToken.DriverID },
-        }).then(driver => {
-            if (!driver) {
-                res.json({
-                    Message: "Driver not found."
-                });
-            }
-            else {
-                DriverIdentityCards.findOne({
-                    where: { DriverID: driver.DriverID }
-                }).then(driverIdentityCard => {
-                    if (driverIdentityCard) {
+router.get("/updateIdentityCard", (request, response) => {
+    passport.authenticate("AuthenticateTrader", { session: false }, (result) => {
+        try {
+            if (result.Message === "Trader found.") {
+                TraderIdentityCards.findOne({
+                    where: { TraderID: result.Trader.TraderID }
+                }).then(traderIdentityCard => {
+                    if (traderIdentityCard) {
                         let updatedIdentityCard = {
-                            IDNumber: req.body.IDNumber,
-                            PhotoURL: req.body.PhotoURL,
+                            IDNumber: request.body.IDNumber,
+                            PhotoURL: request.body.PhotoURL
                         };
 
-                        DriverIdentityCards.update(updatedIdentityCard, { where: { IdentityCardID: driverIdentityCard.IdentityCardID } }).then(() => {
-                            tokenGenerator.generateDriverToken(driver.DriverID, token => {
-                                res.json({
-                                    Message: "Identity card is updated.",
-                                    Token: token
-                                });
+                        TraderIdentityCards.update(updatedIdentityCard, { where: { IdentityCardID: traderIdentityCard.IdentityCardID } }).then(() => {
+                            response.json({
+                                Message: "Identity card is updated."
                             });
                         });
-                        
+
                     }
                     else {
-                        res.json({
+                        response.json({
                             Message: "Identity card not found."
                         });
                     }
                 });
             }
-        });
-    } catch (error) {
-        return res.json({
-            Message: error
-        });
-    }
+            else {
+                response.json({
+                    Message: "Trader not found."
+                });
+            }
+        } catch (error) {
+            response.json({
+                Message: error.Message,
+            });
+        }
+    })(request, response);
 });
 
 module.exports = router;

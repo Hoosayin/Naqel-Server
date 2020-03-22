@@ -12,7 +12,7 @@ router.post("/addIdentityCard", (request, response) => {
         try {
             if (result.Message === "Trader found.") {
                 TraderIdentityCards.findOne({
-                    where: { Trader: result.Trader.DriverID }
+                    where: { TraderID: result.Trader.TraderID }
                 }).then(traderIdentityCard => {
                     if (traderIdentityCard) {
                         res.json({
@@ -21,7 +21,7 @@ router.post("/addIdentityCard", (request, response) => {
                     }
                     else {
                         let newIdentityCard = {
-                            TraderID: result.Trader.DriverID,
+                            TraderID: result.Trader.TraderID,
                             IDNumber: request.body.IDNumber,
                             PhotoURL: request.body.PhotoURL,
                             Created: new Date()
@@ -42,7 +42,7 @@ router.post("/addIdentityCard", (request, response) => {
             }
         } catch (error) {
             response.json({
-                Message: result.Message,
+                Message: error.Message,
             });
         }
     })(request, response);

@@ -6,7 +6,7 @@ const TraderIdentityCards = require("../../../models/traderIdentityCards");
 var router = express.Router();
 router.use(cors());
 
-// GET: getProfilePhoto
+// GET: getIdentityCard
 router.get("/getIdentityCard", (request, response) => {
     passport.authenticate("AuthenticateTrader", { session: false }, (result) => {
         try {
@@ -34,7 +34,7 @@ router.get("/getIdentityCard", (request, response) => {
             }
         } catch (error) {
             response.json({
-                Message: result.Message ,
+                Message: error.Message ,
             });
         }
     })(request, response);
