@@ -1,34 +1,38 @@
 const express = require("express");
 const cors = require("cors");
-const TraderBroker = require("../../../models/traders");
+const passport = require("../../../helpers/passportHelper");
+const Traders = require("../../../models/traders");
 
 var router = express.Router();
 router.use(cors());
 
 // POST: usernameAndEmailSettings
-router.post("/usernameAndEmailSettings", (req, res) => {
-    try {
-        Traders.findOne({
-            where: { TraderID: req.body.TraderID },
-        }).then(trader => {
-            if (!trader) {
-                res.send("Driver not found.");
-            }
-            else {
+router.post("/usernameAndEmailSettings", (request, response) => {
+    passport.authenticate("AuthenticateTrader", { session: false }, (result) => {
+        try {
+            if (result.Message === "Trader found.") {
                 let updatedTrader = {
                     Username: req.body.Username,
                     Email: req.body.Email,
                 }
 
-                TraderBroker.update(updatedTrader, { where: { TraderID: req.body.TraderID } }).then(() => {
-                    console.log("Trader/Broker is updated in database.");
-                    res.send("Trader/Broker is updated.");
+                Traders.update(updatedTrader, { where: { TraderID: result.Trader.TraderID } }).then(() => {
+                    response.json({
+                        Message: "Trader is updated."
+                    });
                 });
             }
-        });
-    } catch (error) {
-        return done(error);
-    }
+            else {
+                response.json({
+                    Message: "Trader not found."
+                });
+            }
+        } catch (error) {
+            response.json({
+                Message: result.Message,
+            });
+        }
+    })(request, response);
 });
 
 module.exports = router;
