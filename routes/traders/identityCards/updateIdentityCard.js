@@ -7,7 +7,7 @@ var router = express.Router();
 router.use(cors());
 
 // POST: updateIdentityCard
-router.get("/updateIdentityCard", (request, response) => {
+router.post("/updateIdentityCard", (request, response) => {
     passport.authenticate("AuthenticateTrader", { session: false }, (result) => {
         try {
             if (result.Message === "Trader found.") {
