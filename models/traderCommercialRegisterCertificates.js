@@ -1,9 +1,9 @@
 var databaseHelper = require("../helpers/databaseHelper");
 
 module.exports = databaseHelper.sequelize.define(
-    "TraderIdentityCardsCopy",
+    "TraderCommercialRegisterCertificates",
     {
-        IdentityCardID:
+        ID:
         {
             type: databaseHelper.Sequelize.BIGINT,
             allowNull: false,
@@ -20,24 +20,23 @@ module.exports = databaseHelper.sequelize.define(
                 key: "TraderID"
             }
         },
-        IDNumber:
+        Number:
         {
             type: databaseHelper.Sequelize.STRING(250),
+            allowNull: false
+        },
+        Type:
+        {
+            type: databaseHelper.Sequelize.STRING(50),
             allowNull: false
         },
         PhotoURL:
         {
             type: databaseHelper.Sequelize.TEXT,
             allowNull: false
-        },
-        Created:
-        {
-            type: databaseHelper.Sequelize.DATEONLY,
-            defaultValue: databaseHelper.Sequelize.NOW,
-            allowNull: false
         }
     },
     {
-        tableName: "TraderIdentityCardsCopy"
+        tableName: "TraderCommercialRegisterCertificates"
     }    
 );

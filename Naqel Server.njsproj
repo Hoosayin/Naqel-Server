@@ -35,6 +35,7 @@
     <Content Include="helpers\passportHelper.js" />
     <Content Include="helpers\emailHelper.js" />
     <Content Include="helpers\tokenGenerator.js" />
+    <Content Include="models\traderCommercialRegisterCertificates.js" />
     <Content Include="models\traderIdentityCards.js" />
     <Content Include="models\driverPermitLicences.js" />
     <Content Include="models\driverIdentityCards.js" />
@@ -57,6 +58,10 @@
     <Content Include="routes\drivers\entryExitCards\deleteEntryExitCard.js" />
     <Content Include="routes\drivers\trucks\trailers\deleteTrailer.js" />
     <Content Include="routes\drivers\drivingLicences\deleteDrivingLicence.js" />
+    <Content Include="routes\traders\commercialRegisterCertificates\addCommercialRegisterCertificate.js" />
+    <Content Include="routes\traders\commercialRegisterCertificates\deleteCommercialRegisterCertificate.js" />
+    <Content Include="routes\traders\commercialRegisterCertificates\getCommercialRegisterCertificate.js" />
+    <Content Include="routes\traders\commercialRegisterCertificates\updateCommercialRegisterCertificate.js" />
     <Content Include="routes\traders\identityCards\addIdentityCard.js" />
     <Content Include="routes\traders\identityCards\deleteIdentityCard.js" />
     <Content Include="routes\traders\identityCards\getIdentityCard.js" />
@@ -117,6 +122,7 @@
     <Folder Include="routes\drivers\permitLicences\" />
     <Folder Include="routes\drivers\trucks\" />
     <Folder Include="routes\drivers\trucks\trailers\" />
+    <Folder Include="routes\traders\commercialRegisterCertificates\" />
     <Folder Include="routes\traders\identityCards\" />
     <Folder Include="routes\traders\profile\" />
     <Folder Include="routes\traders\serverSideValidators\" />

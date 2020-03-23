@@ -68,6 +68,10 @@ app.use("/traders", require("./routes/traders/identityCards/addIdentityCard"));
 app.use("/traders", require("./routes/traders/identityCards/getIdentityCard"));
 app.use("/traders", require("./routes/traders/identityCards/updateIdentityCard"));
 app.use("/traders", require("./routes/traders/identityCards/deleteIdentityCard"));
+app.use("/traders", require("./routes/traders/commercialRegisterCertificates/addCommercialRegisterCertificate"));
+app.use("/traders", require("./routes/traders/commercialRegisterCertificates/deleteCommercialRegisterCertificate"));
+app.use("/traders", require("./routes/traders/commercialRegisterCertificates/getCommercialRegisterCertificate"));
+app.use("/traders", require("./routes/traders/commercialRegisterCertificates/updateCommercialRegisterCertificate"));
 
 app.get("/", (request, response) => {
     response.send("Naqel Server - Up and Running!");
