@@ -35,6 +35,9 @@
     <Content Include="helpers\passportHelper.js" />
     <Content Include="helpers\emailHelper.js" />
     <Content Include="helpers\tokenGenerator.js" />
+    <Content Include="models\auctionableJobOffers.js" />
+    <Content Include="models\fixedPriceJobOffers.js" />
+    <Content Include="models\jobOffers.js" />
     <Content Include="models\traderCommercialRegisterCertificates.js" />
     <Content Include="models\traderIdentityCards.js" />
     <Content Include="models\driverPermitLicences.js" />
