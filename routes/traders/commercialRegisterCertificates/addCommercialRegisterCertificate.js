@@ -22,8 +22,8 @@ router.post("/addCommercialRegisterCertificate", (request, response) => {
                     else {
                         let newCommercialRegisterCertificate = {
                             TraderID: result.Trader.TraderID,
-                            Number: request.body.IDNumber,
-                            Type: request.body.IDNumber,
+                            Number: request.body.Number,
+                            Type: request.body.Type,
                             PhotoURL: request.body.PhotoURL
                         };
 
