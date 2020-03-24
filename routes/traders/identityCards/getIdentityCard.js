@@ -34,7 +34,7 @@ router.get("/getIdentityCard", (request, response) => {
             }
         } catch (error) {
             response.json({
-                Message: error.Message ,
+                Message: error.Message
             });
         }
     })(request, response);
