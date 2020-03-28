@@ -20,7 +20,7 @@ module.exports = databaseHelper.sequelize.define(
                 key: "JobOfferID"
             }
         },
-        MaximumAcceptedPrice:
+        MaximumAcceptedaPrice:
         {
             type: databaseHelper.Sequelize.FLOAT,
             allowNull: false

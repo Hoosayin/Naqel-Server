@@ -85,6 +85,11 @@ module.exports = databaseHelper.sequelize.define(
             type: databaseHelper.Sequelize.BIGINT,
             allowNull: false
         },
+        JobOfferType:
+        {
+            type: databaseHelper.Sequelize.STRING(250),
+            allowNull: false
+        },
         WaitingTime:
         {
             type: databaseHelper.Sequelize.BIGINT,
