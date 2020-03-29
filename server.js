@@ -74,6 +74,7 @@ app.use("/traders", require("./routes/traders/commercialRegisterCertificates/get
 app.use("/traders", require("./routes/traders/commercialRegisterCertificates/updateCommercialRegisterCertificate"));
 app.use("/traders", require("./routes/traders/jobOffers/addJobOffer"));
 app.use("/traders", require("./routes/traders/jobOffers/getJobOffers"));
+app.use("/traders", require("./routes/traders/jobOffers/deleteJobOffer"));
 
 app.get("/", (request, response) => {
     response.send("Naqel Server - Up and Running!");
