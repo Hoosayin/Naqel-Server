@@ -15,7 +15,7 @@ router.post("/addIdentityCard", (request, response) => {
                     where: { TraderID: result.Trader.TraderID }
                 }).then(traderIdentityCard => {
                     if (traderIdentityCard) {
-                        res.json({
+                        response.json({
                             Message: "Identity card already exists."
                         });
                     }

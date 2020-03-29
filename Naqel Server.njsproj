@@ -69,6 +69,7 @@
     <Content Include="routes\traders\identityCards\deleteIdentityCard.js" />
     <Content Include="routes\traders\identityCards\getIdentityCard.js" />
     <Content Include="routes\traders\identityCards\updateIdentityCard.js" />
+    <Content Include="routes\traders\jobOffers\addJobOffer.js" />
     <Content Include="routes\traders\profile\getProfilePhoto.js" />
     <Content Include="routes\traders\profile\getTrader.js" />
     <Content Include="routes\traders\serverSideValidators\validateEmail.js" />
@@ -127,6 +128,7 @@
     <Folder Include="routes\drivers\trucks\trailers\" />
     <Folder Include="routes\traders\commercialRegisterCertificates\" />
     <Folder Include="routes\traders\identityCards\" />
+    <Folder Include="routes\traders\jobOffers\" />
     <Folder Include="routes\traders\profile\" />
     <Folder Include="routes\traders\serverSideValidators\" />
     <Folder Include="routes\users\" />

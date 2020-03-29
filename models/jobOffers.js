@@ -62,18 +62,18 @@ module.exports = databaseHelper.sequelize.define(
         },
         LoadingTime:
         {
-            type: databaseHelper.Sequelize.DATE,
+            type: databaseHelper.Sequelize.TIME,
             allowNull: false
         },
         TruckModel:
         {
             type: databaseHelper.Sequelize.STRING(100),
-            allowNull: false
+            allowNull: true
         },
         DriverNationality:
         {
             type: databaseHelper.Sequelize.TEXT,
-            allowNull: false
+            allowNull: true
         },
         EntryExit:
         {
