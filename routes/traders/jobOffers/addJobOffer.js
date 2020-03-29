@@ -2,8 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const passport = require("../../../helpers/passportHelper");
 const JobOffers = require("../../../models/jobOffers");
-const FixedPriceJobOffers = require("../../../models/fixedPriceJobOffers");
-const AuctionableJobOffers = require("../../../models/auctionableJobOffers");
 
 var router = express.Router();
 router.use(cors());
@@ -29,41 +27,15 @@ router.post("/addJobOffer", (request, response) => {
                     EntryExit: request.body.EntryExit,
                     AcceptedDelay: request.body.AcceptedDelay,
                     JobOfferType: request.body.JobOfferType,
+                    Price: request.body.Price,
                     WaitingTime: 48,
                     TimeCreated: new Date()
                 };
 
-                JobOffers.create(newJobOffer).then(jobOffer => {
-                    if (request.body.JobOfferType === "Fixed-Price") {
-                        let newFixedPriceJobOffer = {
-                            JobOfferID: jobOffer.JobOfferID,
-                            FixedPrice: request.body.Price,
-                        };
-
-                        FixedPriceJobOffers.create(newFixedPriceJobOffer).then(() => {
-                            response.json({
-                                Message: "Job offer is added."
-                            });
-                        });
-                    }
-                    else if (request.body.JobOfferType === "Auctionable") {
-                        let newAuctionableJobOffer = {
-                            JobOfferID: jobOffer.JobOfferID,
-                            MaximumAcceptedaPrice: request.body.Price
-                        };
-
-                        AuctionableJobOffers.create(newAuctionableJobOffer).then(() => {
-                            response.json({
-                                Message: "Job offer is added."
-                            });
-                        });
-                    }
-                    else {
-                        jobOffer.destroy();
-                        response.json({
-                            Message: "Job offer is not added."
-                        });
-                    }
+                JobOffers.create(newJobOffer).then(() => {
+                    response.json({
+                        Message: "Job offer is added."
+                    });
                 });
             }
             else {

@@ -90,6 +90,11 @@ module.exports = databaseHelper.sequelize.define(
             type: databaseHelper.Sequelize.STRING(250),
             allowNull: false
         },
+        Price:
+        {
+            type: databaseHelper.Sequelize.FLOAT,
+            allowNull: false
+        },
         WaitingTime:
         {
             type: databaseHelper.Sequelize.BIGINT,
