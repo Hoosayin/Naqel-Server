@@ -67,6 +67,7 @@
     <Content Include="routes\traders\identityCards\deleteIdentityCard.js" />
     <Content Include="routes\traders\identityCards\getIdentityCard.js" />
     <Content Include="routes\traders\identityCards\updateIdentityCard.js" />
+    <Content Include="routes\traders\jobOffers\updateJobOffer.js" />
     <Content Include="routes\traders\jobOffers\addJobOffer.js" />
     <Content Include="routes\traders\jobOffers\deleteJobOffer.js" />
     <Content Include="routes\traders\jobOffers\getJobOffers.js" />
