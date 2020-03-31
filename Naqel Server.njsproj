@@ -57,6 +57,7 @@
     <Content Include="routes\drivers\permitLicences\deletePermitLicence.js" />
     <Content Include="routes\drivers\identityCards\deleteIdentityCard.js" />
     <Content Include="routes\drivers\entryExitCards\deleteEntryExitCard.js" />
+    <Content Include="routes\drivers\profile\getDriver.js" />
     <Content Include="routes\drivers\trucks\trailers\deleteTrailer.js" />
     <Content Include="routes\drivers\drivingLicences\deleteDrivingLicence.js" />
     <Content Include="routes\traders\commercialRegisterCertificates\addCommercialRegisterCertificate.js" />
@@ -120,6 +121,7 @@
     <Folder Include="routes\drivers\drivingLicences\" />
     <Folder Include="routes\drivers\jobRequests\" />
     <Folder Include="routes\drivers\login\" />
+    <Folder Include="routes\drivers\profile\" />
     <Folder Include="routes\drivers\register\" />
     <Folder Include="routes\drivers\profilePhotos\" />
     <Folder Include="routes\drivers\serverSideValidators\" />

@@ -22,6 +22,7 @@ app.use("/users", require("./routes/users/sendCode"));
 // Drivers' routes.
 app.use("/drivers", require("./routes/drivers/login/login"));
 app.use("/drivers", require("./routes/drivers/register/register"));
+app.use("/drivers", require("./routes/drivers/profile/getDriver"));
 app.use("/drivers", require("./routes/drivers/settings/generalSettings"));
 app.use("/drivers", require("./routes/drivers/settings/usernameAndEmailSettings"));
 app.use("/drivers", require("./routes/drivers/settings/passwordSettings"));

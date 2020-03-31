@@ -226,7 +226,8 @@ passport.use("AuthenticateDriver", new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme("JWT"),
     secretOrKey: jwtConfiguration.secret,
 }, (JWTPayload, onAuthenticated) => {
-    try {
+        try {
+            console.log(JWTPayload);
         Drivers.findOne({
             where: { DriverID: JWTPayload.DriverID },
         }).then(driver => {

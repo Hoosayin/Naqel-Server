@@ -14,7 +14,7 @@ router.post("/login", (request, response) => {
             if (result.Message === "Driver found.") {
                 request.logIn(result.Driver, () => {
                     let JsonPayload = {
-                        TraderID: result.Driver.DriverID
+                        DriverID: result.Driver.DriverID
                     };
 
                     let token = jsonWebToken.sign(JsonPayload, jwtConfiguration.secret);
