@@ -3,8 +3,6 @@ const cors = require("cors");
 const jsonWebToken = require("jsonwebtoken");
 const passport = require("../../../helpers/passportHelper");
 const jwtConfiguration = require("../../../helpers/jwtConfiguration");
-const Traders = require("../../../models/traders");
-const Op = require("sequelize").Op;
 
 var router = express.Router();
 router.use(cors());

@@ -1,45 +1,41 @@
 const express = require("express");
 const cors = require("cors");
+const jsonWebToken = require("jsonwebtoken");
+const jwtConfiguration = require("../../../helpers/jwtConfiguration");
 const passport = require("../../../helpers/passportHelper");
-const tokenGenerator = require("../../../helpers/tokenGenerator");
-const Drivers = require("../../../models/drivers");
-
-const Op = require("sequelize").Op;
 
 var router = express.Router();
 router.use(cors());
 
 // POST: Login
-router.post("/login", (req, res, next) => {
-    console.log(req.body.SignInAs);
-    passport.authenticate("LoginDriver", (error, driver, information) => {
-        if (error) {
-            console.error(`error: ${error}.`);
-        }
+router.post("/login", (request, response) => {
+    passport.authenticate("LoginDriver", result => {
+        try {
+            if (result.Message === "Driver found.") {
+                request.logIn(result.Driver, () => {
+                    let JsonPayload = {
+                        TraderID: result.Driver.DriverID
+                    };
 
-        if (information) {
-            console.error(information.message);
-            res.send(information.message);
-        }
-        else {
-            req.logIn(driver, () => {
-                Drivers.findOne({
-                    where: {
-                        [Op.or]: [
-                            { Username: req.body.EmailOrUsername },
-                            { Email: req.body.EmailOrUsername },
-                        ],
-                    },
-                }).then(driver => {
-                        if (driver) {
-                            tokenGenerator.generateDriverToken(driver.dataValues.DriverID, token => {
-                                res.send(token);
-                            });                         
-                        }
+                    let token = jsonWebToken.sign(JsonPayload, jwtConfiguration.secret);
+
+                    response.json({
+                        Message: "Login successful.",
+                        Token: token
                     });
-            });     
+                });
+            }
+            else {
+                response.json({
+                    Message: result.Message
+                });
+            }
+        } catch (error) {
+            response.json({
+                Message: error.message
+            });
         }
-    })(req, res, next);
+    })(request, response);
 });
 
 module.exports = router;

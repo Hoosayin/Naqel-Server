@@ -156,26 +156,33 @@ passport.use("LoginDriver", new LocalStrategy({
                 [Op.or]: [
                     { Username: request.body.EmailOrUsername },
                     { Email: request.body.EmailOrUsername },
-                ],
-            },
+                ]
+            }
         }).then(driver => {
             if (!driver) {
-                return onAuthenticated(null, false, { message: "Username not found." });
+                return onAuthenticated({
+                    Message: "Driver not found."
+                });
             }
             else {
                 bcrypt.compare(request.body.Password, driver.Password).then(response => {
                     if (!response) {
-                        console.log("Invalid password.");
-                        return onAuthenticated(null, false, { message: "Invalid password." });
+                        return onAuthenticated({
+                            Message: "Invalid password."
+                        });
                     }
-                    console.log("Driver found and authenticated");
-                    return onAuthenticated(null, driver);
+                    return onAuthenticated({
+                        Message: "Driver found.",
+                        Driver: driver.dataValues
+                    });
                 });
             }
         });
     }
     catch (error) {
-        onAuthenticated(error);
+        onAuthenticated({
+            Message: error.message
+        });
     }
 }));
 
