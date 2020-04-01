@@ -60,6 +60,7 @@
     <Content Include="routes\drivers\profile\getDriver.js" />
     <Content Include="routes\drivers\profile\getProfilePhoto.js" />
     <Content Include="routes\drivers\profile\uploadDriverProfilePhoto.js" />
+    <Content Include="routes\drivers\trucks\getTruck.js" />
     <Content Include="routes\drivers\trucks\trailers\deleteTrailer.js" />
     <Content Include="routes\drivers\drivingLicences\deleteDrivingLicence.js" />
     <Content Include="routes\traders\commercialRegisterCertificates\addCommercialRegisterCertificate.js" />

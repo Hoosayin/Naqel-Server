@@ -28,6 +28,7 @@ app.use("/drivers", require("./routes/drivers/profile/uploadDriverProfilePhoto")
 app.use("/drivers", require("./routes/drivers/settings/generalSettings"));
 app.use("/drivers", require("./routes/drivers/settings/usernameAndEmailSettings"));
 app.use("/drivers", require("./routes/drivers/settings/passwordSettings"));
+app.use("/drivers", require("./routes/drivers/trucks/getTruck"));
 app.use("/drivers", require("./routes/drivers/trucks/addTruck"));
 app.use("/drivers", require("./routes/drivers/trucks/updateTruck"));
 app.use("/drivers", require("./routes/drivers/trucks/updateTruckPhoto"));
