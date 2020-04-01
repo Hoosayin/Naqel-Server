@@ -1,45 +1,38 @@
 const express = require("express");
 const cors = require("cors");
-const jwtDecode = require("jwt-decode");
+const passport = require("../../../helpers/passportHelper");
 const Drivers = require("../../../models/drivers");
-const tokenGenerator = require("../../../helpers/tokenGenerator");
 
 var router = express.Router();
 router.use(cors());
 
 // POST: usernameAndEmailSettings
-router.post("/usernameAndEmailSettings", (req, res, next) => {
-    try {
-        let driverToken = jwtDecode(req.body.Token);
-
-        Drivers.findOne({
-            where: { DriverID: driverToken.DriverID },
-        })
-            .then(driver => {
-                if (!driver) {
-                    res.json({
-                        Message: "Driver not found."
-                    });
+router.post("/usernameAndEmailSettings", (request, response) => {
+    passport.authenticate("AuthenticateDriver", { session: false }, result => {
+        try {
+            if (result.Message === "Driver found.") {
+                let updatedDriver = {
+                    Username: request.body.Username,
+                    Email: request.body.Email,
                 }
-                else {
-                    let updatedDriver = {
-                        Username: req.body.Username,
-                        Email: req.body.Email,
-                    }
 
-                    Drivers.update(updatedDriver, { where: { DriverID: driverToken.DriverID } }).then(() => {
-                        tokenGenerator.generateDriverToken(driver.DriverID, token => {
-                            res.json({
-                                Message: "driver is updated.",
-                                Token: token
-                            });
-                        });
+                Drivers.update(updatedDriver, { where: { DriverID: result.Driver.DriverID } }).then(() => {
+                    response.json({
+                        Message: "Driver is updated."
                     });
-                }
+                });
+            }
+            else {
+                response.json({
+                    Message: result.Message
+                });
+            }
+        } catch (error) {
+            response.json({
+                Message: error.message,
             });
-    } catch (error) {
-        return done(error);
-    }
+        }
+    })(request, response);
 });
 
 module.exports = router;
