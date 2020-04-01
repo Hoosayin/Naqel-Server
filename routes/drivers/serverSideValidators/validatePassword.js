@@ -1,36 +1,40 @@
 const express = require("express");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
-const Drivers = require("../../../models/drivers");
+const passport = require("../../../helpers/passportHelper");
 
 var router = express.Router();
 router.use(cors());
 
 // POST: validatePassword
-router.post("/validatePassword", (req, res) => {
-    try {
-        Drivers.findOne({
-            where: { DriverID: req.body.DriverID },
-        })
-            .then(driver => {
-                if (driver) {
-                    bcrypt.compare(req.body.Password, driver.Password)
-                        .then(response => {
-                            if (!response) {
-                                res.send("Invalid password.");
-                            }
-                            else {
-                                res.send("Valid password.");
-                            }
+router.post("/validatePassword", (request, response) => {
+    passport.authenticate("AuthenticateTrader", { session: false }, result => {
+        try {
+            if (result.Message === "Driver found.") {
+                bcrypt.compare(request.body.Password, result.Driver.Password).then(matched => {
+                    if (!matched) {
+                        response.json({
+                            Message: "Invalid password."
                         });
-                }
-                else {
-                    res.send("Driver not found.");
-                }
+                    }
+                    else {
+                        response.json({
+                            Message: "Valid password."
+                        });
+                    }
+                });
+            }
+            else {
+                response.json({
+                    Message: result.Message
+                });
+            }
+        } catch (error) {
+            response.json({
+                Message: error.message
             });
-    } catch (error) {
-        return res.send(error);
-    }
+        }
+    })(request, response);
 });
 
 module.exports = router;

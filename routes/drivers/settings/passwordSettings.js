@@ -11,40 +11,33 @@ var router = express.Router();
 router.use(cors());
 
 // POST: passwordSettings
-router.post("/passwordSettings", (req, res) => {
-    try {
-        let driverToken = jwtDecode(req.body.Token);
-
-        Drivers.findOne({
-            where: { DriverID: driverToken.DriverID },
-        }).then(driver => {
-            if (!driver) {
-                res.json({
-                    Message: "Driver not found."
-                });
-            }
-            else {
-                bcrypt.hash(req.body.Password, BCRYPT_SALT_ROUNDS).then(passwordHash => {
+router.post("/passwordSettings", (request, response) => {
+    passport.authenticate("AuthenticateDriver", { session: false }, result => {
+        try {
+            if (result.Message === "Driver found.") {
+                bcrypt.hash(request.body.Password, BCRYPT_SALT_ROUNDS).then(passwordHash => {
                     let updatedDriver = {
                         Password: passwordHash,
-                    }
+                    };
 
-                    Drivers.update(updatedDriver, { where: { DriverID: driverToken.DriverID } }).then(() => {
-                        tokenGenerator.generateDriverToken(driver.DriverID, token => {
-                            res.json({
-                                Message: "driver is updated.",
-                                Token: token
-                            });
+                    Drivers.update(updatedDriver, { where: { DriverID: result.Driver.DriverID } }).then(() => {
+                        response.json({
+                            Message: "Driver is updated."
                         });
                     });
                 });
             }
-        });
-    } catch (error) {
-        return res.json({
-            Message: error
-        });
-    }
+            else {
+                response.json({
+                    Message: result.Message
+                });
+            }
+        } catch (error) {
+            response.json({
+                Message: error.message
+            });
+        }
+    })(request, response);
 });
 
 module.exports = router;
