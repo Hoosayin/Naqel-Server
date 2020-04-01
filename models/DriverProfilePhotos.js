@@ -20,7 +20,7 @@ module.exports = databaseHelper.sequelize.define(
                 key: "DriverID"
             }
         },
-        URL:
+        PhotoURL:
         {
             type: databaseHelper.Sequelize.TEXT,
             allowNull: false
