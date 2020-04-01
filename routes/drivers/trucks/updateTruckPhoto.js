@@ -1,47 +1,48 @@
 const express = require("express");
 const cors = require("cors");
-const jwtDecode = require("jwt-decode");
+const passport = require("../../../helpers/passportHelper");
 const Trucks = require("../../../models/trucks");
-const tokenGenerator = require("../../../helpers/tokenGenerator");
 
 var router = express.Router();
 router.use(cors());
 
 // POST: updateTruckPhoto
-router.post("/updateTruckPhoto", (req, res) => {
-    try {
-        let driverToken = jwtDecode(req.body.Token);
+router.post("/updateTruckPhoto", (request, response) => {
+    passport.authenticate("AuthenticateDriver", { session: false }, result => {
+        try {
+            if (result.Message === "Driver found.") {
+                Trucks.findOne({
+                    where: { DriverID: result.Driver.DriverID }
+                }).then(truck => {
+                    if (truck) {
+                        let updatedTruck = {
+                            PhotoURL: request.body.PhotoURL
+                        };
 
-        Trucks.findOne({
-            where: { DriverID: driverToken.DriverID }
-        }).then(truck => {
-            if (truck) {
-                let updatedTruck = {
-                    PhotoURL: req.body.PhotoURL
-                };
-
-                Trucks.update(updatedTruck, { where: { TruckID: truck.TruckID } }).then(() => {
-                    console.log("Truck is updated in database.");
-                    tokenGenerator.generateDriverToken(driverToken.DriverID, token => {
-                        res.json({
-                            Message: "Truck photo updated.",
-                            Token: token
+                        Trucks.update(updatedTruck, { where: { TruckID: truck.TruckID } }).then(() => {
+                            response.json({
+                                Message: "Truck photo updated."
+                            });
                         });
-                    });
+                    }
+                    else {
+                        response.json({
+                            Message: "Truck not found."
+                        });
+                    }
                 });
             }
             else {
-                res.json({
-                    Message: "Truck not found.",
-                    Token: token
+                response.json({
+                    Message: result.Message
                 });
             }
-        });
-    } catch (error) {
-        return res.json({
-            Message: error
-        });
-    }
+        } catch (error) {
+            response.json({
+                Message: error.message,
+            });
+        }
+    })(request, response);
 });
 
 module.exports = router;
