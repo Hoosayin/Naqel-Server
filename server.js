@@ -23,6 +23,8 @@ app.use("/users", require("./routes/users/sendCode"));
 app.use("/drivers", require("./routes/drivers/login/login"));
 app.use("/drivers", require("./routes/drivers/register/register"));
 app.use("/drivers", require("./routes/drivers/profile/getDriver"));
+app.use("/drivers", require("./routes/drivers/profile/getProfilePhoto"));
+app.use("/drivers", require("./routes/drivers/profile/uploadDriverProfilePhoto"));
 app.use("/drivers", require("./routes/drivers/settings/generalSettings"));
 app.use("/drivers", require("./routes/drivers/settings/usernameAndEmailSettings"));
 app.use("/drivers", require("./routes/drivers/settings/passwordSettings"));
@@ -36,7 +38,6 @@ app.use("/drivers", require("./routes/drivers/trucks/trailers/findAllTrailers"))
 app.use("/drivers", require("./routes/drivers/serverSideValidators/validateEmail"));
 app.use("/drivers", require("./routes/drivers/serverSideValidators/validatePassword"));
 app.use("/drivers", require("./routes/drivers/serverSideValidators/validateUsername"));
-app.use("/drivers", require("./routes/drivers/profilePhotos/uploadDriverProfilePhoto"));
 app.use("/drivers", require("./routes/drivers/drivingLicences/addDrivingLicence"));
 app.use("/drivers", require("./routes/drivers/drivingLicences/deleteDrivingLicence"));
 app.use("/drivers", require("./routes/drivers/drivingLicences/updateDrivingLicence"));

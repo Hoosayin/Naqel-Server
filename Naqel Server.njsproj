@@ -58,6 +58,8 @@
     <Content Include="routes\drivers\identityCards\deleteIdentityCard.js" />
     <Content Include="routes\drivers\entryExitCards\deleteEntryExitCard.js" />
     <Content Include="routes\drivers\profile\getDriver.js" />
+    <Content Include="routes\drivers\profile\getProfilePhoto.js" />
+    <Content Include="routes\drivers\profile\uploadDriverProfilePhoto.js" />
     <Content Include="routes\drivers\trucks\trailers\deleteTrailer.js" />
     <Content Include="routes\drivers\drivingLicences\deleteDrivingLicence.js" />
     <Content Include="routes\traders\commercialRegisterCertificates\addCommercialRegisterCertificate.js" />
@@ -95,7 +97,6 @@
     <Content Include="routes\drivers\trucks\updateTruck.js" />
     <Content Include="routes\drivers\trucks\updateTruckPhoto.js" />
     <Content Include="routes\drivers\trucks\addTruck.js" />
-    <Content Include="routes\drivers\profilePhotos\uploadDriverProfilePhoto.js" />
     <Content Include="routes\users\accountSetup.js" />
     <Content Include="routes\drivers\settings\generalSettings.js" />
     <Content Include="routes\drivers\login\login.js" />
@@ -123,7 +124,6 @@
     <Folder Include="routes\drivers\login\" />
     <Folder Include="routes\drivers\profile\" />
     <Folder Include="routes\drivers\register\" />
-    <Folder Include="routes\drivers\profilePhotos\" />
     <Folder Include="routes\drivers\serverSideValidators\" />
     <Folder Include="routes\drivers\settings\" />
     <Folder Include="routes\drivers\permitLicences\" />
