@@ -6,21 +6,26 @@ var router = express.Router();
 router.use(cors());
 
 // POST: validateUsername
-router.post("/validateUsername", (req, res) => {
+router.post("/validateUsername", (request, response) => {
     try {
         Drivers.findOne({
-            where: { Username: req.body.Username },
-        })
-            .then(driver => {
-                if (driver) {
-                    res.send("Username is not available.");
-                }
-                else {
-                    res.send("Username is available.");
-                }
-            });
+            where: { Username: request.body.Username }
+        }).then(driver => {
+            if (driver) {
+                response.json({
+                    Message: "Username is unavailable."
+                });
+            }
+            else {
+                response.json({
+                    Message: "Username is available."
+                });
+            }
+        });
     } catch (error) {
-        return res.send(error);
+        response.json({
+            Message: error.message
+        });
     }
 });
 

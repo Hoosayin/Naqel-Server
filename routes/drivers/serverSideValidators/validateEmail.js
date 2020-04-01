@@ -6,21 +6,26 @@ var router = express.Router();
 router.use(cors());
 
 // POST: validateEmail
-router.post("/validateEmail", (req, res) => {
+router.post("/validateEmail", (request, response) => {
     try {
         Drivers.findOne({
-            where: { Email: req.body.Email },
-        })
-            .then(driver => {
-                if (driver) {
-                    res.send("Email is already taken.");
-                }
-                else {
-                    res.send("Email is available.");
-                }
-            });
+            where: { Email: request.body.Email },
+        }).then(driver => {
+            if (driver) {
+                response.json({
+                    Message: "Email is already taken."
+                });
+            }
+            else {
+                response.json({
+                    Message: "Email is available."
+                });
+            }
+        });
     } catch (error) {
-        return res.send(error);
+        response.json({
+            Message: error.message
+        });
     }
 });
 
