@@ -1,52 +1,54 @@
 const express = require("express");
 const cors = require("cors");
-const jwtDecode = require("jwt-decode");
+const passport = require("../../../helpers/passportHelper");
 const Trucks = require("../../../models/trucks");
-const tokenGenerator = require("../../../helpers/tokenGenerator");
 
 var router = express.Router();
 router.use(cors());
 
 // POST: updateTruck
-router.post("/updateTruck", (req, res) => {
-    try {
-        let driverToken = jwtDecode(req.body.Token);
+router.post("/updateTruck", (request, response) => {
+    passport.authenticate("AuthenticateDriver", { session: false }, result => {
+        try {
+            if (result.Message === "Driver found.") {
+                Trucks.findOne({
+                    where: { DriverID: result.Driver.DriverID }
+                }).then(truck => {
+                    if (truck) {
+                        let updatedTruck = {
+                            PlateNumber: request.body.PlateNumber,
+                            Owner: request.body.Owner,
+                            ProductionYear: request.body.ProductionYear,
+                            Brand: request.body.Brand,
+                            Model: request.body.Model,
+                            Type: request.body.Type,
+                            MaximumWeight: request.body.MaximumWeight
+                        };
 
-        Trucks.findOne({
-            where: { DriverID: driverToken.DriverID }
-        }).then(truck => {
-            if (truck) {
-                let updatedTruck = {
-                    PlateNumber: req.body.PlateNumber,
-                    Owner: req.body.Owner,
-                    ProductionYear: req.body.ProductionYear,
-                    Brand: req.body.Brand,
-                    Model: req.body.Model,
-                    Type: req.body.Type,
-                    MaximumWeight: req.body.MaximumWeight
-                };
-
-                Trucks.update(updatedTruck, { where: { TruckID: truck.TruckID } }).then(() => {
-                    console.log("Truck is updated in database.");
-                    tokenGenerator.generateDriverToken(driverToken.DriverID, token => {
-                        res.json({
-                            Message: "Truck is updated in database.",
-                            Token: token
+                        Trucks.update(updatedTruck, { where: { TruckID: truck.TruckID } }).then(() => {
+                            response.json({
+                                Message: "Truck is updated."
+                            });
                         });
-                    });
+                    }
+                    else {
+                        response.json({
+                            Message: "Truck not found."
+                        });
+                    }
                 });
             }
             else {
-                res.json({
-                    Message: "Truck not found."
+                response.json({
+                    Message: result.Message
                 });
             }
-        });
-    } catch (error) {
-        return res.json({
-            Message: error
-        });
-    }
+        } catch (error) {
+            response.json({
+                Message: error.message,
+            });
+        }
+    })(request, response);
 });
 
 module.exports = router;
