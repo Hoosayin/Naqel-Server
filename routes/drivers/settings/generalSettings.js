@@ -1,54 +1,43 @@
 const express = require("express");
 const cors = require("cors");
-const jwtDecode = require("jwt-decode");
+const passport = require("../../../helpers/passportHelper");
 const Drivers = require("../../../models/drivers");
-const tokenGenerator = require("../../../helpers/tokenGenerator");
 
 var router = express.Router();
 router.use(cors());
 
 // POST: generalSettings
-router.post("/generalSettings", (req, res) => {
-    try {
-        let driverToken = jwtDecode(req.body.Token);
+router.post("/generalSettings", (request, response) => {
+    passport.authenticate("AuthenticateDriver", { session: false }, result => {
+        try {
+            if (result.Message === "Driver found.") {
+                let updatedDriver = {
+                    FirstName: request.body.FirstName,
+                    LastName: request.body.LastName,
+                    Address: request.body.Address,
+                    PhoneNumber: request.body.PhoneNumber,
+                    Gender: request.body.Gender,
+                    Nationality: request.body.Nationality,
+                    DateOfBirth: request.body.DateOfBirth
+                };
 
-        Drivers.findOne({
-            where: { DriverID: driverToken.DriverID },
-        }).then(driver => {
-                if (!driver) {
-                    res.json({
-                        Message: "Driver not found."
+                Drivers.update(updatedDriver, { where: { DriverID: result.Driver.DriverID } }).then(() => {
+                    response.json({
+                        Message: "Driver is updated."
                     });
-                }
-                else {
-                    console.log(driver);
-
-                    let updatedDriver = {
-                        FirstName: req.body.FirstName,
-                        LastName: req.body.LastName,
-                        Address: req.body.Address,
-                        PhoneNumber: req.body.PhoneNumber,
-                        Gender: req.body.Gender,
-                        Nationality: req.body.Nationality,
-                        DateOfBirth: req.body.DateOfBirth,
-                    }
-
-                    Drivers.update(updatedDriver, { where: { DriverID: driverToken.DriverID } }).then(() => {
-                            tokenGenerator.generateDriverToken(driver.DriverID, token => {
-                                res.json({
-                                    Message: "driver is updated.",
-                                    Token: token
-                                });
-                            });
-                        });
-                }
-
+                });
+            }
+            else {
+                response.json({
+                    Message: result.Message
+                });
+            }
+        } catch (error) {
+            response.json({
+                Message: error.message,
             });
-    } catch (error) {
-        return res.json({
-            Message: error
-        });
-    }
+        }
+    })(request, response);
 });
 
 module.exports = router;
