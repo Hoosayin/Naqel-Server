@@ -1,61 +1,50 @@
 const express = require("express");
 const cors = require("cors");
-const jwtDecode = require("jwt-decode");
+const passport = require("../../../../helpers/passportHelper");
 const Trailers = require("../../../../models/trailers");
-const tokenGenerator = require("../../../../helpers/tokenGenerator");
 
 var router = express.Router();
 router.use(cors());
 
 // POST: updateTrailer
-router.post("/updateTrailer", (req, res) => {
-    try {
-        let driver = jwtDecode(req.body.Token);
-
-        if (driver.Truck) {
-            if (driver.Truck.Trailers) {
+router.post("/updateTrailer", (request, response) => {
+    passport.authenticate("AuthenticateDriver", { session: false }, result => {
+        try {
+            if (result.Message === "Driver found.") {
                 Trailers.findOne({
-                    where: { TrailerID: req.body.TrailerID }
+                    where: { TrailerID: request.body.TrailerID }
                 }).then(trailer => {
                     if (trailer) {
                         let updatedTrailer = {
-                            MaximumWeight: req.body.MaximumWeight,
-                            PhotoURL: req.body.PhotoURL,
-                            Type: req.body.Type
+                            MaximumWeight: request.body.MaximumWeight,
+                            PhotoURL: request.body.PhotoURL,
+                            Type: request.body.Type
                         };
 
                         Trailers.update(updatedTrailer, { where: { TrailerID: trailer.TrailerID } }).then(() => {
-                            tokenGenerator.generateDriverToken(driver.DriverID, token => {
-                                res.json({
-                                    Message: "Trailer is updated.",
-                                    Token: token
-                                });
+                            response.json({
+                                Message: "Trailer is updated."
                             });
-                        });                        
+                        });
                     }
                     else {
-                        res.json({
+                        response.json({
                             Message: "Trailer not found."
                         });
                     }
                 });
             }
             else {
-                res.json({
-                    Message: "No Trailers Found."
+                response.json({
+                    Message: result.Message
                 });
             }
-        }
-        else {
-            res.json({
-                Message: "No Truck Found."
+        } catch (error) {
+            response.json({
+                Message: error.message,
             });
         }
-    } catch (error) {
-        return res.json({
-            Message: error
-        });
-    }
+    })(request, response);
 });
 
 module.exports = router;

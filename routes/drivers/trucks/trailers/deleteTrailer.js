@@ -7,7 +7,6 @@ var router = express.Router();
 router.use(cors());
 
 // POST: deleteTrailer
-
 router.delete("/deleteTrailer", (request, response) => {
     passport.authenticate("AuthenticateDriver", { session: false }, result => {
         try {
