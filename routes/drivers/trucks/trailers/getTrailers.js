@@ -26,7 +26,7 @@ router.get("/getTrailers", (request, response) => {
 
                                 response.json({
                                     Message: "Trailers found.",
-                                    Trailers: trialers
+                                    Trailers: trailers
                                 });
                             }
                             else {
