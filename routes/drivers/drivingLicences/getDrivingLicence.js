@@ -16,7 +16,7 @@ router.get("/getDrivingLicence", (request, response) => {
                 }).then(drivingLicence => {
                     if (drivingLicence) {
                         response.json({
-                            Message: "Driving Licence found.",
+                            Message: "Driving licence found.",
                             DrivingLicence: drivingLicence
                         });
                     }
