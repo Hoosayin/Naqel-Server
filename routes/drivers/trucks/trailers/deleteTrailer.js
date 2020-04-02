@@ -1,55 +1,45 @@
 const express = require("express");
 const cors = require("cors");
-const jwtDecode = require("jwt-decode");
+const passport = require("../../../../helpers/passportHelper");
 const Trailers = require("../../../../models/trailers");
-const tokenGenerator = require("../../../../helpers/tokenGenerator");
 
 var router = express.Router();
 router.use(cors());
 
 // POST: deleteTrailer
-router.post("/deleteTrailer", (req, res) => {
-    try {
-        let driver = jwtDecode(req.body.Token);
 
-        if (driver.Truck) {
-            if (driver.Truck.Trailers) {
+router.delete("/deleteTrailer", (request, response) => {
+    passport.authenticate("AuthenticateDriver", { session: false }, result => {
+        try {
+            if (result.Message === "Driver found.") {
                 Trailers.findOne({
-                    where: { TrailerID: req.body.TrailerID }
+                    where: { TrailerID: request.body.TrailerID }
                 }).then(trailer => {
                     if (trailer) {
                         trailer.destroy();
 
-                        tokenGenerator.generateDriverToken(driver.DriverID, token => {
-                            res.json({
-                                Message: "Trailer is deleted.",
-                                Token: token
-                            });
+                        response.json({
+                            Message: "Trailer is deleted."
                         });
                     }
                     else {
-                        res.json({
+                        response.json({
                             Message: "Trailer not found."
                         });
                     }
                 });
             }
             else {
-                res.json({
-                    Message: "No Trailers Found."
+                response.json({
+                    Message: result.Message
                 });
             }
-        }
-        else {
-            res.json({
-                Message: "No Truck Found."
+        } catch (error) {
+            response.json({
+                Message: error.message,
             });
         }
-    } catch (error) {
-        return res.json({
-            Message: error
-        });
-    }
+    })(request, response);
 });
 
 module.exports = router;
