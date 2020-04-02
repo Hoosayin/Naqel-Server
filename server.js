@@ -43,6 +43,7 @@ app.use("/drivers", require("./routes/drivers/serverSideValidators/validateUsern
 app.use("/drivers", require("./routes/drivers/drivingLicences/addDrivingLicence"));
 app.use("/drivers", require("./routes/drivers/drivingLicences/deleteDrivingLicence"));
 app.use("/drivers", require("./routes/drivers/drivingLicences/updateDrivingLicence"));
+app.use("/drivers", require("./routes/drivers/entryExitCards/getEntryExitCard"));
 app.use("/drivers", require("./routes/drivers/entryExitCards/addEntryExitCard"));
 app.use("/drivers", require("./routes/drivers/entryExitCards/deleteEntryExitCard"));
 app.use("/drivers", require("./routes/drivers/entryExitCards/updateEntryExitCard"));
