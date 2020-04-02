@@ -1,71 +1,63 @@
 const express = require("express");
 const cors = require("cors");
-const jwtDecode = require("jwt-decode");
-const Drivers = require("../../../../models/drivers");
+const passport = require("../../../../helpers/passportHelper");
 const Trucks = require("../../../../models/trucks");
 const Trailers = require("../../../../models/trailers");
-const tokenGenerator = require("../../../../helpers/tokenGenerator");
 
 var router = express.Router();
 router.use(cors());
 
 // POST: addTrailer
-router.post("/addTrailer", (req, res) => {
-    try {
-        let driverToken = jwtDecode(req.body.Token);
-
-        Drivers.findOne({
-            where: { DriverID: driverToken.DriverID },
-        }).then(driver => {
-            if (!driver) {
-                res.send("Driver not found.");
-            }
-            else {
+router.post("/addTrailer", (request, response) => {
+    passport.authenticate("AuthenticateDriver", { session: false }, result => {
+        try {
+            if (result.Message === "Driver found.") {
                 Trucks.findOne({
-                    where: { DriverID: driver.DriverID }
+                    where: { DriverID: result.Driver.DriverID }
                 }).then(truck => {
                     if (truck) {
                         Trailers.findAndCountAll({
-                            where: { TruckID: truck.TruckID },
+                            where: { TruckID: truck.TruckID }
                         }).then(trailers => {
-                            console.log(trailers);
                             if (trailers.count < 2) {
                                 let newTrailer = {
                                     TruckID: truck.TruckID,
-                                    MaximumWeight: req.body.MaximumWeight,
-                                    PhotoURL: req.body.PhotoURL,
-                                    Type: req.body.Type
+                                    MaximumWeight: request.body.MaximumWeight,
+                                    PhotoURL: request.body.PhotoURL,
+                                    Type: request.body.Type
                                 };
 
                                 Trailers.create(newTrailer).then(() => {
-                                    tokenGenerator.generateDriverToken(driver.DriverID, token => {
-                                        res.json({
-                                            Message: "Trailer is added.",
-                                            Token: token
-                                        });
+                                    response.json({
+                                        Message: "Trailer is added."
                                     });
                                 });
                             }
                             else {
-                                res.json({
+                                response.json({
                                     Message: "You cannot add trailers to this truck anymore."
                                 });
                             }
                         });
                     }
                     else {
-                        res.json({
+                        response.json({
                             Message: "Truck not found."
                         });
                     }
                 });
             }
-        });
-    } catch (error) {
-        return res.json({
-            Message: error
-        });
-    }
+            else {
+                response.json({
+                    Message: result.Message
+                });
+            }
+        } catch (error) {
+            response.json({
+                Message: error.message,
+            });
+        }
+    })(request, response);
 });
 
 module.exports = router;

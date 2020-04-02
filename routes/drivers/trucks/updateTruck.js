@@ -51,4 +51,6 @@ router.post("/updateTruck", (request, response) => {
     })(request, response);
 });
 
+
+
 module.exports = router;
