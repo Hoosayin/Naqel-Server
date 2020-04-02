@@ -46,6 +46,7 @@ app.use("/drivers", require("./routes/drivers/drivingLicences/updateDrivingLicen
 app.use("/drivers", require("./routes/drivers/entryExitCards/addEntryExitCard"));
 app.use("/drivers", require("./routes/drivers/entryExitCards/deleteEntryExitCard"));
 app.use("/drivers", require("./routes/drivers/entryExitCards/updateEntryExitCard"));
+app.use("/drivers", require("./routes/drivers/identityCards/getIdentityCard"));
 app.use("/drivers", require("./routes/drivers/identityCards/addIdentityCard"));
 app.use("/drivers", require("./routes/drivers/identityCards/deleteIdentityCard"));
 app.use("/drivers", require("./routes/drivers/identityCards/updateIdentityCard"));
