@@ -1,61 +1,52 @@
 const express = require("express");
 const cors = require("cors");
-const jwtDecode = require("jwt-decode");
-const Drivers = require("../../../models/drivers");
+const passport = require("../../../helpers/passportHelper");
 const DriverEntryExitCards = require("../../../models/driverEntryExitCards");
-const tokenGenerator = require("../../../helpers/tokenGenerator");
 
 var router = express.Router();
 router.use(cors());
 
 // POST: addEntryExitCard
-router.post("/addEntryExitCard", (req, res) => {
-    try {
-        let driverToken = jwtDecode(req.body.Token);
-
-        Drivers.findOne({
-            where: { DriverID: driverToken.DriverID },
-        }).then(driver => {
-            if (!driver) {
-                res.json({
-                    Message: "Driver not found."
-                });
-            }
-            else {
+router.post("/addEntryExitCard", (request, response) => {
+    passport.authenticate("AuthenticateDriver", { session: false }, result => {
+        try {
+            if (result.Message === "Driver found.") {
                 DriverEntryExitCards.findOne({
-                    where: { DriverID: driver.DriverID }
+                    where: { DriverID: result.Driver.DriverID }
                 }).then(driverEntryExitCard => {
                     if (driverEntryExitCard) {
-                        res.json({
+                        response.json({
                             Message: "Entry/Exit card already exists."
                         });
                     }
                     else {
                         let newEntryExitCard = {
-                            DriverID: driver.DriverID,
-                            EntryExitNumber: req.body.EntryExitNumber,
-                            Type: req.body.Type,
-                            ReleaseDate: req.body.ReleaseDate,
-                            NumberOfMonths: req.body.NumberOfMonths,
+                            DriverID: result.Driver.DriverID,
+                            EntryExitNumber: request.body.EntryExitNumber,
+                            Type: request.body.Type,
+                            ReleaseDate: request.body.ReleaseDate,
+                            NumberOfMonths: request.body.NumberOfMonths
                         };
 
                         DriverEntryExitCards.create(newEntryExitCard).then(() => {
-                            tokenGenerator.generateDriverToken(driver.DriverID, token => {
-                                res.json({
-                                    Message: "Entry/Exit card is added.",
-                                    Token: token
-                                });
+                            response.json({
+                                Message: "Entry/Exit card is added."
                             });
                         });
                     }
                 });
             }
-        });
-    } catch (error) {
-        return res.json({
-            Message: error
-        });
-    }
+            else {
+                response.json({
+                    Message: result.Message
+                });
+            }
+        } catch (error) {
+            response.json({
+                Message: error.message,
+            });
+        }
+    })(request, response);
 });
 
 module.exports = router;

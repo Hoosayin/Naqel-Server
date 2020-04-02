@@ -1,53 +1,43 @@
 const express = require("express");
 const cors = require("cors");
-const jwtDecode = require("jwt-decode");
-const Drivers = require("../../../models/drivers");
+const passport = require("../../../helpers/passportHelper");
 const DriverEntryExitCards = require("../../../models/driverEntryExitCards");
-const tokenGenerator = require("../../../helpers/tokenGenerator");
 
 var router = express.Router();
 router.use(cors());
 
 // POST: deleteEntryExitCard
-router.post("/deleteEntryExitCard", (req, res) => {
-    try {
-        let driverToken = jwtDecode(req.body.Token);
-
-        Drivers.findOne({
-            where: { DriverID: driverToken.DriverID },
-        }).then(driver => {
-            if (!driver) {
-                res.json({
-                    Message: "Driver not found."
-                });
-            }
-            else {
+router.delete("/deleteEntryExitCard", (request, response) => {
+    passport.authenticate("AuthenticateDriver", { session: false }, result => {
+        try {
+            if (result.Message === "Driver found.") {
                 DriverEntryExitCards.findOne({
-                    where: { DriverID: driver.DriverID }
+                    where: { DriverID: result.Driver.DriverID }
                 }).then(driverEntryExitCard => {
                     if (driverEntryExitCard) {
                         driverEntryExitCard.destroy();
 
-                        tokenGenerator.generateDriverToken(driver.DriverID, token => {
-                            res.json({
-                                Message: "Entry/Exit card is deleted.",
-                                Token: token
-                            });
-                        });                       
+                        response.json({
+                            Message: "Entry/Exit card is deleted."
+                        });
                     }
                     else {
-                        res.json({
+                        response.json({
                             Message: "Entry/Exit card not found."
                         });
                     }
                 });
             }
-        });
-    } catch (error) {
-        return res.json({
-            Message: error
-        });
-    }
+            else {
+                response.json({
+                    Message: result.Message
+                });
+            }
+        } catch (error) {
+            response.json({
+                Message: error.message
+            });
+        }
+    })(request, response);
 });
-
 module.exports = router;
