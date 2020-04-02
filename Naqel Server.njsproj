@@ -49,6 +49,7 @@
     <Content Include="models\traders.js" />
     <Content Include="models\trailers.js" />
     <Content Include="models\trucks.js" />
+    <Content Include="routes\drivers\drivingLicences\getDrivingLicence.js" />
     <Content Include="routes\drivers\entryExitCards\getEntryExitCard.js" />
     <Content Include="routes\drivers\identityCards\getIdentityCard.js" />
     <Content Include="routes\drivers\jobRequests\addJobRequest.js" />

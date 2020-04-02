@@ -1,28 +1,28 @@
 const express = require("express");
 const cors = require("cors");
 const passport = require("../../../helpers/passportHelper");
-const DriverEntryExitCards = require("../../../models/driverEntryExitCards");
+const DrivingLicences = require("../../../models/drivingLicences");
 
 var router = express.Router();
 router.use(cors());
 
-// GET: getEntryExitCard
-router.get("/getEntryExitCard", (request, response) => {
+// GET: getDrivingLicence
+router.get("/getDrivingLicence", (request, response) => {
     passport.authenticate("AuthenticateDriver", { session: false }, result => {
         try {
             if (result.Message === "Driver found.") {
-                DriverEntryExitCards.findOne({
+                DrivingLicences.findOne({
                     where: { DriverID: result.Driver.DriverID }
-                }).then(driverEntryExitCard => {
-                    if (driverEntryExitCard) {
+                }).then(drivingLicence => {
+                    if (drivingLicence) {
                         response.json({
-                            Message: "Entry/exit card found.",
-                            EntryExitCard: driverEntryExitCard
+                            Message: "Driving Licence found.",
+                            DrivingLicence: drivingLicence
                         });
                     }
                     else {
                         response.json({
-                            Message: "Entry/Exit card not found."
+                            Message: "Driving licence not found."
                         });
                     }
                 });

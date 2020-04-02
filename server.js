@@ -40,6 +40,7 @@ app.use("/drivers", require("./routes/drivers/trucks/trailers/findAllTrailers"))
 app.use("/drivers", require("./routes/drivers/serverSideValidators/validateEmail"));
 app.use("/drivers", require("./routes/drivers/serverSideValidators/validatePassword"));
 app.use("/drivers", require("./routes/drivers/serverSideValidators/validateUsername"));
+app.use("/drivers", require("./routes/drivers/drivingLicences/getDrivingLicence"));
 app.use("/drivers", require("./routes/drivers/drivingLicences/addDrivingLicence"));
 app.use("/drivers", require("./routes/drivers/drivingLicences/deleteDrivingLicence"));
 app.use("/drivers", require("./routes/drivers/drivingLicences/updateDrivingLicence"));
