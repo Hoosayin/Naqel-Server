@@ -1,53 +1,44 @@
 const express = require("express");
 const cors = require("cors");
-const jwtDecode = require("jwt-decode");
-const Drivers = require("../../../models/drivers");
+const passport = require("../../../helpers/passportHelper");
 const DriverIdentityCards = require("../../../models/driverIdentityCards");
-const tokenGenerator = require("../../../helpers/tokenGenerator");
 
 var router = express.Router();
 router.use(cors());
 
 // POST: deleteIdentityCard
-router.post("/deleteIdentityCard", (req, res) => {
-    try {
-        let driverToken = jwtDecode(req.body.Token);
-
-        Drivers.findOne({
-            where: { DriverID: driverToken.DriverID },
-        }).then(driver => {
-            if (!driver) {
-                res.json({
-                    Message: "Driver not found."
-                });
-            }
-            else {
+router.delete("/deleteIdentityCard", (request, response) => {
+    passport.authenticate("AuthenticateDriver", { session: false }, result => {
+        try {
+            if (result.Message === "Driver found.") {
                 DriverIdentityCards.findOne({
-                    where: { DriverID: driver.DriverID }
+                    where: { DriverID: result.Driver.DriverID }
                 }).then(driverIdentityCard => {
                     if (driverIdentityCard) {
                         driverIdentityCard.destroy();
 
-                        tokenGenerator.generateDriverToken(driver.DriverID, token => {
-                            res.json({
-                                Message: "Identity card is deleted.",
-                                Token: token
-                            });
-                        });                       
+                        response.json({
+                            Message: "Identity card is deleted."
+                        });
                     }
                     else {
-                        res.json({
+                        response.json({
                             Message: "Identity card not found."
                         });
                     }
                 });
             }
-        });
-    } catch (error) {
-        return res.json({
-            Message: error
-        });
-    }
+            else {
+                response.json({
+                    Message: result.Message
+                });
+            }
+        } catch (error) {
+            response.json({
+                Message: error.message
+            });
+        }
+    })(request, response);
 });
 
 module.exports = router;
