@@ -63,6 +63,7 @@
     <Content Include="routes\drivers\trucks\getTruck.js" />
     <Content Include="routes\drivers\trucks\trailers\deleteTrailer.js" />
     <Content Include="routes\drivers\drivingLicences\deleteDrivingLicence.js" />
+    <Content Include="routes\drivers\trucks\trailers\getTrailers.js" />
     <Content Include="routes\traders\commercialRegisterCertificates\addCommercialRegisterCertificate.js" />
     <Content Include="routes\traders\commercialRegisterCertificates\deleteCommercialRegisterCertificate.js" />
     <Content Include="routes\traders\commercialRegisterCertificates\getCommercialRegisterCertificate.js" />

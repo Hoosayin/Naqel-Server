@@ -32,6 +32,7 @@ app.use("/drivers", require("./routes/drivers/trucks/getTruck"));
 app.use("/drivers", require("./routes/drivers/trucks/addTruck"));
 app.use("/drivers", require("./routes/drivers/trucks/updateTruck"));
 app.use("/drivers", require("./routes/drivers/trucks/updateTruckPhoto"));
+app.use("/drivers", require("./routes/drivers/trucks/trailers/getTrailers"));
 app.use("/drivers", require("./routes/drivers/trucks/trailers/addTrailer"));
 app.use("/drivers", require("./routes/drivers/trucks/trailers/deleteTrailer"));
 app.use("/drivers", require("./routes/drivers/trucks/trailers/updateTrailer"));
