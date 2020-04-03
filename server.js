@@ -52,6 +52,7 @@ app.use("/drivers", require("./routes/drivers/identityCards/getIdentityCard"));
 app.use("/drivers", require("./routes/drivers/identityCards/addIdentityCard"));
 app.use("/drivers", require("./routes/drivers/identityCards/deleteIdentityCard"));
 app.use("/drivers", require("./routes/drivers/identityCards/updateIdentityCard"));
+app.use("/drivers", require("./routes/drivers/jobRequests/getJobRequests"));
 app.use("/drivers", require("./routes/drivers/jobRequests/addJobRequest"));
 app.use("/drivers", require("./routes/drivers/jobRequests/deleteJobRequest"));
 app.use("/drivers", require("./routes/drivers/jobRequests/updateJobRequest"));

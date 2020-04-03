@@ -53,6 +53,7 @@
     <Content Include="routes\drivers\entryExitCards\getEntryExitCard.js" />
     <Content Include="routes\drivers\identityCards\getIdentityCard.js" />
     <Content Include="routes\drivers\jobRequests\addJobRequest.js" />
+    <Content Include="routes\drivers\jobRequests\getJobRequests.js" />
     <Content Include="routes\drivers\permitLicences\addPermitLicence.js" />
     <Content Include="routes\drivers\identityCards\addIdentityCard.js" />
     <Content Include="routes\drivers\entryExitCards\addEntryExitCard.js" />
