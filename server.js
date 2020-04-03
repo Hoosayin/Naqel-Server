@@ -55,6 +55,7 @@ app.use("/drivers", require("./routes/drivers/identityCards/updateIdentityCard")
 app.use("/drivers", require("./routes/drivers/jobRequests/addJobRequest"));
 app.use("/drivers", require("./routes/drivers/jobRequests/deleteJobRequest"));
 app.use("/drivers", require("./routes/drivers/jobRequests/updateJobRequest"));
+app.use("/drivers", require("./routes/drivers/permitLicences/getPermitLicences"));
 app.use("/drivers", require("./routes/drivers/permitLicences/addPermitLicence"));
 app.use("/drivers", require("./routes/drivers/permitLicences/deletePermitLicence"));
 app.use("/drivers", require("./routes/drivers/permitLicences/updatePermitLicence"));

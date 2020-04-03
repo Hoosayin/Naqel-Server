@@ -60,6 +60,7 @@
     <Content Include="routes\drivers\permitLicences\deletePermitLicence.js" />
     <Content Include="routes\drivers\identityCards\deleteIdentityCard.js" />
     <Content Include="routes\drivers\entryExitCards\deleteEntryExitCard.js" />
+    <Content Include="routes\drivers\permitLicences\getPermitLicences.js" />
     <Content Include="routes\drivers\profile\getDriver.js" />
     <Content Include="routes\drivers\profile\getProfilePhoto.js" />
     <Content Include="routes\drivers\profile\uploadDriverProfilePhoto.js" />
