@@ -12,7 +12,7 @@ router.get("/getPermitLicences", (request, response) => {
         try {
             if (result.Message === "Driver found.") {
                 DriverPermitLicences.findAll({
-                    where: { Driver: result.Driver.DriverID }
+                    where: { DriverID: result.Driver.DriverID }
                 }).then(driverPermitLicences => {
                     if (driverPermitLicences) {
                         for (driverPermitLicence in driverPermitLicences) {
