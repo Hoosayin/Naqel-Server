@@ -1,52 +1,43 @@
 const express = require("express");
 const cors = require("cors");
-const jwtDecode = require("jwt-decode");
-const Drivers = require("../../../models/drivers");
+const passport = require("../../../helpers/passportHelper");
 const JobRequests = require("../../../models/jobRequests");
-const tokenGenerator = require("../../../helpers/tokenGenerator");
 
 var router = express.Router();
 router.use(cors());
 
 // POST: addJobRequest
-router.post("/addJobRequest", (req, res) => {
-    try {
-        let driverToken = jwtDecode(req.body.Token);
-
-        Drivers.findOne({
-            where: { DriverID: driverToken.DriverID },
-        }).then(driver => {
-            if (!driver) {
-                res.json({
-                    Message: "Driver not found."
-                });
-            }
-            else {
+router.post("/addJobRequest", (request, response) => {
+    passport.authenticate("AuthenticateDriver", { session: false }, result => {
+        try {
+            if (result.Message === "Driver found.") {
                 let newJobRequest = {
-                    DriverID: driver.DriverID,
-                    LoadingPlace: req.body.LoadingPlace,
-                    UnloadingPlace: req.body.UnloadingPlace,
-                    TripType: req.body.TripType,
-                    Price: req.body.Price,
+                    DriverID: result.Driver.DriverID,
+                    LoadingPlace: request.body.LoadingPlace,
+                    UnloadingPlace: request.body.UnloadingPlace,
+                    TripType: request.body.TripType,
+                    Price: request.body.Price,
                     WaitingTime: 48,
                     TimeCreated: new Date()
                 };
 
                 JobRequests.create(newJobRequest).then(() => {
-                    tokenGenerator.generateDriverToken(driver.DriverID, token => {
-                        res.json({
-                            Message: "Job request is added.",
-                            Token: token
-                        });
+                    response.json({
+                        Message: "Job request is added."
                     });
                 });
             }
-        });
-    } catch (error) {
-        return res.json({
-            Message: error
-        });
-    }
+            else {
+                response.json({
+                    Message: result.Message
+                });
+            }
+        } catch (error) {
+            response.json({
+                Message: error.message
+            });
+        }
+    })(request, response);
 });
 
 module.exports = router;

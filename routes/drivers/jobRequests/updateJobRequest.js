@@ -1,61 +1,52 @@
 const express = require("express");
 const cors = require("cors");
-const jwtDecode = require("jwt-decode");
-const Drivers = require("../../../models/drivers");
+const passport = require("../../../helpers/passportHelper");
 const JobRequests = require("../../../models/jobRequests");
-const tokenGenerator = require("../../../helpers/tokenGenerator");
 
 var router = express.Router();
 router.use(cors());
 
 // POST: updateJobRequest
-router.post("/updateJobRequest", (req, res) => {
-    try {
-        let driverToken = jwtDecode(req.body.Token);
-
-        Drivers.findOne({
-            where: { DriverID: driverToken.DriverID },
-        }).then(driver => {
-            if (!driver) {
-                res.json({
-                    Message: "Driver not found."
-                });
-            }
-            else {
+router.post("/updateJobRequest", (request, response) => {
+    passport.authenticate("AuthenticateDriver", { session: false }, result => {
+        try {
+            if (result.Message === "Driver found.") {
                 JobRequests.findOne({
-                    where: { JobRequestID: req.body.JobRequestID }
+                    where: { JobRequestID: request.body.JobRequestID }
                 }).then(jobRequest => {
                     if (jobRequest) {
                         let updatedJobRequest = {
-                            LoadingPlace: req.body.LoadingPlace,
-                            UnloadingPlace: req.body.UnloadingPlace,
-                            TripType: req.body.TripType,
-                            Price: req.body.Price,
+                            LoadingPlace: request.body.LoadingPlace,
+                            UnloadingPlace: request.body.UnloadingPlace,
+                            TripType: request.body.TripType,
+                            Price: request.body.Price,
                         };
 
                         JobRequests.update(updatedJobRequest, { where: { JobRequestID: jobRequest.JobRequestID } }).then(() => {
-                            tokenGenerator.generateDriverToken(driver.DriverID, token => {
-                                res.json({
-                                    Message: "Job request is updated.",
-                                    Token: token
-                                });
+                            response.json({
+                                Message: "Job request is updated."
                             });
                         });
-                        
+
                     }
                     else {
-                        res.json({
+                        response.json({
                             Message: "Job request not found."
                         });
                     }
                 });
             }
-        });
-    } catch (error) {
-        return res.json({
-            Message: error
-        });
-    }
+            else {
+                response.json({
+                    Message: result.Message
+                });
+            }
+        } catch (error) {
+            response.json({
+                Message: error.message
+            });
+        }
+    })(request, response);
 });
 
 module.exports = router;
