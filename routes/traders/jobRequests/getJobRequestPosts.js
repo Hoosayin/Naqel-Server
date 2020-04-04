@@ -35,12 +35,14 @@ router.get("/getJobRequestPosts", (request, response) => {
                                     where: { TruckID: truck.TruckID }
                                 });
 
-                                jobRequestPosts[count++] = {
-                                    Driver: driver,
-                                    JobRequests: jobRequests,
-                                    Truck: truck,
-                                    Trailers: trailers
-                                };
+                                for (let jobRequest of jobRequests) {
+                                    jobRequestPosts[count++] = {
+                                        JobRequest: jobRequest,
+                                        Driver: driver,
+                                        Truck: truck,
+                                        Trailers: trailers
+                                    };
+                                }
 
                                 console.log("JOB REQUEST POST");
                                 console.log(jobRequestPosts);
@@ -51,6 +53,12 @@ router.get("/getJobRequestPosts", (request, response) => {
                     console.log("HEY HEY HEY!!");
 
                     if (jobRequestPosts.length > 0) {
+                        jobRequestPosts.sort((a, b) => {
+                            let dateA = new Date(a.JobRequest.TimeCreated);
+                            let dateB = new Date(b.JobRequest.TimeCreated);
+                            return dateB - dateA;
+                        });
+
                         response.json({
                             Message: "Job request posts found.",
                             JobRequestPosts: jobRequestPosts
