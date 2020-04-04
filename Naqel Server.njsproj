@@ -81,6 +81,7 @@
     <Content Include="routes\traders\jobOffers\addJobOffer.js" />
     <Content Include="routes\traders\jobOffers\deleteJobOffer.js" />
     <Content Include="routes\traders\jobOffers\getJobOffers.js" />
+    <Content Include="routes\traders\jobRequests\getJobRequestPosts.js" />
     <Content Include="routes\traders\profile\getProfilePhoto.js" />
     <Content Include="routes\traders\profile\getTrader.js" />
     <Content Include="routes\traders\serverSideValidators\validateEmail.js" />
@@ -139,6 +140,7 @@
     <Folder Include="routes\traders\commercialRegisterCertificates\" />
     <Folder Include="routes\traders\identityCards\" />
     <Folder Include="routes\traders\jobOffers\" />
+    <Folder Include="routes\traders\jobRequests\" />
     <Folder Include="routes\traders\profile\" />
     <Folder Include="routes\traders\serverSideValidators\" />
     <Folder Include="routes\users\" />
