@@ -52,6 +52,7 @@
     <Content Include="routes\drivers\drivingLicences\getDrivingLicence.js" />
     <Content Include="routes\drivers\entryExitCards\getEntryExitCard.js" />
     <Content Include="routes\drivers\identityCards\getIdentityCard.js" />
+    <Content Include="routes\drivers\jobOffers\getJobOfferPosts.js" />
     <Content Include="routes\drivers\jobRequests\addJobRequest.js" />
     <Content Include="routes\drivers\jobRequests\getJobRequests.js" />
     <Content Include="routes\drivers\permitLicences\addPermitLicence.js" />
@@ -130,6 +131,7 @@
     <Folder Include="routes\drivers\drivingLicences\" />
     <Folder Include="routes\drivers\jobRequests\" />
     <Folder Include="routes\drivers\login\" />
+    <Folder Include="routes\drivers\jobOffers\" />
     <Folder Include="routes\drivers\profile\" />
     <Folder Include="routes\drivers\register\" />
     <Folder Include="routes\drivers\serverSideValidators\" />

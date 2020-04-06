@@ -60,6 +60,7 @@ app.use("/drivers", require("./routes/drivers/permitLicences/getPermitLicences")
 app.use("/drivers", require("./routes/drivers/permitLicences/addPermitLicence"));
 app.use("/drivers", require("./routes/drivers/permitLicences/deletePermitLicence"));
 app.use("/drivers", require("./routes/drivers/permitLicences/updatePermitLicence"));
+app.use("/drivers", require("./routes/drivers/jobOffers/getJobOfferPosts"));
 
 // Traders' | Brokers' routes.
 app.use("/traders", require("./routes/traders/login/login"));

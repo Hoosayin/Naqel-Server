@@ -2,6 +2,10 @@ const express = require("express");
 const cors = require("cors");
 const passport = require("../../../helpers/passportHelper");
 const Drivers = require("../../../models/drivers");
+const DriverProfilePhotos = require("../../../models/driverProfilePhotos");
+const DriverEntryExitCards = require("../../../models/driverEntryExitCards");
+const DriverIdentityCards = require("../../../models/driverIdentityCards");
+const DrivingLicences = require("../../../models/drivingLicences");
 const Trucks = require("../../../models/trucks");
 const Trailers = require("../../../models/trailers");
 const JobRequests = require("../../../models/jobRequests");
@@ -9,7 +13,7 @@ const JobRequests = require("../../../models/jobRequests");
 var router = express.Router();
 router.use(cors());
 
-// GET: getJobOffers
+// GET: getJobRequestPosts
 router.get("/getJobRequestPosts", (request, response) => {
     passport.authenticate("AuthenticateTrader", { session: false }, async result => {
         try {
@@ -35,22 +39,37 @@ router.get("/getJobRequestPosts", (request, response) => {
                                     where: { TruckID: truck.TruckID }
                                 });
 
+                                const driverProfilePhoto = await DriverProfilePhotos.findOne({
+                                    where: { DriverID: driver.DriverID }
+                                });
+
+                                const identityCard = await DriverIdentityCards.findOne({
+                                    where: { DriverID: driver.DriverID }
+                                });
+
+                                const entryExitCard = await DriverEntryExitCards.findOne({
+                                    where: { DriverID: driver.DriverID }
+                                });
+
+                                const drivingLicence = await DrivingLicences.findOne({
+                                    where: { DriverID: driver.DriverID }
+                                });
+
                                 for (let jobRequest of jobRequests) {
                                     jobRequestPosts[count++] = {
                                         JobRequest: jobRequest,
                                         Driver: driver,
+                                        DriverProfilePhoto: driverProfilePhoto ? driverProfilePhoto.PhotoURL : null,
+                                        IdentityCard: identityCard,
+                                        EntryExitCard: entryExitCard,
+                                        DrivingLicence: drivingLicence,
                                         Truck: truck,
                                         Trailers: trailers
                                     };
                                 }
-
-                                console.log("JOB REQUEST POST");
-                                console.log(jobRequestPosts);
                             }
                         }
                     }
-
-                    console.log("HEY HEY HEY!!");
 
                     if (jobRequestPosts.length > 0) {
                         jobRequestPosts.sort((a, b) => {
