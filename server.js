@@ -52,7 +52,7 @@ app.use("/drivers", require("./routes/drivers/identityCards/getIdentityCard"));
 app.use("/drivers", require("./routes/drivers/identityCards/addIdentityCard"));
 app.use("/drivers", require("./routes/drivers/identityCards/deleteIdentityCard"));
 app.use("/drivers", require("./routes/drivers/identityCards/updateIdentityCard"));
-app.use("/drivers", require("./routes/drivers/jobRequests/getJobRequests"));
+app.use("/drivers", require("./routes/drivers/jobRequests/getJobRequestPackages"));
 app.use("/drivers", require("./routes/drivers/jobRequests/addJobRequest"));
 app.use("/drivers", require("./routes/drivers/jobRequests/deleteJobRequest"));
 app.use("/drivers", require("./routes/drivers/jobRequests/updateJobRequest"));
@@ -61,6 +61,7 @@ app.use("/drivers", require("./routes/drivers/permitLicences/addPermitLicence"))
 app.use("/drivers", require("./routes/drivers/permitLicences/deletePermitLicence"));
 app.use("/drivers", require("./routes/drivers/permitLicences/updatePermitLicence"));
 app.use("/drivers", require("./routes/drivers/jobOffers/getJobOfferPosts"));
+app.use("/drivers", require("./routes/drivers/jobOffers/addDriverRequest"));
 
 // Traders' | Brokers' routes.
 app.use("/traders", require("./routes/traders/login/login"));
@@ -83,10 +84,12 @@ app.use("/traders", require("./routes/traders/commercialRegisterCertificates/del
 app.use("/traders", require("./routes/traders/commercialRegisterCertificates/getCommercialRegisterCertificate"));
 app.use("/traders", require("./routes/traders/commercialRegisterCertificates/updateCommercialRegisterCertificate"));
 app.use("/traders", require("./routes/traders/jobOffers/addJobOffer"));
-app.use("/traders", require("./routes/traders/jobOffers/getJobOffers"));
+app.use("/traders", require("./routes/traders/jobOffers/getJobOfferPackages"));
 app.use("/traders", require("./routes/traders/jobOffers/deleteJobOffer"));
 app.use("/traders", require("./routes/traders/jobOffers/updateJobOffer"));
 app.use("/traders", require("./routes/traders/jobRequests/getJobRequestPosts"));
+app.use("/traders", require("./routes/traders/jobRequests/addTraderRequest"));
+
 
 app.get("/", (request, response) => {
     response.send("Naqel Server - Up and Running!");

@@ -35,6 +35,8 @@
     <Content Include="helpers\passportHelper.js" />
     <Content Include="helpers\emailHelper.js" />
     <Content Include="helpers\tokenGenerator.js" />
+    <Content Include="models\driverRequests.js" />
+    <Content Include="models\traderRequests.js" />
     <Content Include="models\jobOffers.js" />
     <Content Include="models\traderCommercialRegisterCertificates.js" />
     <Content Include="models\traderIdentityCards.js" />
@@ -52,9 +54,10 @@
     <Content Include="routes\drivers\drivingLicences\getDrivingLicence.js" />
     <Content Include="routes\drivers\entryExitCards\getEntryExitCard.js" />
     <Content Include="routes\drivers\identityCards\getIdentityCard.js" />
+    <Content Include="routes\drivers\jobOffers\addDriverRequest.js" />
     <Content Include="routes\drivers\jobOffers\getJobOfferPosts.js" />
     <Content Include="routes\drivers\jobRequests\addJobRequest.js" />
-    <Content Include="routes\drivers\jobRequests\getJobRequests.js" />
+    <Content Include="routes\drivers\jobRequests\getJobRequestPackages.js" />
     <Content Include="routes\drivers\permitLicences\addPermitLicence.js" />
     <Content Include="routes\drivers\identityCards\addIdentityCard.js" />
     <Content Include="routes\drivers\entryExitCards\addEntryExitCard.js" />
@@ -78,10 +81,12 @@
     <Content Include="routes\traders\identityCards\deleteIdentityCard.js" />
     <Content Include="routes\traders\identityCards\getIdentityCard.js" />
     <Content Include="routes\traders\identityCards\updateIdentityCard.js" />
+    <Content Include="routes\traders\jobOffers\getJobOfferPackages.js" />
     <Content Include="routes\traders\jobOffers\updateJobOffer.js" />
     <Content Include="routes\traders\jobOffers\addJobOffer.js" />
     <Content Include="routes\traders\jobOffers\deleteJobOffer.js" />
     <Content Include="routes\traders\jobOffers\getJobOffers.js" />
+    <Content Include="routes\traders\jobRequests\addTraderRequest.js" />
     <Content Include="routes\traders\jobRequests\getJobRequestPosts.js" />
     <Content Include="routes\traders\profile\getProfilePhoto.js" />
     <Content Include="routes\traders\profile\getTrader.js" />

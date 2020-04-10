@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const { Op } = require("sequelize");
 const passport = require("../../../helpers/passportHelper");
 const Drivers = require("../../../models/drivers");
 const DriverProfilePhotos = require("../../../models/driverProfilePhotos");
@@ -9,6 +10,7 @@ const DrivingLicences = require("../../../models/drivingLicences");
 const Trucks = require("../../../models/trucks");
 const Trailers = require("../../../models/trailers");
 const JobRequests = require("../../../models/jobRequests");
+const TraderRequests = require("../../../models/traderRequests");
 
 var router = express.Router();
 router.use(cors());
@@ -56,6 +58,15 @@ router.get("/getJobRequestPosts", (request, response) => {
                                 });
 
                                 for (let jobRequest of jobRequests) {
+                                    const traderRequest = await TraderRequests.findOne({
+                                        where: {
+                                            [Op.and]: [
+                                                { JobRequestID: jobRequest.JobRequestID },
+                                                { TraderID: result.Trader.TraderID }
+                                            ]
+                                        }
+                                    });
+
                                     jobRequestPosts[count++] = {
                                         JobRequest: jobRequest,
                                         Driver: driver,
@@ -64,7 +75,8 @@ router.get("/getJobRequestPosts", (request, response) => {
                                         EntryExitCard: entryExitCard,
                                         DrivingLicence: drivingLicence,
                                         Truck: truck,
-                                        Trailers: trailers
+                                        Trailers: trailers,
+                                        RequestSent: traderRequest ? true : false
                                     };
                                 }
                             }

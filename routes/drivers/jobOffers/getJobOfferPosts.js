@@ -1,11 +1,13 @@
 const express = require("express");
 const cors = require("cors");
+const { Op } = require("sequelize");
 const passport = require("../../../helpers/passportHelper");
 const Traders = require("../../../models/traders");
 const TraderProfilePhotos = require("../../../models/traderProfilePhotos");
 const TraderCommercialRegisterCertificates = require("../../../models/traderCommercialRegisterCertificates");
 const TraderIdentityCards = require("../../../models/traderIdentityCards");
 const JobOffers = require("../../../models/jobOffers");
+const DriverRequests = require("../../../models/driverRequests");
 
 var router = express.Router();
 router.use(cors());
@@ -40,12 +42,22 @@ router.get("/getJobOfferPosts", (request, response) => {
                             });
 
                             for (let jobOffer of jobOffers) {
+                                const driverRequest = await DriverRequests.findOne({
+                                    where: {
+                                        [Op.and]: [
+                                            { JobOfferID: jobOffer.JobOfferID },
+                                            { DriverID: result.Driver.DriverID }
+                                        ]
+                                    }
+                                });
+
                                 jobOfferPosts[count++] = {
                                     JobOffer: jobOffer,
                                     Trader: trader,
-                                    ProfilePhoto: traderProfilePhoto,
+                                    ProfilePhoto: traderProfilePhoto ? traderProfilePhoto.PhotoURL : null,
                                     IdentityCard: traderIdentityCard,
-                                    CommercialRegisterCertificate: traderCommercialRegisterCertificate
+                                    CommercialRegisterCertificate: traderCommercialRegisterCertificate,
+                                    RequestSent: driverRequest ? true : false
                                 };
                             }
                         }
