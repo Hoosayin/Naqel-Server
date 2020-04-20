@@ -35,7 +35,10 @@
     <Content Include="helpers\passportHelper.js" />
     <Content Include="helpers\emailHelper.js" />
     <Content Include="helpers\tokenGenerator.js" />
+    <Content Include="models\driverObjectionReasons.js" />
     <Content Include="models\driverRequests.js" />
+    <Content Include="models\jobObjections.js" />
+    <Content Include="models\onGoingJobs.js" />
     <Content Include="models\traderRequests.js" />
     <Content Include="models\jobOffers.js" />
     <Content Include="models\traderCommercialRegisterCertificates.js" />
@@ -54,10 +57,17 @@
     <Content Include="routes\drivers\drivingLicences\getDrivingLicence.js" />
     <Content Include="routes\drivers\entryExitCards\getEntryExitCard.js" />
     <Content Include="routes\drivers\identityCards\getIdentityCard.js" />
+    <Content Include="routes\drivers\jobOffers\deleteDriverRequest.js" />
     <Content Include="routes\drivers\jobOffers\addDriverRequest.js" />
     <Content Include="routes\drivers\jobOffers\getJobOfferPosts.js" />
     <Content Include="routes\drivers\jobRequests\addJobRequest.js" />
     <Content Include="routes\drivers\jobRequests\getJobRequestPackages.js" />
+    <Content Include="routes\drivers\objectionReasons\addObjectionReason.js" />
+    <Content Include="routes\drivers\objectionReasons\getObjectionReasons.js" />
+    <Content Include="routes\drivers\onGoingJobs\addJobObjection.js" />
+    <Content Include="routes\drivers\onGoingJobs\addOnGonigJob.js" />
+    <Content Include="routes\drivers\onGoingJobs\getJobObjectionPackages.js" />
+    <Content Include="routes\drivers\onGoingJobs\getOnGoingJobPackage.js" />
     <Content Include="routes\drivers\permitLicences\addPermitLicence.js" />
     <Content Include="routes\drivers\identityCards\addIdentityCard.js" />
     <Content Include="routes\drivers\entryExitCards\addEntryExitCard.js" />
@@ -66,6 +76,8 @@
     <Content Include="routes\drivers\identityCards\deleteIdentityCard.js" />
     <Content Include="routes\drivers\entryExitCards\deleteEntryExitCard.js" />
     <Content Include="routes\drivers\permitLicences\getPermitLicences.js" />
+    <Content Include="routes\traders\driverProfile\getDriverDocuments.js" />
+    <Content Include="routes\traders\driverProfile\getDriverProfile.js" />
     <Content Include="routes\drivers\profile\getDriver.js" />
     <Content Include="routes\drivers\profile\getProfilePhoto.js" />
     <Content Include="routes\drivers\profile\uploadDriverProfilePhoto.js" />
@@ -86,8 +98,10 @@
     <Content Include="routes\traders\jobOffers\addJobOffer.js" />
     <Content Include="routes\traders\jobOffers\deleteJobOffer.js" />
     <Content Include="routes\traders\jobOffers\getJobOffers.js" />
+    <Content Include="routes\traders\jobRequests\deleteTraderRequest.js" />
     <Content Include="routes\traders\jobRequests\addTraderRequest.js" />
     <Content Include="routes\traders\jobRequests\getJobRequestPosts.js" />
+    <Content Include="routes\traders\onGoingJobs\getOnGoingJob.js" />
     <Content Include="routes\traders\profile\getProfilePhoto.js" />
     <Content Include="routes\traders\profile\getTrader.js" />
     <Content Include="routes\traders\serverSideValidators\validateEmail.js" />
@@ -137,6 +151,8 @@
     <Folder Include="routes\drivers\jobRequests\" />
     <Folder Include="routes\drivers\login\" />
     <Folder Include="routes\drivers\jobOffers\" />
+    <Folder Include="routes\drivers\objectionReasons\" />
+    <Folder Include="routes\drivers\onGoingJobs\" />
     <Folder Include="routes\drivers\profile\" />
     <Folder Include="routes\drivers\register\" />
     <Folder Include="routes\drivers\serverSideValidators\" />
@@ -148,6 +164,8 @@
     <Folder Include="routes\traders\identityCards\" />
     <Folder Include="routes\traders\jobOffers\" />
     <Folder Include="routes\traders\jobRequests\" />
+    <Folder Include="routes\traders\driverProfile\" />
+    <Folder Include="routes\traders\onGoingJobs\" />
     <Folder Include="routes\traders\profile\" />
     <Folder Include="routes\traders\serverSideValidators\" />
     <Folder Include="routes\users\" />

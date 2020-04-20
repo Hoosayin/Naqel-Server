@@ -5,6 +5,7 @@ const Traders = require("../../../models/traders");
 const TraderProfilePhotos = require("../../../models/traderProfilePhotos");
 const JobRequests = require("../../../models/jobRequests");
 const TraderRequests = require("../../../models/traderRequests");
+const OnGoingJobs = require("../../../models/onGoingJobs");
 
 var router = express.Router();
 router.use(cors());
@@ -14,6 +15,12 @@ router.get("/getJobRequestPackages", (request, response) => {
     passport.authenticate("AuthenticateDriver", { session: false }, async result => {
         try {
             if (result.Message === "Driver found.") {
+                const onGoingJob = await OnGoingJobs.findOne({
+                    where: { DriverID: result.Driver.DriverID }
+                });
+
+                const driverOnJob = onGoingJob ? true : false;
+
                 const jobRequests = await JobRequests.findAll({
                     where: { DriverID: result.Driver.DriverID }
                 });
@@ -60,6 +67,7 @@ router.get("/getJobRequestPackages", (request, response) => {
 
                         jobRequestPackages[count++] = {
                             JobRequest: jobRequest,
+                            DriverOnJob: driverOnJob,
                             TraderRequestPackages: traderRequestPackages
                         };
                     }

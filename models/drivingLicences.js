@@ -44,7 +44,7 @@ module.exports = databaseHelper.sequelize.define(
         {
             type: databaseHelper.Sequelize.TEXT,
             allowNull: false
-        },
+        },    
         Created:
         {
             type: databaseHelper.Sequelize.DATEONLY,

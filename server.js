@@ -62,6 +62,13 @@ app.use("/drivers", require("./routes/drivers/permitLicences/deletePermitLicence
 app.use("/drivers", require("./routes/drivers/permitLicences/updatePermitLicence"));
 app.use("/drivers", require("./routes/drivers/jobOffers/getJobOfferPosts"));
 app.use("/drivers", require("./routes/drivers/jobOffers/addDriverRequest"));
+app.use("/drivers", require("./routes/drivers/jobOffers/deleteDriverRequest"));
+app.use("/drivers", require("./routes/drivers/onGoingJobs/addOnGonigJob"));
+app.use("/drivers", require("./routes/drivers/onGoingJobs/getOnGoingJobPackage"));
+app.use("/drivers", require("./routes/drivers/onGoingJobs/addJobObjection"));
+app.use("/drivers", require("./routes/drivers/onGoingJobs/getJobObjectionPackages"));
+app.use("/drivers", require("./routes/drivers/objectionReasons/addObjectionReason"));
+app.use("/drivers", require("./routes/drivers/objectionReasons/getObjectionReasons"));
 
 // Traders' | Brokers' routes.
 app.use("/traders", require("./routes/traders/login/login"));
@@ -89,7 +96,10 @@ app.use("/traders", require("./routes/traders/jobOffers/deleteJobOffer"));
 app.use("/traders", require("./routes/traders/jobOffers/updateJobOffer"));
 app.use("/traders", require("./routes/traders/jobRequests/getJobRequestPosts"));
 app.use("/traders", require("./routes/traders/jobRequests/addTraderRequest"));
-
+app.use("/traders", require("./routes/traders/jobRequests/deleteTraderRequest"));
+app.use("/traders", require("./routes/traders/onGoingJobs/getOnGoingJob"));
+app.use("/traders", require("./routes/traders/driverProfile/getDriverProfile"));
+app.use("/traders", require("./routes/traders/driverProfile/getDriverDocuments"));
 
 app.get("/", (request, response) => {
     response.send("Naqel Server - Up and Running!");
