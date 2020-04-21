@@ -1,3 +1,4 @@
+/// <reference path=".js" />
 const express = require("express");
 const cors = require("cors");
 const passport = require("../../../helpers/passportHelper");
@@ -9,11 +10,11 @@ router.use(cors());
 
 // GET: getOnGoingJob
 router.get("/getOnGoingJob", (request, response) => {
-    passport.authenticate("AuthenticateTrader", { session: false }, result => {
+    passport.authenticate("AuthenticateDriver", { session: false }, result => {
         try {
-            if (result.Message === "Trader found.") {
+            if (result.Message === "Driver found.") {
                 OnGoingJobs.findOne({
-                    where: { TraderID: result.Trader.TraderID }
+                    where: { DriverID: result.Driver.DriverID }
                 }).then(async onGoingJob => {
                     const jobObjection = await JobObjections.findOne({
                         where: { OnGoingJobID: onGoingJob.OnGoingJobID }

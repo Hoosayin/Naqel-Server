@@ -64,11 +64,13 @@ app.use("/drivers", require("./routes/drivers/jobOffers/getJobOfferPosts"));
 app.use("/drivers", require("./routes/drivers/jobOffers/addDriverRequest"));
 app.use("/drivers", require("./routes/drivers/jobOffers/deleteDriverRequest"));
 app.use("/drivers", require("./routes/drivers/onGoingJobs/addOnGonigJob"));
-app.use("/drivers", require("./routes/drivers/onGoingJobs/getOnGoingJobPackage"));
+app.use("/drivers", require("./routes/drivers/onGoingJobs/getOnGoingJob"));
 app.use("/drivers", require("./routes/drivers/onGoingJobs/addJobObjection"));
 app.use("/drivers", require("./routes/drivers/onGoingJobs/getJobObjectionPackages"));
 app.use("/drivers", require("./routes/drivers/objectionReasons/addObjectionReason"));
 app.use("/drivers", require("./routes/drivers/objectionReasons/getObjectionReasons"));
+app.use("/drivers", require("./routes/drivers/traderProfile/getTraderProfile"));
+app.use("/drivers", require("./routes/drivers/traderProfile/getTraderDocuments"));
 
 // Traders' | Brokers' routes.
 app.use("/traders", require("./routes/traders/login/login"));
@@ -98,8 +100,13 @@ app.use("/traders", require("./routes/traders/jobRequests/getJobRequestPosts"));
 app.use("/traders", require("./routes/traders/jobRequests/addTraderRequest"));
 app.use("/traders", require("./routes/traders/jobRequests/deleteTraderRequest"));
 app.use("/traders", require("./routes/traders/onGoingJobs/getOnGoingJob"));
+app.use("/traders", require("./routes/traders/onGoingJobs/getJobObjectionPackages"));
+app.use("/traders", require("./routes/traders/onGoingJobs/addJobObjection"));
 app.use("/traders", require("./routes/traders/driverProfile/getDriverProfile"));
 app.use("/traders", require("./routes/traders/driverProfile/getDriverDocuments"));
+app.use("/traders", require("./routes/traders/driverTruck/getTruckProfile"));
+app.use("/traders", require("./routes/traders/objectionReasons/addObjectionReason"));
+app.use("/traders", require("./routes/traders/objectionReasons/getObjectionReasons"));
 
 app.get("/", (request, response) => {
     response.send("Naqel Server - Up and Running!");

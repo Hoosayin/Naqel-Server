@@ -7,23 +7,29 @@ const JobObjections = require("../../../models/jobObjections");
 var router = express.Router();
 router.use(cors());
 
-// GET: getOnGoingJob
-router.get("/getOnGoingJob", (request, response) => {
+// POST: addJobObjection
+router.post("/addJobObjection", (request, response) => {
     passport.authenticate("AuthenticateTrader", { session: false }, result => {
         try {
             if (result.Message === "Trader found.") {
                 OnGoingJobs.findOne({
-                    where: { TraderID: result.Trader.TraderID }
-                }).then(async onGoingJob => {
-                    const jobObjection = await JobObjections.findOne({
-                        where: { OnGoingJobID: onGoingJob.OnGoingJobID }
-                    });
-
+                    where: { OnGoingJobID: request.body.OnGoingJobID }
+                }).then(onGoingJob => {
                     if (onGoingJob) {
-                        response.json({
-                            Message: "On-going job found.",
-                            OnGoingJob: onGoingJob,
-                            HasObjections: jobObjection ? true : false
+                        let newJobObjection = {
+                            OnGoingJobID: onGoingJob.OnGoingJobID,
+                            DriverID: null,
+                            TraderID: result.Trader.TraderID,
+                            Reason: request.body.Reason,
+                            Comment: request.body.Comment,
+                            ObjectionBy: "Trader",
+                            Created: new Date()
+                        };
+
+                        JobObjections.create(newJobObjection).then(objectionReason => {
+                            response.json({
+                                Message: "Job objection is added."
+                            });
                         });
                     }
                     else {

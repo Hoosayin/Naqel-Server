@@ -100,6 +100,16 @@ module.exports = databaseHelper.sequelize.define(
             type: databaseHelper.Sequelize.FLOAT,
             allowNull: false
         },
+        CompletedByDriver:
+        {
+            type: databaseHelper.Sequelize.INTEGER(1),
+            allowNull: false
+        },
+        CompletedByTrader:
+        {
+            type: databaseHelper.Sequelize.INTEGER(1),
+            allowNull: false
+        },
         Created:
         {
             type: databaseHelper.Sequelize.DATE,

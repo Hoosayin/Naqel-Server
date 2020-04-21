@@ -53,6 +53,8 @@ router.post("/addOnGoingJob", (request, response) => {
                                             EntryExit: traderRequest.EntryExit,
                                             AcceptedDelay: traderRequest.AcceptedDelay,
                                             Price: jobRequest.Price,
+                                            CompletedByDriver: false,
+                                            CompletedByTrader: false,
                                             Created: new Date()
                                         };
 

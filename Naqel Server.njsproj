@@ -35,6 +35,7 @@
     <Content Include="helpers\passportHelper.js" />
     <Content Include="helpers\emailHelper.js" />
     <Content Include="helpers\tokenGenerator.js" />
+    <Content Include="models\traderObjectionReasons.js" />
     <Content Include="models\driverObjectionReasons.js" />
     <Content Include="models\driverRequests.js" />
     <Content Include="models\jobObjections.js" />
@@ -54,6 +55,9 @@
     <Content Include="models\traders.js" />
     <Content Include="models\trailers.js" />
     <Content Include="models\trucks.js" />
+    <Content Include="routes\drivers\onGoingJobs\getOnGoingJob.js" />
+    <Content Include="routes\drivers\traderProfile\getTraderDocuments.js" />
+    <Content Include="routes\drivers\traderProfile\getTraderProfile.js" />
     <Content Include="routes\drivers\drivingLicences\getDrivingLicence.js" />
     <Content Include="routes\drivers\entryExitCards\getEntryExitCard.js" />
     <Content Include="routes\drivers\identityCards\getIdentityCard.js" />
@@ -67,7 +71,6 @@
     <Content Include="routes\drivers\onGoingJobs\addJobObjection.js" />
     <Content Include="routes\drivers\onGoingJobs\addOnGonigJob.js" />
     <Content Include="routes\drivers\onGoingJobs\getJobObjectionPackages.js" />
-    <Content Include="routes\drivers\onGoingJobs\getOnGoingJobPackage.js" />
     <Content Include="routes\drivers\permitLicences\addPermitLicence.js" />
     <Content Include="routes\drivers\identityCards\addIdentityCard.js" />
     <Content Include="routes\drivers\entryExitCards\addEntryExitCard.js" />
@@ -89,6 +92,7 @@
     <Content Include="routes\traders\commercialRegisterCertificates\deleteCommercialRegisterCertificate.js" />
     <Content Include="routes\traders\commercialRegisterCertificates\getCommercialRegisterCertificate.js" />
     <Content Include="routes\traders\commercialRegisterCertificates\updateCommercialRegisterCertificate.js" />
+    <Content Include="routes\traders\driverTruck\getTruckProfile.js" />
     <Content Include="routes\traders\identityCards\addIdentityCard.js" />
     <Content Include="routes\traders\identityCards\deleteIdentityCard.js" />
     <Content Include="routes\traders\identityCards\getIdentityCard.js" />
@@ -101,6 +105,10 @@
     <Content Include="routes\traders\jobRequests\deleteTraderRequest.js" />
     <Content Include="routes\traders\jobRequests\addTraderRequest.js" />
     <Content Include="routes\traders\jobRequests\getJobRequestPosts.js" />
+    <Content Include="routes\traders\objectionReasons\addObjectionReason.js" />
+    <Content Include="routes\traders\objectionReasons\getObjectionReasons.js" />
+    <Content Include="routes\traders\onGoingJobs\addJobObjection.js" />
+    <Content Include="routes\traders\onGoingJobs\getJobObjectionPackages.js" />
     <Content Include="routes\traders\onGoingJobs\getOnGoingJob.js" />
     <Content Include="routes\traders\profile\getProfilePhoto.js" />
     <Content Include="routes\traders\profile\getTrader.js" />
@@ -145,6 +153,7 @@
     <Folder Include="models\" />
     <Folder Include="routes\" />
     <Folder Include="routes\drivers\" />
+    <Folder Include="routes\drivers\traderProfile\" />
     <Folder Include="routes\drivers\identityCards\" />
     <Folder Include="routes\drivers\entryExitCards\" />
     <Folder Include="routes\drivers\drivingLicences\" />
@@ -165,6 +174,8 @@
     <Folder Include="routes\traders\jobOffers\" />
     <Folder Include="routes\traders\jobRequests\" />
     <Folder Include="routes\traders\driverProfile\" />
+    <Folder Include="routes\traders\driverTruck\" />
+    <Folder Include="routes\traders\objectionReasons\" />
     <Folder Include="routes\traders\onGoingJobs\" />
     <Folder Include="routes\traders\profile\" />
     <Folder Include="routes\traders\serverSideValidators\" />

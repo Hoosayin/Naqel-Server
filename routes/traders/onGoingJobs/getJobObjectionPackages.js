@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const passport = require("../../../helpers/passportHelper");
-const Traders = require("../../../models/traders");
+const Drivers = require("../../../models/drivers");
 const JobObjections = require("../../../models/jobObjections");
 const OnGoingJobs = require("../../../models/onGoingJobs");
 
@@ -10,9 +10,9 @@ router.use(cors());
 
 // GET: getOnGoingJobPackages
 router.get("/getJobObjectionPackages", (request, response) => {
-    passport.authenticate("AuthenticateDriver", { session: false }, async result => {
+    passport.authenticate("AuthenticateTrader", { session: false }, async result => {
         try {
-            if (result.Message === "Driver found.") {
+            if (result.Message === "Trader found.") {
                 OnGoingJobs.findOne({
                     where: { OnGoingJobID: request.query.OnGoingJobID }
                 }).then(async onGoingJob => {
@@ -30,17 +30,17 @@ router.get("/getJobObjectionPackages", (request, response) => {
                                 let lastName;
 
                                 if (jobObjection.ObjectionBy === "Driver") {
-                                    firstName = result.Driver.FirstName;
-                                    lastName = result.Driver.LastName;
-                                }
-                                else if (jobObjection.ObjectionBy === "Trader") {
-                                    const trader = await Traders.findOne({
+                                    const driver = await Drivers.findOne({
                                         attributes: ["FirstName", "LastName"],
-                                        where: { TraderID: jobObjection.TraderID }
+                                        where: { DriverID: jobObjection.DriverID }
                                     });
 
-                                    firstName = trader.FirstName;
-                                    lastName = trader.LastName;
+                                    firstName = driver.FirstName;
+                                    lastName = driver.LastName;
+                                }
+                                else if (jobObjection.ObjectionBy === "Trader") {
+                                    firstName = result.Trader.FirstName;
+                                    lastName = result.Trader.LastName;
                                 }
                                 else {
                                     firstName = "";
