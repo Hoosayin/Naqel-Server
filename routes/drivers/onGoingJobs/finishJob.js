@@ -1,4 +1,3 @@
-/// <reference path=".js" />
 const express = require("express");
 const cors = require("cors");
 const passport = require("../../../helpers/passportHelper");
@@ -8,23 +7,34 @@ const JobObjections = require("../../../models/jobObjections");
 var router = express.Router();
 router.use(cors());
 
-// GET: getOnGoingJob
-router.get("/getOnGoingJob", (request, response) => {
+// POST: finishJob
+router.post("/finishJob", (request, response) => {
     passport.authenticate("AuthenticateDriver", { session: false }, result => {
         try {
             if (result.Message === "Driver found.") {
                 OnGoingJobs.findOne({
                     where: { DriverID: result.Driver.DriverID }
-                }).then(async onGoingJob => {
+                }).then(onGoingJob => {
                     if (onGoingJob) {
-                        const jobObjection = await JobObjections.findOne({
+                        JobObjections.findOne({
                             where: { OnGoingJobID: onGoingJob.OnGoingJobID }
-                        });
+                        }).then(jobObjection => {
+                            if (jobObjection) {
+                                response.json({
+                                    Message: "On-going job has objections."
+                                });
+                            }
+                            else {
+                                let updatedOnGoingJob = {
+                                    CompletedByDriver: true
+                                };
 
-                        response.json({
-                            Message: "On-going job found.",
-                            OnGoingJob: onGoingJob,
-                            HasObjections: jobObjection ? true : false
+                                OnGoingJobs.update(updatedOnGoingJob, { where: { OnGoingJobID: onGoingJob.OnGoingJobID } }).then(() => {
+                                    response.json({
+                                        Message: "Job is finished."
+                                    });
+                                });
+                            }
                         });
                     }
                     else {

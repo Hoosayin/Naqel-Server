@@ -21,92 +21,127 @@ app.use("/users", require("./routes/users/sendCode"));
 
 // Drivers' routes.
 app.use("/drivers", require("./routes/drivers/login/login"));
+
 app.use("/drivers", require("./routes/drivers/register/register"));
+
 app.use("/drivers", require("./routes/drivers/profile/getDriver"));
 app.use("/drivers", require("./routes/drivers/profile/getProfilePhoto"));
 app.use("/drivers", require("./routes/drivers/profile/uploadDriverProfilePhoto"));
+
 app.use("/drivers", require("./routes/drivers/settings/generalSettings"));
 app.use("/drivers", require("./routes/drivers/settings/usernameAndEmailSettings"));
 app.use("/drivers", require("./routes/drivers/settings/passwordSettings"));
+
 app.use("/drivers", require("./routes/drivers/trucks/getTruck"));
 app.use("/drivers", require("./routes/drivers/trucks/addTruck"));
 app.use("/drivers", require("./routes/drivers/trucks/updateTruck"));
 app.use("/drivers", require("./routes/drivers/trucks/updateTruckPhoto"));
+
 app.use("/drivers", require("./routes/drivers/trucks/trailers/getTrailers"));
 app.use("/drivers", require("./routes/drivers/trucks/trailers/addTrailer"));
 app.use("/drivers", require("./routes/drivers/trucks/trailers/deleteTrailer"));
 app.use("/drivers", require("./routes/drivers/trucks/trailers/updateTrailer"));
 app.use("/drivers", require("./routes/drivers/trucks/trailers/findAllTrailers"));
+
 app.use("/drivers", require("./routes/drivers/serverSideValidators/validateEmail"));
 app.use("/drivers", require("./routes/drivers/serverSideValidators/validatePassword"));
 app.use("/drivers", require("./routes/drivers/serverSideValidators/validateUsername"));
+
 app.use("/drivers", require("./routes/drivers/drivingLicences/getDrivingLicence"));
 app.use("/drivers", require("./routes/drivers/drivingLicences/addDrivingLicence"));
 app.use("/drivers", require("./routes/drivers/drivingLicences/deleteDrivingLicence"));
 app.use("/drivers", require("./routes/drivers/drivingLicences/updateDrivingLicence"));
+
 app.use("/drivers", require("./routes/drivers/entryExitCards/getEntryExitCard"));
 app.use("/drivers", require("./routes/drivers/entryExitCards/addEntryExitCard"));
 app.use("/drivers", require("./routes/drivers/entryExitCards/deleteEntryExitCard"));
 app.use("/drivers", require("./routes/drivers/entryExitCards/updateEntryExitCard"));
+
 app.use("/drivers", require("./routes/drivers/identityCards/getIdentityCard"));
 app.use("/drivers", require("./routes/drivers/identityCards/addIdentityCard"));
 app.use("/drivers", require("./routes/drivers/identityCards/deleteIdentityCard"));
 app.use("/drivers", require("./routes/drivers/identityCards/updateIdentityCard"));
+
 app.use("/drivers", require("./routes/drivers/jobRequests/getJobRequestPackages"));
 app.use("/drivers", require("./routes/drivers/jobRequests/addJobRequest"));
 app.use("/drivers", require("./routes/drivers/jobRequests/deleteJobRequest"));
 app.use("/drivers", require("./routes/drivers/jobRequests/updateJobRequest"));
+
 app.use("/drivers", require("./routes/drivers/permitLicences/getPermitLicences"));
 app.use("/drivers", require("./routes/drivers/permitLicences/addPermitLicence"));
 app.use("/drivers", require("./routes/drivers/permitLicences/deletePermitLicence"));
 app.use("/drivers", require("./routes/drivers/permitLicences/updatePermitLicence"));
+
 app.use("/drivers", require("./routes/drivers/jobOffers/getJobOfferPosts"));
 app.use("/drivers", require("./routes/drivers/jobOffers/addDriverRequest"));
 app.use("/drivers", require("./routes/drivers/jobOffers/deleteDriverRequest"));
+
 app.use("/drivers", require("./routes/drivers/onGoingJobs/addOnGonigJob"));
 app.use("/drivers", require("./routes/drivers/onGoingJobs/getOnGoingJob"));
 app.use("/drivers", require("./routes/drivers/onGoingJobs/addJobObjection"));
+app.use("/drivers", require("./routes/drivers/onGoingJobs/finishJob"));
 app.use("/drivers", require("./routes/drivers/onGoingJobs/getJobObjectionPackages"));
+
 app.use("/drivers", require("./routes/drivers/objectionReasons/addObjectionReason"));
 app.use("/drivers", require("./routes/drivers/objectionReasons/getObjectionReasons"));
+
 app.use("/drivers", require("./routes/drivers/traderProfile/getTraderProfile"));
 app.use("/drivers", require("./routes/drivers/traderProfile/getTraderDocuments"));
 
+app.use("/drivers", require("./routes/drivers/completedJobs/getCompletedJobPackages"));
+
+
 // Traders' | Brokers' routes.
 app.use("/traders", require("./routes/traders/login/login"));
+
 app.use("/traders", require("./routes/traders/register/register"));
+
 app.use("/traders", require("./routes/traders/profile/getTrader"));
 app.use("/traders", require("./routes/traders/profile/getProfilePhoto"));
 app.use("/traders", require("./routes/traders/profile/uploadTraderProfilePhoto"));
+
 app.use("/traders", require("./routes/traders/settings/generalSettings"));
 app.use("/traders", require("./routes/traders/settings/passwordSettings"));
 app.use("/traders", require("./routes/traders/settings/usernameAndEmailSettings"));
+
 app.use("/traders", require("./routes/traders/serverSideValidators/validateUsername"));
 app.use("/traders", require("./routes/traders/serverSideValidators/validateEmail"));
 app.use("/traders", require("./routes/traders/serverSideValidators/validatePassword"));
+
 app.use("/traders", require("./routes/traders/identityCards/addIdentityCard"));
 app.use("/traders", require("./routes/traders/identityCards/getIdentityCard"));
 app.use("/traders", require("./routes/traders/identityCards/updateIdentityCard"));
 app.use("/traders", require("./routes/traders/identityCards/deleteIdentityCard"));
+
 app.use("/traders", require("./routes/traders/commercialRegisterCertificates/addCommercialRegisterCertificate"));
 app.use("/traders", require("./routes/traders/commercialRegisterCertificates/deleteCommercialRegisterCertificate"));
 app.use("/traders", require("./routes/traders/commercialRegisterCertificates/getCommercialRegisterCertificate"));
 app.use("/traders", require("./routes/traders/commercialRegisterCertificates/updateCommercialRegisterCertificate"));
+
 app.use("/traders", require("./routes/traders/jobOffers/addJobOffer"));
 app.use("/traders", require("./routes/traders/jobOffers/getJobOfferPackages"));
 app.use("/traders", require("./routes/traders/jobOffers/deleteJobOffer"));
 app.use("/traders", require("./routes/traders/jobOffers/updateJobOffer"));
+
 app.use("/traders", require("./routes/traders/jobRequests/getJobRequestPosts"));
 app.use("/traders", require("./routes/traders/jobRequests/addTraderRequest"));
 app.use("/traders", require("./routes/traders/jobRequests/deleteTraderRequest"));
+
 app.use("/traders", require("./routes/traders/onGoingJobs/getOnGoingJob"));
 app.use("/traders", require("./routes/traders/onGoingJobs/getJobObjectionPackages"));
 app.use("/traders", require("./routes/traders/onGoingJobs/addJobObjection"));
+app.use("/traders", require("./routes/traders/onGoingJobs/approveJob"));
+
 app.use("/traders", require("./routes/traders/driverProfile/getDriverProfile"));
 app.use("/traders", require("./routes/traders/driverProfile/getDriverDocuments"));
+
 app.use("/traders", require("./routes/traders/driverTruck/getTruckProfile"));
+
 app.use("/traders", require("./routes/traders/objectionReasons/addObjectionReason"));
 app.use("/traders", require("./routes/traders/objectionReasons/getObjectionReasons"));
+
+app.use("/traders", require("./routes/traders/completedJobs/getCompletedJobPackages"));
+app.use("/traders", require("./routes/traders/completedJobs/addDriverReview"));
 
 app.get("/", (request, response) => {
     response.send("Naqel Server - Up and Running!");

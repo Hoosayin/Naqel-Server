@@ -15,11 +15,11 @@ router.get("/getOnGoingJob", (request, response) => {
                 OnGoingJobs.findOne({
                     where: { TraderID: result.Trader.TraderID }
                 }).then(async onGoingJob => {
-                    const jobObjection = await JobObjections.findOne({
-                        where: { OnGoingJobID: onGoingJob.OnGoingJobID }
-                    });
-
                     if (onGoingJob) {
+                        const jobObjection = await JobObjections.findOne({
+                            where: { OnGoingJobID: onGoingJob.OnGoingJobID }
+                        });
+
                         response.json({
                             Message: "On-going job found.",
                             OnGoingJob: onGoingJob,
