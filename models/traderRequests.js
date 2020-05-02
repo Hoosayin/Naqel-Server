@@ -59,7 +59,12 @@ module.exports = databaseHelper.sequelize.define(
         {
             type: databaseHelper.Sequelize.BIGINT,
             allowNull: false
-        },        
+        },
+        Selected:
+        {
+            type: databaseHelper.Sequelize.INTEGER(1),
+            allowNull: false
+        },
         Created:
         {
             type: databaseHelper.Sequelize.DATEONLY,

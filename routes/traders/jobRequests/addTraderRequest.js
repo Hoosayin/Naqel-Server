@@ -35,12 +35,14 @@ router.post("/addTraderRequest", (request, response) => {
                             LoadingTime: request.body.LoadingTime,
                             EntryExit: request.body.EntryExit,
                             AcceptedDelay: request.body.AcceptedDelay,
+                            Selected: false,
                             Created: new Date()
                         };
 
-                        TraderRequests.create(newTraderRequest).then(() => {
+                        TraderRequests.create(newTraderRequest).then(traderRequest => {
                             response.json({
-                                Message: "Trader request is added."
+                                Message: "Trader request is added.",
+                                TraderRequest: traderRequest
                             });
                         });
                     }

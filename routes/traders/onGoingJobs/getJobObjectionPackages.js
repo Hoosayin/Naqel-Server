@@ -21,7 +21,7 @@ router.get("/getJobObjectionPackages", (request, response) => {
                             where: { OnGoingJobID: onGoingJob.OnGoingJobID }
                         });
 
-                        if (jobObjections && jobObjections.length > 0) {
+                        if (jobObjections) {
                             let jobObjectionPackages = [];
                             let count = 0;
 

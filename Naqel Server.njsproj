@@ -58,6 +58,8 @@
     <Content Include="models\trailers.js" />
     <Content Include="models\trucks.js" />
     <Content Include="routes\drivers\completedJobs\getCompletedJobPackages.js" />
+    <Content Include="routes\drivers\jobRequests\getTraderRequestPackages.js" />
+    <Content Include="routes\drivers\jobRequests\toggleSelectTraderRequest.js" />
     <Content Include="routes\drivers\onGoingJobs\finishJob.js" />
     <Content Include="routes\drivers\onGoingJobs\getOnGoingJob.js" />
     <Content Include="routes\drivers\traderProfile\getTraderDocuments.js" />
@@ -103,6 +105,7 @@
     <Content Include="routes\traders\identityCards\deleteIdentityCard.js" />
     <Content Include="routes\traders\identityCards\getIdentityCard.js" />
     <Content Include="routes\traders\identityCards\updateIdentityCard.js" />
+    <Content Include="routes\traders\jobOffers\getDriverRequestPackages.js" />
     <Content Include="routes\traders\jobOffers\getJobOfferPackages.js" />
     <Content Include="routes\traders\jobOffers\updateJobOffer.js" />
     <Content Include="routes\traders\jobOffers\addJobOffer.js" />
@@ -114,6 +117,8 @@
     <Content Include="routes\traders\objectionReasons\addObjectionReason.js" />
     <Content Include="routes\traders\objectionReasons\getObjectionReasons.js" />
     <Content Include="routes\traders\onGoingJobs\addJobObjection.js" />
+    <Content Include="routes\traders\onGoingJobs\addOnGonigJobFromJobRequest.js" />
+    <Content Include="routes\traders\onGoingJobs\addOnGonigJobFromJobOffer.js" />
     <Content Include="routes\traders\onGoingJobs\approveJob.js" />
     <Content Include="routes\traders\onGoingJobs\getJobObjectionPackages.js" />
     <Content Include="routes\traders\onGoingJobs\getOnGoingJob.js" />

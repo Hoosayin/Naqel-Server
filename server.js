@@ -66,6 +66,9 @@ app.use("/drivers", require("./routes/drivers/jobRequests/getJobRequestPackages"
 app.use("/drivers", require("./routes/drivers/jobRequests/addJobRequest"));
 app.use("/drivers", require("./routes/drivers/jobRequests/deleteJobRequest"));
 app.use("/drivers", require("./routes/drivers/jobRequests/updateJobRequest"));
+app.use("/drivers", require("./routes/drivers/jobRequests/getTraderRequestPackages"));
+app.use("/drivers", require("./routes/drivers/jobRequests/toggleSelectTraderRequest"));
+
 
 app.use("/drivers", require("./routes/drivers/permitLicences/getPermitLicences"));
 app.use("/drivers", require("./routes/drivers/permitLicences/addPermitLicence"));
@@ -122,6 +125,7 @@ app.use("/traders", require("./routes/traders/jobOffers/addJobOffer"));
 app.use("/traders", require("./routes/traders/jobOffers/getJobOfferPackages"));
 app.use("/traders", require("./routes/traders/jobOffers/deleteJobOffer"));
 app.use("/traders", require("./routes/traders/jobOffers/updateJobOffer"));
+app.use("/traders", require("./routes/traders/jobOffers/getDriverRequestPackages"));
 
 app.use("/traders", require("./routes/traders/jobRequests/getJobRequestPosts"));
 app.use("/traders", require("./routes/traders/jobRequests/addTraderRequest"));
@@ -131,6 +135,8 @@ app.use("/traders", require("./routes/traders/onGoingJobs/getOnGoingJob"));
 app.use("/traders", require("./routes/traders/onGoingJobs/getJobObjectionPackages"));
 app.use("/traders", require("./routes/traders/onGoingJobs/addJobObjection"));
 app.use("/traders", require("./routes/traders/onGoingJobs/approveJob"));
+app.use("/traders", require("./routes/traders/onGoingJobs/addOnGonigJobFromJobOffer"));
+app.use("/traders", require("./routes/traders/onGoingJobs/addOnGonigJobFromJobRequest"));
 
 app.use("/traders", require("./routes/traders/driverProfile/getDriverProfile"));
 app.use("/traders", require("./routes/traders/driverProfile/getDriverDocuments"));

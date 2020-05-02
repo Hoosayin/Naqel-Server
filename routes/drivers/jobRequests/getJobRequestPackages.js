@@ -1,10 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const passport = require("../../../helpers/passportHelper");
-const Traders = require("../../../models/traders");
-const TraderProfilePhotos = require("../../../models/traderProfilePhotos");
 const JobRequests = require("../../../models/jobRequests");
-const TraderRequests = require("../../../models/traderRequests");
 const OnGoingJobs = require("../../../models/onGoingJobs");
 
 var router = express.Router();
@@ -30,51 +27,15 @@ router.get("/getJobRequestPackages", (request, response) => {
                     let count = 0;
 
                     for (let jobRequest of jobRequests) {
-
-                        const traderRequests = await TraderRequests.findAll({
-                            where: { JobRequestID: jobRequest.JobRequestID }
-                        });
-
-                        let traderRequestPackages = [];
-
-                        if (traderRequests && traderRequests.length > 0) {                       
-                            let count = 0;
-
-                            for (let traderRequest of traderRequests) {
-                                const trader = await Traders.findOne({
-                                    where: { TraderID: traderRequest.TraderID }
-                                });
-
-                                const profilePhoto = await TraderProfilePhotos.findOne({
-                                    where: { TraderID: trader.TraderID }
-                                });
-
-                                traderRequestPackages[count++] = {
-                                    TraderRequest: traderRequest,
-                                    Trader: trader,
-                                    ProfilePhoto: profilePhoto ? profilePhoto.PhotoURL : null
-                                };
-                            }
-                        }
-
-                        if (traderRequestPackages.length > 0) {
-                            traderRequestPackages.sort((a, b) => {
-                                let dateA = new Date(a.TraderRequest.Created);
-                                let dateB = new Date(b.TraderRequest.Created);
-                                return dateB - dateA;
-                            });
-                        }
-
                         jobRequestPackages[count++] = {
-                            JobRequest: jobRequest,
-                            DriverOnJob: driverOnJob,
-                            TraderRequestPackages: traderRequestPackages
+                            JobRequest: jobRequest
                         };
                     }
 
                     response.json({
                         Message: "Job request packages found.",
                         JobRequestPackages: jobRequestPackages,
+                        DriverOnJob: driverOnJob
                     });
                 }
                 else {

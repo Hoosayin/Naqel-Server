@@ -5,6 +5,7 @@ const passport = require("../../../helpers/passportHelper");
 const Drivers = require("../../../models/drivers");
 const JobRequests = require("../../../models/jobRequests");
 const TraderRequests = require("../../../models/traderRequests");
+const OnGoingJobs = require("../../../models/onGoingJobs");
 
 var router = express.Router();
 router.use(cors());
@@ -16,12 +17,22 @@ router.get("/getJobRequestPosts", (request, response) => {
             if (result.Message === "Trader found.") {
                 JobRequests.findAll().then(async jobRequests => {
                     if (jobRequests) {
+                        const onGoingJob = await OnGoingJobs.findOne({
+                            where: { TraderID: result.Trader.TraderID }
+                        });
+
+                        let traderOnJob = onGoingJob ? true : false;
+
                         let jobRequestPosts = [];
                         let count = 0;
 
                         for (let jobRequest of jobRequests) {
                             const driver = await Drivers.findOne({
                                 attributes: ["FirstName", "LastName"],
+                                where: { DriverID: jobRequest.DriverID }
+                            });
+
+                            const onGoingJob = await OnGoingJobs.findOne({
                                 where: { DriverID: jobRequest.DriverID }
                             });
 
@@ -37,7 +48,8 @@ router.get("/getJobRequestPosts", (request, response) => {
                             jobRequestPosts[count++] = {
                                 JobRequest: jobRequest,
                                 Driver: driver,
-                                RequestSent: traderRequest ? true : false
+                                DriverOnJob: onGoingJob ? true : false,
+                                TraderRequest: traderRequest
                             };
                         }
 
@@ -50,7 +62,8 @@ router.get("/getJobRequestPosts", (request, response) => {
 
                             response.json({
                                 Message: "Job request posts found.",
-                                JobRequestPosts: jobRequestPosts
+                                JobRequestPosts: jobRequestPosts,
+                                TraderOnJob: traderOnJob
                             });
                         }
                         else {

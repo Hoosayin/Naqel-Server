@@ -33,9 +33,10 @@ router.post("/addDriverRequest", (request, response) => {
                             Created: new Date()
                         };
 
-                        DriverRequests.create(newDriverRequest).then(() => {
+                        DriverRequests.create(newDriverRequest).then(driverRequest => {
                             response.json({
-                                Message: "Driver request is added."
+                                Message: "Driver request is added.",
+                                DriverRequest: driverRequest
                             });
                         });
                     }

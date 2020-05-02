@@ -37,7 +37,7 @@ router.get("/getJobOfferPosts", (request, response) => {
                             jobOfferPosts[count++] = {
                                 JobOffer: jobOffer,
                                 Trader: trader,
-                                RequestSent: driverRequest ? true : false
+                                DriverRequest: driverRequest
                             };
                         }
 
