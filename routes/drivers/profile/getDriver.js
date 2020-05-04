@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const passport = require("../../../helpers/passportHelper");
 const DriverReviews = require("../../../models/driverReviews");
+const DriverProfilePhotos = require("../../../models/driverProfilePhotos");
 
 var router = express.Router();
 router.use(cors());
@@ -13,7 +14,7 @@ router.get("/getDriver", (request, response) => {
             if (result.Message === "Driver found.") {
                 DriverReviews.findAndCountAll({
                     where: { DriverID: result.Driver.DriverID }
-                }).then(driverReviews => {
+                }).then(async driverReviews => {
                     let driverReviewsAggregation = null;
 
                     if (driverReviews) {
@@ -33,9 +34,14 @@ router.get("/getDriver", (request, response) => {
                         };
                     }
 
+                    const driverProfilePhoto = await DriverProfilePhotos.findOne({
+                        where: { DriverID: result.Driver.DriverID }
+                    });
+
                     response.json({
                         Message: "Driver found.",
                         Driver: result.Driver,
+                        PhotoURL: driverProfilePhoto ? driverProfilePhoto.PhotoURL : null,
                         RatingAndReviews: driverReviewsAggregation
                     });
                 });
