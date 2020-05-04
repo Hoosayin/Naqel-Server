@@ -38,10 +38,12 @@ router.get("/getDriver", (request, response) => {
                         where: { DriverID: result.Driver.DriverID }
                     });
 
+                    let driver = result.Driver.dataValues;
+                    driver.PhotoURL = driverProfilePhoto ? driverProfilePhoto.PhotoURL : null;
+
                     response.json({
                         Message: "Driver found.",
-                        Driver: result.Driver,
-                        PhotoURL: driverProfilePhoto ? driverProfilePhoto.PhotoURL : null,
+                        Driver: driver,
                         RatingAndReviews: driverReviewsAggregation
                     });
                 });
