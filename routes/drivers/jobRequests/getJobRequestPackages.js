@@ -23,18 +23,9 @@ router.get("/getJobRequestPackages", (request, response) => {
                 });
 
                 if (jobRequests && jobRequests.length > 0) {
-                    let jobRequestPackages = [];
-                    let count = 0;
-
-                    for (let jobRequest of jobRequests) {
-                        jobRequestPackages[count++] = {
-                            JobRequest: jobRequest
-                        };
-                    }
-
                     response.json({
                         Message: "Job request packages found.",
-                        JobRequestPackages: jobRequestPackages,
+                        JobRequests: jobRequests,
                         DriverOnJob: driverOnJob
                     });
                 }
