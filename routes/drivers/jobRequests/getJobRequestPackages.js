@@ -30,8 +30,10 @@ router.get("/getJobRequestPackages", (request, response) => {
                         where: { JobRequestID: jobRequest.JobRequestID }
                     });
 
-                    jobRequest.NumberOfTraderRequests = numberOfTraderRequests;
-                    modifiableJobRequests = jobRequest;
+                    let modifiableJobRequest = jobRequest.dataValues;
+
+                    modifiableJobRequest.NumberOfTraderRequests = numberOfTraderRequests;
+                    modifiableJobRequests = modifiableJobRequest;
                 }
 
                 if (jobRequests && jobRequests.length > 0) {
