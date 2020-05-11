@@ -23,7 +23,8 @@ router.get("/getJobRequestPackages", (request, response) => {
                     where: { DriverID: result.Driver.DriverID }
                 });
 
-                let modifiableJobRequests = {};
+                let modifiableJobRequests = [];
+                let count = 0;
 
                 for (let jobRequest of jobRequests) {
                     const numberOfTraderRequests = await TraderRequests.count({
@@ -33,7 +34,7 @@ router.get("/getJobRequestPackages", (request, response) => {
                     let modifiableJobRequest = jobRequest.dataValues;
 
                     modifiableJobRequest.NumberOfTraderRequests = numberOfTraderRequests;
-                    modifiableJobRequests = modifiableJobRequest;
+                    modifiableJobRequests[count++] = modifiableJobRequest;
                 }
 
                 if (jobRequests && jobRequests.length > 0) {
