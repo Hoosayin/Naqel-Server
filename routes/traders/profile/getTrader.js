@@ -15,7 +15,7 @@ router.get("/getTrader", (request, response) => {
                     where: { TraderID: result.Trader.TraderID }
                 });
 
-                let trader = result.Trader.dataValues;
+                let trader = result.Trader;
                 trader.PhotoURL = profilePhoto ? profilePhoto.PhotoURL : null;
 
                 response.json({

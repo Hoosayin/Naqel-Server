@@ -3,6 +3,7 @@ const cors = require("cors");
 const passport = require("../../../helpers/passportHelper");
 const JobRequests = require("../../../models/jobRequests");
 const OnGoingJobs = require("../../../models/onGoingJobs");
+const TraderRequests = require("../../../models/traderRequests");
 
 var router = express.Router();
 router.use(cors());
@@ -22,10 +23,21 @@ router.get("/getJobRequestPackages", (request, response) => {
                     where: { DriverID: result.Driver.DriverID }
                 });
 
+                let modifiableJobRequests = {};
+
+                for (let jobRequest of jobRequests) {
+                    const numberOfTraderRequests = await TraderRequests.count({
+                        where: { JobRequestID: jobRequest.JobRequestID }
+                    });
+
+                    jobRequest.NumberOfTraderRequests = numberOfTraderRequests;
+                    modifiableJobRequests = jobRequest;
+                }
+
                 if (jobRequests && jobRequests.length > 0) {
                     response.json({
                         Message: "Job request packages found.",
-                        JobRequests: jobRequests,
+                        JobRequests: modifiableJobRequests,
                         DriverOnJob: driverOnJob
                     });
                 }
