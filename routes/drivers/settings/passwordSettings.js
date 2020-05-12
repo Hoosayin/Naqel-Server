@@ -1,9 +1,8 @@
 const express = require("express");
 const cors = require("cors");
-const jwtDecode = require("jwt-decode");
 const bcrypt = require("bcrypt");
 const Drivers = require("../../../models/drivers");
-const tokenGenerator = require("../../../helpers/tokenGenerator");
+const passport = require("../../../helpers/passportHelper");
 
 const BCRYPT_SALT_ROUNDS = 12;
 
