@@ -4,6 +4,7 @@ const passport = require("../../../helpers/passportHelper");
 const Drivers = require("../../../models/drivers");
 const DriverProfilePhotos = require("../../../models/driverProfilePhotos");
 const OnGoingJobs = require("../../../models/onGoingJobs");
+const DriverReviews = require("../../../models/driverReviews");
 
 var router = express.Router();
 router.use(cors());
@@ -24,9 +25,33 @@ router.get("/getDriverProfile", (request, response) => {
                                 where: { DriverID: driver.DriverID }
                             });
 
+                            const driverReviews = await DriverReviews.findAndCountAll({
+                                where: { DriverID: driver.DriverID }
+                            });
+
+                            let driverReviewsAggregation = null;
+
+                            if (driverReviews) {
+                                let count = driverReviews.count;
+                                let rows = driverReviews.rows;
+                                let sum = 0;
+
+                                for (let driverReview of rows) {
+                                    sum += driverReview.Rating;
+                                }
+
+                                let averageRating = sum / count;
+
+                                driverReviewsAggregation = {
+                                    Rating: averageRating,
+                                    Reviews: count
+                                };
+                            }
+
                             let driverProfile = {
                                 Driver: driver,
                                 ProfilePhoto: driverProfilePhoto ? driverProfilePhoto.PhotoURL : null,
+                                RatingAndReviews: driverReviewsAggregation,
                                 OnJob: onGoingJob ? true : false
                             };
 

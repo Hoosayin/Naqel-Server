@@ -3,6 +3,7 @@ const cors = require("cors");
 const passport = require("../../../helpers/passportHelper");
 const CompletedJobs = require("../../../models/completedJobs");
 const DriverReviews = require("../../../models/driverReviews");
+const TraderBills = require("../../../models/traderBills");
 
 var router = express.Router();
 router.use(cors());
@@ -20,12 +21,17 @@ router.get("/getCompletedJobPackages", (request, response) => {
                         let count = 0;
 
                         for (let completedJob of completedJobs) {
+                            const traderBill = await TraderBills.findOne({
+                                where: { CompletedJobID: completedJob.CompletedJobID }
+                            });
+
                             const driverReview = await DriverReviews.findOne({
                                 where: { CompletedJobID: completedJob.CompletedJobID }
                             });
 
                             completedJobPackages[count++] = {
                                 CompletedJob: completedJob,
+                                BillPaid: traderBill.Paid,
                                 DriverReview: driverReview
                             };
                         }

@@ -12,7 +12,7 @@ router.post("/addTruck", (request, response) => {
         try {
             if (result.Message === "Driver found.") {
                 Trucks.findOne({
-                    where: { DriverID: driver.DriverID }
+                    where: { DriverID: result.Driver.DriverID }
                 }).then(truck => {
                     if (truck) {
                         response.json({

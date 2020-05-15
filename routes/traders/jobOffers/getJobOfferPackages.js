@@ -30,8 +30,15 @@ router.get("/getJobOfferPackages", (request, response) => {
                                 where: { JobOfferID: jobOffer.JobOfferID }
                             });
 
+                            const numberOfDriverRequests = await DriverRequests.count({
+                                where: { JobOfferID: jobOffer.JobOfferID }
+                            });
+
+                            let modifiableJobOffer = jobOffer.dataValues;
+                            modifiableJobOffer.NumberOfDriverRequests = numberOfDriverRequests;
+
                             jobOfferPackages[count++] = {
-                                JobOffer: jobOffer,
+                                JobOffer: modifiableJobOffer,
                                 HasDriverRequests: driverRequest ? true : false
                             };
                         }

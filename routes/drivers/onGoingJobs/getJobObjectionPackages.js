@@ -13,6 +13,7 @@ router.get("/getJobObjectionPackages", (request, response) => {
     passport.authenticate("AuthenticateDriver", { session: false }, async result => {
         try {
             if (result.Message === "Driver found.") {
+                console.log("GET: Job Objection Packages - Driver Route");
                 OnGoingJobs.findOne({
                     where: { OnGoingJobID: request.query.OnGoingJobID }
                 }).then(async onGoingJob => {

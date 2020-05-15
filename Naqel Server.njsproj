@@ -35,6 +35,7 @@
     <Content Include="helpers\passportHelper.js" />
     <Content Include="helpers\emailHelper.js" />
     <Content Include="helpers\tokenGenerator.js" />
+    <Content Include="models\traderBills.js" />
     <Content Include="models\completedJobs.js" />
     <Content Include="models\driverReviews.js" />
     <Content Include="models\traderObjectionReasons.js" />
@@ -60,6 +61,7 @@
     <Content Include="routes\drivers\completedJobs\getCompletedJobPackages.js" />
     <Content Include="routes\drivers\jobRequests\getTraderRequestPackages.js" />
     <Content Include="routes\drivers\jobRequests\toggleSelectTraderRequest.js" />
+    <Content Include="routes\drivers\onGoingJobs\deleteOnGoingJob.js" />
     <Content Include="routes\drivers\onGoingJobs\finishJob.js" />
     <Content Include="routes\drivers\onGoingJobs\getOnGoingJob.js" />
     <Content Include="routes\drivers\traderProfile\getTraderDocuments.js" />
@@ -85,6 +87,7 @@
     <Content Include="routes\drivers\identityCards\deleteIdentityCard.js" />
     <Content Include="routes\drivers\entryExitCards\deleteEntryExitCard.js" />
     <Content Include="routes\drivers\permitLicences\getPermitLicences.js" />
+    <Content Include="routes\drivers\trucks\deleteTruck.js" />
     <Content Include="routes\traders\completedJobs\addDriverReview.js" />
     <Content Include="routes\traders\completedJobs\getCompletedJobPackages.js" />
     <Content Include="routes\traders\driverProfile\getDriverDocuments.js" />
@@ -116,10 +119,12 @@
     <Content Include="routes\traders\jobRequests\getJobRequestPosts.js" />
     <Content Include="routes\traders\objectionReasons\addObjectionReason.js" />
     <Content Include="routes\traders\objectionReasons\getObjectionReasons.js" />
+    <Content Include="routes\traders\onGoingJobs\addDriverReviewFromOnGoingJob.js" />
     <Content Include="routes\traders\onGoingJobs\addJobObjection.js" />
     <Content Include="routes\traders\onGoingJobs\addOnGonigJobFromJobRequest.js" />
     <Content Include="routes\traders\onGoingJobs\addOnGonigJobFromJobOffer.js" />
     <Content Include="routes\traders\onGoingJobs\approveJob.js" />
+    <Content Include="routes\traders\onGoingJobs\deleteOnGoingJob.js" />
     <Content Include="routes\traders\onGoingJobs\getJobObjectionPackages.js" />
     <Content Include="routes\traders\onGoingJobs\getOnGoingJob.js" />
     <Content Include="routes\traders\profile\getProfilePhoto.js" />

@@ -36,12 +36,12 @@ app.use("/drivers", require("./routes/drivers/trucks/getTruck"));
 app.use("/drivers", require("./routes/drivers/trucks/addTruck"));
 app.use("/drivers", require("./routes/drivers/trucks/updateTruck"));
 app.use("/drivers", require("./routes/drivers/trucks/updateTruckPhoto"));
+app.use("/drivers", require("./routes/drivers/trucks/deleteTruck"));
 
 app.use("/drivers", require("./routes/drivers/trucks/trailers/getTrailers"));
 app.use("/drivers", require("./routes/drivers/trucks/trailers/addTrailer"));
 app.use("/drivers", require("./routes/drivers/trucks/trailers/deleteTrailer"));
 app.use("/drivers", require("./routes/drivers/trucks/trailers/updateTrailer"));
-app.use("/drivers", require("./routes/drivers/trucks/trailers/findAllTrailers"));
 
 app.use("/drivers", require("./routes/drivers/serverSideValidators/validateEmail"));
 app.use("/drivers", require("./routes/drivers/serverSideValidators/validatePassword"));
@@ -84,6 +84,7 @@ app.use("/drivers", require("./routes/drivers/onGoingJobs/getOnGoingJob"));
 app.use("/drivers", require("./routes/drivers/onGoingJobs/addJobObjection"));
 app.use("/drivers", require("./routes/drivers/onGoingJobs/finishJob"));
 app.use("/drivers", require("./routes/drivers/onGoingJobs/getJobObjectionPackages"));
+app.use("/drivers", require("./routes/drivers/onGoingJobs/deleteOnGoingJob"));
 
 app.use("/drivers", require("./routes/drivers/objectionReasons/addObjectionReason"));
 app.use("/drivers", require("./routes/drivers/objectionReasons/getObjectionReasons"));
@@ -137,6 +138,8 @@ app.use("/traders", require("./routes/traders/onGoingJobs/addJobObjection"));
 app.use("/traders", require("./routes/traders/onGoingJobs/approveJob"));
 app.use("/traders", require("./routes/traders/onGoingJobs/addOnGonigJobFromJobOffer"));
 app.use("/traders", require("./routes/traders/onGoingJobs/addOnGonigJobFromJobRequest"));
+app.use("/traders", require("./routes/traders/onGoingJobs/addDriverReviewFromOnGoingJob"));
+app.use("/traders", require("./routes/traders/onGoingJobs/deleteOnGoingJob"));
 
 app.use("/traders", require("./routes/traders/driverProfile/getDriverProfile"));
 app.use("/traders", require("./routes/traders/driverProfile/getDriverDocuments"));

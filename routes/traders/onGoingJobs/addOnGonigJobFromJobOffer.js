@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const uuid = require("uuid-v4");
 const { Op } = require("sequelize");
 const passport = require("../../../helpers/passportHelper");
 const OnGoingJobs = require("../../../models/onGoingJobs");
@@ -48,6 +49,7 @@ router.post("/addOnGoingJobFromJobOffer", (request, response) => {
                                                 const newOnGoingJob = {
                                                     DriverID: driverRequest.DriverID,
                                                     TraderID: result.Trader.TraderID,
+                                                    JobNumber: uuid().substring(0, 8).toUpperCase(),
                                                     TripType: jobOffer.TripType,
                                                     CargoType: jobOffer.CargoType,
                                                     CargoWeight: jobOffer.CargoWeight,
@@ -64,6 +66,7 @@ router.post("/addOnGoingJobFromJobOffer", (request, response) => {
                                                     Price: driverRequest.Price ? driverRequest.Price : jobOffer.Price,
                                                     CompletedByDriver: false,
                                                     CompletedByTrader: false,
+                                                    DriverRated: false,
                                                     Created: new Date()
                                                 };
 

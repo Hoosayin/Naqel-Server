@@ -30,6 +30,11 @@ module.exports = databaseHelper.sequelize.define(
                 key: "TraderID"
             }
         },
+        JobNumber:
+        {
+            type: databaseHelper.Sequelize.STRING(50),
+            allowNull: false
+        },
         TripType:
         {
             type: databaseHelper.Sequelize.STRING(50),
@@ -106,6 +111,11 @@ module.exports = databaseHelper.sequelize.define(
             allowNull: false
         },
         CompletedByTrader:
+        {
+            type: databaseHelper.Sequelize.INTEGER(1),
+            allowNull: false
+        },
+        DriverRated:
         {
             type: databaseHelper.Sequelize.INTEGER(1),
             allowNull: false

@@ -13,6 +13,7 @@ router.get("/getJobObjectionPackages", (request, response) => {
     passport.authenticate("AuthenticateTrader", { session: false }, async result => {
         try {
             if (result.Message === "Trader found.") {
+                console.log("GET: Job Objection Packages - Trader Route");
                 OnGoingJobs.findOne({
                     where: { OnGoingJobID: request.query.OnGoingJobID }
                 }).then(async onGoingJob => {

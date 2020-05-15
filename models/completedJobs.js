@@ -20,6 +20,11 @@ module.exports = databaseHelper.sequelize.define(
                 key: "DriverID"
             }
         },
+        JobNumber:
+        {
+            type: databaseHelper.Sequelize.STRING(50),
+            allowNull: false
+        },
         TraderID:
         {
             type: databaseHelper.Sequelize.BIGINT,

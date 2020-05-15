@@ -1,9 +1,9 @@
-const databaseHelper = require("../helpers/databaseHelper");
+var databaseHelper = require('../helpers/databaseHelper');
 
 module.exports = databaseHelper.sequelize.define(
-    "DriverReviews",
+    "TraderBills",
     {
-        DriverReviewID:
+        TraderBillID:
         {
             type: databaseHelper.Sequelize.BIGINT,
             allowNull: false,
@@ -33,31 +33,30 @@ module.exports = databaseHelper.sequelize.define(
         CompletedJobID:
         {
             type: databaseHelper.Sequelize.BIGINT,
-            allowNull: true,
+            allowNull: false,
             references:
             {
                 model: "CompletedJobs",
                 key: "CompletedJobID"
             }
         },
-        Rating:
+        Amount:
         {
-            type: databaseHelper.Sequelize.INTEGER,
+            type: databaseHelper.Sequelize.FLOAT,
             allowNull: false
         },
-        Review:
+        Paid:
         {
-            type: databaseHelper.Sequelize.TEXT,
+            type: databaseHelper.Sequelize.INTEGER(1),
             allowNull: false
         },
         Created:
         {
-            type: databaseHelper.Sequelize.DATEONLY,
-            defaultValue: databaseHelper.Sequelize.NOW,
+            type: databaseHelper.Sequelize.DATE,
             allowNull: false
         }
     },
     {
-        tableName: "DriverReviews"
-    }
+        tableName: "TraderBills"
+    }    
 );

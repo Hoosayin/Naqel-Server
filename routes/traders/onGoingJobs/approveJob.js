@@ -4,6 +4,7 @@ const passport = require("../../../helpers/passportHelper");
 const OnGoingJobs = require("../../../models/onGoingJobs");
 const JobObjections = require("../../../models/jobObjections");
 const CompletedJobs = require("../../../models/completedJobs");
+const TraderBills = require("../../../models/traderBills");
 
 var router = express.Router();
 router.use(cors());
@@ -30,6 +31,7 @@ router.post("/approveJob", (request, response) => {
                                     let newCompletedJob = {
                                         DriverID: onGoingJob.DriverID,
                                         TraderID: onGoingJob.TraderID,
+                                        JobNumber: onGoingJob.JobNumber,
                                         TripType: onGoingJob.TripType,
                                         CargoType: onGoingJob.CargoType,
                                         CargoWeight: onGoingJob.CargoWeight,
@@ -43,11 +45,22 @@ router.post("/approveJob", (request, response) => {
                                         Created: new Date()
                                     };
 
-                                    CompletedJobs.create(newCompletedJob).then(() => {
+                                    CompletedJobs.create(newCompletedJob).then(completedJob => {
                                         onGoingJob.destroy();
 
-                                        response.json({
-                                            Message: "Job is approved."
+                                        let newTraderBill = {
+                                            DriverID: completedJob.DriverID,
+                                            TraderID: completedJob.TraderID,
+                                            CompletedJobID: completedJob.CompletedJobID,
+                                            Amount: completedJob.Price,
+                                            Paid: false,
+                                            Created: new Date()
+                                        };
+
+                                        TraderBills.create(newTraderBill).then(() => {
+                                            response.json({
+                                                Message: "Job is approved."
+                                            });
                                         });
                                     });
                                 }
