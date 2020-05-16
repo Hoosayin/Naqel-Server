@@ -93,6 +93,10 @@ app.use("/drivers", require("./routes/drivers/traderProfile/getTraderProfile"));
 app.use("/drivers", require("./routes/drivers/traderProfile/getTraderDocuments"));
 
 app.use("/drivers", require("./routes/drivers/completedJobs/getCompletedJobPackages"));
+app.use("/drivers", require("./routes/drivers/completedJobs/getPaymentDetails"));
+app.use("/drivers", require("./routes/drivers/completedJobs/approveTraderPayProof"));
+
+app.use("/drivers", require("./routes/drivers/earnings/getEarnings"));
 
 
 // Traders' | Brokers' routes.
@@ -151,6 +155,12 @@ app.use("/traders", require("./routes/traders/objectionReasons/getObjectionReaso
 
 app.use("/traders", require("./routes/traders/completedJobs/getCompletedJobPackages"));
 app.use("/traders", require("./routes/traders/completedJobs/addDriverReview"));
+
+app.use("/traders", require("./routes/traders/payments/getBills"));
+app.use("/traders", require("./routes/traders/payments/getBillData"));
+app.use("/traders", require("./routes/traders/payments/addTraderPayProof"));
+app.use("/traders", require("./routes/traders/payments/deleteTraderPayProof"));
+app.use("/traders", require("./routes/traders/payments/getPaymentDetails"));
 
 app.get("/", (request, response) => {
     response.send("Naqel Server - Up and Running!");

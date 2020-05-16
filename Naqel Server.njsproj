@@ -35,6 +35,9 @@
     <Content Include="helpers\passportHelper.js" />
     <Content Include="helpers\emailHelper.js" />
     <Content Include="helpers\tokenGenerator.js" />
+    <Content Include="models\driverEarnings.js" />
+    <Content Include="models\driverBills.js" />
+    <Content Include="models\traderPayProofs.js" />
     <Content Include="models\traderBills.js" />
     <Content Include="models\completedJobs.js" />
     <Content Include="models\driverReviews.js" />
@@ -58,7 +61,10 @@
     <Content Include="models\traders.js" />
     <Content Include="models\trailers.js" />
     <Content Include="models\trucks.js" />
+    <Content Include="routes\drivers\completedJobs\approveTraderPayProof.js" />
     <Content Include="routes\drivers\completedJobs\getCompletedJobPackages.js" />
+    <Content Include="routes\drivers\completedJobs\getPaymentDetails.js" />
+    <Content Include="routes\drivers\earnings\getEarnings.js" />
     <Content Include="routes\drivers\jobRequests\getTraderRequestPackages.js" />
     <Content Include="routes\drivers\jobRequests\toggleSelectTraderRequest.js" />
     <Content Include="routes\drivers\onGoingJobs\deleteOnGoingJob.js" />
@@ -127,6 +133,11 @@
     <Content Include="routes\traders\onGoingJobs\deleteOnGoingJob.js" />
     <Content Include="routes\traders\onGoingJobs\getJobObjectionPackages.js" />
     <Content Include="routes\traders\onGoingJobs\getOnGoingJob.js" />
+    <Content Include="routes\traders\payments\addTraderPayProof.js" />
+    <Content Include="routes\traders\payments\deleteTraderPayProof.js" />
+    <Content Include="routes\traders\payments\getPaymentDetails.js" />
+    <Content Include="routes\traders\payments\getBills.js" />
+    <Content Include="routes\traders\payments\getBillData.js" />
     <Content Include="routes\traders\profile\getProfilePhoto.js" />
     <Content Include="routes\traders\profile\getTrader.js" />
     <Content Include="routes\traders\serverSideValidators\validateEmail.js" />
@@ -171,6 +182,7 @@
     <Folder Include="routes\" />
     <Folder Include="routes\drivers\" />
     <Folder Include="routes\drivers\completedJobs\" />
+    <Folder Include="routes\drivers\earnings\" />
     <Folder Include="routes\drivers\traderProfile\" />
     <Folder Include="routes\drivers\identityCards\" />
     <Folder Include="routes\drivers\entryExitCards\" />
@@ -194,6 +206,7 @@
     <Folder Include="routes\traders\driverProfile\" />
     <Folder Include="routes\traders\driverTruck\" />
     <Folder Include="routes\traders\completedJobs\" />
+    <Folder Include="routes\traders\payments\" />
     <Folder Include="routes\traders\objectionReasons\" />
     <Folder Include="routes\traders\onGoingJobs\" />
     <Folder Include="routes\traders\profile\" />
