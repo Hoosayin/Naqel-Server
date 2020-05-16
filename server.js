@@ -98,6 +98,11 @@ app.use("/drivers", require("./routes/drivers/completedJobs/approveTraderPayProo
 
 app.use("/drivers", require("./routes/drivers/earnings/getEarnings"));
 
+app.use("/drivers", require("./routes/drivers/payments/getBills"));
+app.use("/drivers", require("./routes/drivers/payments/getBillData"));
+app.use("/drivers", require("./routes/drivers/payments/addDriverPayProof"));
+app.use("/drivers", require("./routes/drivers/payments/deleteDriverPayProof"));
+app.use("/drivers", require("./routes/drivers/payments/getPaymentDetails"));
 
 // Traders' | Brokers' routes.
 app.use("/traders", require("./routes/traders/login/login"));
