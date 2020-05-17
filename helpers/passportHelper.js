@@ -124,7 +124,7 @@ passport.use("SetupAccount", new LocalStrategy({
                 Gender: request.body.Gender,
                 DateOfBirth: request.body.DateOfBirth,
                 Address: request.body.Address,
-                Type: req.body.RegisterAs,
+                Type: request.body.RegisterAs,
                 Created: new Date(),
                 BankName: "",
                 IBAN: "",
