@@ -16,7 +16,7 @@ router.post("/toggleSelectTraderRequest", (request, response) => {
                 }).then(traderRequest => {
                     if (traderRequest) {
                         let updatedTraderRequest = {
-                            Selected: request.body.Selected ? true : false
+                            Selected: traderRequest.Selected ? false : true
                         };
 
                         TraderRequests.update(updatedTraderRequest, { where: { TraderRequestID: traderRequest.TraderRequestID } }).then(() => {
