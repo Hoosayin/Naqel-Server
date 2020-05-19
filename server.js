@@ -166,6 +166,7 @@ app.use("/traders", require("./routes/traders/payments/getBillData"));
 app.use("/traders", require("./routes/traders/payments/addTraderPayProof"));
 app.use("/traders", require("./routes/traders/payments/deleteTraderPayProof"));
 app.use("/traders", require("./routes/traders/payments/getPaymentDetails"));
+app.use("/traders", require("./routes/traders/payments/getClientSecret"));
 
 app.get("/", (request, response) => {
     response.send("Naqel Server - Up and Running!");

@@ -139,6 +139,7 @@
     <Content Include="routes\traders\onGoingJobs\deleteOnGoingJob.js" />
     <Content Include="routes\traders\onGoingJobs\getJobObjectionPackages.js" />
     <Content Include="routes\traders\onGoingJobs\getOnGoingJob.js" />
+    <Content Include="routes\traders\payments\getClientSecret.js" />
     <Content Include="routes\traders\payments\addTraderPayProof.js" />
     <Content Include="routes\traders\payments\deleteTraderPayProof.js" />
     <Content Include="routes\traders\payments\getPaymentDetails.js" />
