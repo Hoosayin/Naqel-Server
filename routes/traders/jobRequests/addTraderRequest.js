@@ -26,31 +26,25 @@ router.post("/addTraderRequest", (request, response) => {
                         });
                     }
                     else {
-                        try {
-                            let newTraderRequest = {
-                                TraderID: result.Trader.TraderID,
-                                JobRequestID: request.body.JobRequestID,
-                                CargoType: request.body.CargoType,
-                                CargoWeight: request.body.CargoWeight,
-                                LoadingDate: request.body.LoadingDate,
-                                LoadingTime: request.body.LoadingTime,
-                                EntryExit: request.body.EntryExit,
-                                AcceptedDelay: request.body.AcceptedDelay,
-                                Selected: false,
-                                Created: new Date()
-                            };
+                        let newTraderRequest = {
+                            TraderID: result.Trader.TraderID,
+                            JobRequestID: request.body.JobRequestID,
+                            CargoType: request.body.CargoType,
+                            CargoWeight: request.body.CargoWeight,
+                            LoadingDate: request.body.LoadingDate,
+                            LoadingTime: request.body.LoadingTime,
+                            EntryExit: request.body.EntryExit,
+                            AcceptedDelay: request.body.AcceptedDelay,
+                            Selected: false,
+                            Created: new Date()
+                        };
 
-                            TraderRequests.create(newTraderRequest).then(traderRequest => {
-                                response.json({
-                                    Message: "Trader request is added.",
-                                    TraderRequest: traderRequest
-                                });
-                            });
-                        } catch (e) {
+                        TraderRequests.create(newTraderRequest).then(traderRequest => {
                             response.json({
-                                Message: e.message
+                                Message: "Trader request is added.",
+                                TraderRequest: traderRequest
                             });
-                        }
+                        });
                     }
                 });
             }

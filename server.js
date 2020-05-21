@@ -19,6 +19,11 @@ app.use("/users", require("./routes/users/parseToken"));
 app.use("/users", require("./routes/users/accountSetup"));
 app.use("/users", require("./routes/users/sendCode"));
 
+app.use("/users", require("./routes/users/driverProfile/getDriverProfile"));
+app.use("/users", require("./routes/users/driverProfile/getDriverDocuments"));
+
+app.use("/users", require("./routes/users/driverTruck/getTruckProfile"));
+
 // Drivers' routes.
 app.use("/drivers", require("./routes/drivers/login/login"));
 
@@ -150,11 +155,6 @@ app.use("/traders", require("./routes/traders/onGoingJobs/addOnGonigJobFromJobRe
 app.use("/traders", require("./routes/traders/onGoingJobs/addDriverReviewFromOnGoingJob"));
 app.use("/traders", require("./routes/traders/onGoingJobs/deleteOnGoingJob"));
 
-app.use("/traders", require("./routes/traders/driverProfile/getDriverProfile"));
-app.use("/traders", require("./routes/traders/driverProfile/getDriverDocuments"));
-
-app.use("/traders", require("./routes/traders/driverTruck/getTruckProfile"));
-
 app.use("/traders", require("./routes/traders/objectionReasons/addObjectionReason"));
 app.use("/traders", require("./routes/traders/objectionReasons/getObjectionReasons"));
 
@@ -167,6 +167,28 @@ app.use("/traders", require("./routes/traders/payments/addTraderPayProof"));
 app.use("/traders", require("./routes/traders/payments/deleteTraderPayProof"));
 app.use("/traders", require("./routes/traders/payments/getPaymentDetails"));
 app.use("/traders", require("./routes/traders/payments/getClientSecret"));
+
+// Administrators' routes.
+app.use("/administrators", require("./routes/administrators/register/register"));
+app.use("/administrators", require("./routes/administrators/register/setupAccount"));
+
+app.use("/administrators", require("./routes/administrators/login/login"));
+
+app.use("/administrators", require("./routes/administrators/profile/getAdministrator"));
+app.use("/administrators", require("./routes/administrators/profile/uploadProfilePhoto"));
+
+app.use("/administrators", require("./routes/administrators/profile/settings/generalSettings"));
+app.use("/administrators", require("./routes/administrators/profile/settings/usernameAndEmailSettings"));
+app.use("/administrators", require("./routes/administrators/profile/settings/passwordSettings"));
+
+app.use("/administrators", require("./routes/administrators/serverSideValidators/validateUsername"));
+app.use("/administrators", require("./routes/administrators/serverSideValidators/validateEmail"));
+app.use("/administrators", require("./routes/administrators/serverSideValidators/validatePassword"));
+
+app.use("/administrators", require("./routes/administrators/drivers/getDrivers"));
+app.use("/administrators", require("./routes/administrators/drivers/activateDriverAccount"));
+app.use("/administrators", require("./routes/administrators/drivers/blockDriverAccount"));
+app.use("/administrators", require("./routes/administrators/drivers/unblockDriverAccount"));
 
 app.get("/", (request, response) => {
     response.send("Naqel Server - Up and Running!");

@@ -7,6 +7,7 @@ const JWTStrategy = require("passport-jwt").Strategy;
 const ExtractJWT = require("passport-jwt").ExtractJwt;
 const Drivers = require("../models/drivers");
 const Traders = require("../models/traders");
+const Administrators = require("../models/administrators");
 
 const BCRYPT_SALT_ROUNDS = 12;
 const Op = Sequelize.Op;
@@ -81,6 +82,40 @@ passport.use("RegisterTrader", new LocalStrategy({
     }
 }));
 
+// Register Administrator
+passport.use("RegisterAdministrator", new LocalStrategy({
+    usernameField: "Username",
+    passwordField: "Password",
+    passReqToCallback: true,
+    session: false,
+}, (request, username, password, onAuthenticated) => {
+    try {
+        Administrators.findOne({
+            where: {
+                [Op.or]: [
+                    { Username: request.body.Username },
+                    { Email: request.body.Email },
+                ],
+            },
+        }).then(administrator => {
+            if (administrator) {
+                return onAuthenticated({
+                    Message: "Username or email is already taken.",
+                });
+            }
+            else {
+                return onAuthenticated({
+                    Message: "Credentials are verified.",
+                });
+            }
+        });
+    } catch (error) {
+        return onAuthenticated({
+            Message: error.message,
+        });
+    }
+}));
+
 
 // Setup Account
 passport.use("SetupAccount", new LocalStrategy({
@@ -140,6 +175,46 @@ passport.use("SetupAccount", new LocalStrategy({
         }
     } catch (error) {
         return onAuthenticated(error);
+    }
+}));
+
+// Setup Administrator Account
+passport.use("SetupAdministratorAccount", new LocalStrategy({
+    usernameField: "Username",
+    passwordField: "Password",
+    passReqToCallback: true,
+    session: false,
+}, (request, username, password, onAuthenticated) => {
+    try {
+        if (request.body.AdministratorSecret === "admin123123") {
+            let newAdministrator = {
+                Email: request.body.Email,
+                Username: request.body.Username,
+                Password: request.body.Password,
+                FirstName: request.body.FirstName,
+                LastName: request.body.LastName,
+                PhotoURL: null,
+                Created: new Date()
+            };
+
+            bcrypt.hash(request.body.Password, BCRYPT_SALT_ROUNDS).then(passwordHash => {
+                newAdministrator.Password = passwordHash;
+                Administrators.create(newAdministrator).then(() => {
+                    return onAuthenticated({
+                        Message: "Administrator created."
+                    });
+                });
+            });
+        }
+        else {
+            return onAuthenticated({
+                Message: "Invalid secret code."
+            });
+        }
+    } catch (error) {
+        return onAuthenticated({
+            Message: error.message
+        });
     }
 }));
 
@@ -221,6 +296,49 @@ passport.use("LoginTrader", new LocalStrategy({
     }
 }));
 
+// Login Administrator
+passport.use("LoginAdministrator", new LocalStrategy({
+    usernameField: "EmailOrUsername",
+    passwordField: "Password",
+    passReqToCallback: true,
+    session: false,
+}, (request, username, password, onAuthenticated) => {
+    try {
+        Administrators.findOne({
+            where: {
+                [Op.or]: [
+                    { Username: request.body.EmailOrUsername },
+                    { Email: request.body.EmailOrUsername },
+                ]
+            }
+        }).then(administrator => {
+            if (!administrator) {
+                return onAuthenticated({
+                    Message: "Administrator not found."
+                });
+            }
+            else {
+                bcrypt.compare(request.body.Password, administrator.Password).then(response => {
+                    if (!response) {
+                        return onAuthenticated({
+                            Message: "Invalid password."
+                        });
+                    }
+                    return onAuthenticated({
+                        Message: "Administrator found.",
+                        Administrator: administrator.dataValues
+                    });
+                });
+            }
+        });
+    }
+    catch (error) {
+        onAuthenticated({
+            Message: error.message
+        });
+    }
+}));
+
 // Authenticate Driver 
 passport.use("AuthenticateDriver", new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme("JWT"),
@@ -249,7 +367,6 @@ passport.use("AuthenticateDriver", new JWTStrategy({
     }
 }));
 
-
 // Authenticate Trader
 passport.use("AuthenticateTrader", new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme("JWT"),
@@ -268,6 +385,33 @@ passport.use("AuthenticateTrader", new JWTStrategy({
             else {
                 onAuthenticated({
                     Message: "Trader not found."
+                });
+            }
+        });
+    } catch (error) {
+        onAuthenticated({
+            Message: error.message
+        });
+    }
+}));
+
+// Authenticate Administrator 
+passport.use("AuthenticateAdministrator", new JWTStrategy({
+    jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme("JWT"),
+    secretOrKey: jwtConfiguration.secret,
+}, (JWTPayload, onAuthenticated) => {
+    try {
+        Administrators.findOne({
+            where: { AdministratorID: JWTPayload.AdministratorID },
+        }).then(administrator => {
+            if (administrator) {
+                onAuthenticated({
+                    Message: "Administrator found.",
+                    Administrator: administrator
+                });
+            } else {
+                onAuthenticated({
+                    Message: "Administrator not found."
                 });
             }
         });
