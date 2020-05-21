@@ -22,6 +22,9 @@ app.use("/users", require("./routes/users/sendCode"));
 app.use("/users", require("./routes/users/driverProfile/getDriverProfile"));
 app.use("/users", require("./routes/users/driverProfile/getDriverDocuments"));
 
+app.use("/users", require("./routes/users/traderProfile/getTraderProfile"));
+app.use("/users", require("./routes/users/traderProfile/getTraderDocuments"));
+
 app.use("/users", require("./routes/users/driverTruck/getTruckProfile"));
 
 // Drivers' routes.
@@ -88,14 +91,10 @@ app.use("/drivers", require("./routes/drivers/onGoingJobs/addOnGonigJob"));
 app.use("/drivers", require("./routes/drivers/onGoingJobs/getOnGoingJob"));
 app.use("/drivers", require("./routes/drivers/onGoingJobs/addJobObjection"));
 app.use("/drivers", require("./routes/drivers/onGoingJobs/finishJob"));
-app.use("/drivers", require("./routes/drivers/onGoingJobs/getJobObjectionPackages"));
-app.use("/drivers", require("./routes/drivers/onGoingJobs/deleteOnGoingJob"));
+app.use("/drivers", require("./routes/drivers/onGoingJobs/getJobObjections"));
 
 app.use("/drivers", require("./routes/drivers/objectionReasons/addObjectionReason"));
 app.use("/drivers", require("./routes/drivers/objectionReasons/getObjectionReasons"));
-
-app.use("/drivers", require("./routes/drivers/traderProfile/getTraderProfile"));
-app.use("/drivers", require("./routes/drivers/traderProfile/getTraderDocuments"));
 
 app.use("/drivers", require("./routes/drivers/completedJobs/getCompletedJobPackages"));
 app.use("/drivers", require("./routes/drivers/completedJobs/getPaymentDetails"));
@@ -147,13 +146,12 @@ app.use("/traders", require("./routes/traders/jobRequests/addTraderRequest"));
 app.use("/traders", require("./routes/traders/jobRequests/deleteTraderRequest"));
 
 app.use("/traders", require("./routes/traders/onGoingJobs/getOnGoingJob"));
-app.use("/traders", require("./routes/traders/onGoingJobs/getJobObjectionPackages"));
+app.use("/traders", require("./routes/traders/onGoingJobs/getJobObjections"));
 app.use("/traders", require("./routes/traders/onGoingJobs/addJobObjection"));
 app.use("/traders", require("./routes/traders/onGoingJobs/approveJob"));
 app.use("/traders", require("./routes/traders/onGoingJobs/addOnGonigJobFromJobOffer"));
 app.use("/traders", require("./routes/traders/onGoingJobs/addOnGonigJobFromJobRequest"));
 app.use("/traders", require("./routes/traders/onGoingJobs/addDriverReviewFromOnGoingJob"));
-app.use("/traders", require("./routes/traders/onGoingJobs/deleteOnGoingJob"));
 
 app.use("/traders", require("./routes/traders/objectionReasons/addObjectionReason"));
 app.use("/traders", require("./routes/traders/objectionReasons/getObjectionReasons"));
@@ -189,6 +187,23 @@ app.use("/administrators", require("./routes/administrators/drivers/getDrivers")
 app.use("/administrators", require("./routes/administrators/drivers/activateDriverAccount"));
 app.use("/administrators", require("./routes/administrators/drivers/blockDriverAccount"));
 app.use("/administrators", require("./routes/administrators/drivers/unblockDriverAccount"));
+
+app.use("/administrators", require("./routes/administrators/traders/getTraders"));
+app.use("/administrators", require("./routes/administrators/traders/setRefundRate"));
+
+app.use("/administrators", require("./routes/administrators/traderObjectionReasons/getTraderObjectionReasons"));
+app.use("/administrators", require("./routes/administrators/traderObjectionReasons/addTraderObjectionReason"));
+app.use("/administrators", require("./routes/administrators/traderObjectionReasons/deleteTraderObjectionReason"));
+app.use("/administrators", require("./routes/administrators/traderObjectionReasons/verifyTraderObjectionReason"));
+
+app.use("/administrators", require("./routes/administrators/driverObjectionReasons/addDriverObjectionReason"));
+app.use("/administrators", require("./routes/administrators/driverObjectionReasons/deleteDriverObjectionReason"));
+app.use("/administrators", require("./routes/administrators/driverObjectionReasons/getDriverObjectionReasons"));
+app.use("/administrators", require("./routes/administrators/driverObjectionReasons/verifyDriverObjectionReason"));
+
+app.use("/administrators", require("./routes/administrators/objectionableJobs/getObjectionableJobs"));
+app.use("/administrators", require("./routes/administrators/objectionableJobs/getJobObjections"));
+app.use("/administrators", require("./routes/administrators/objectionableJobs/discardObjectionableJob"));
 
 app.get("/", (request, response) => {
     response.send("Naqel Server - Up and Running!");

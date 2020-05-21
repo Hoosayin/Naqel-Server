@@ -35,6 +35,7 @@
     <Content Include="helpers\passportHelper.js" />
     <Content Include="helpers\emailHelper.js" />
     <Content Include="helpers\tokenGenerator.js" />
+    <Content Include="models\traderRefundRates.js" />
     <Content Include="models\driverEarnings.js" />
     <Content Include="models\driverBills.js" />
     <Content Include="models\driverPayProofs.js" />
@@ -67,6 +68,19 @@
     <Content Include="routes\administrators\drivers\unblockDriverAccount.js" />
     <Content Include="routes\administrators\drivers\blockDriverAccount.js" />
     <Content Include="routes\administrators\drivers\activateDriverAccount.js" />
+    <Content Include="routes\administrators\driverObjectionReasons\addDriverObjectionReason.js" />
+    <Content Include="routes\administrators\driverObjectionReasons\deleteDriverObjectionReason.js" />
+    <Content Include="routes\administrators\driverObjectionReasons\getDriverObjectionReasons.js" />
+    <Content Include="routes\administrators\driverObjectionReasons\verifyDriverObjectionReason.js" />
+    <Content Include="routes\administrators\objectionableJobs\discardObjectionableJob.js" />
+    <Content Include="routes\administrators\objectionableJobs\getJobObjections.js" />
+    <Content Include="routes\administrators\objectionableJobs\getObjectionableJobs.js" />
+    <Content Include="routes\administrators\traderObjectionReasons\addTraderObjectionReason.js" />
+    <Content Include="routes\administrators\traderObjectionReasons\verifyTraderObjectionReason.js" />
+    <Content Include="routes\administrators\traderObjectionReasons\deleteTraderObjectionReason.js" />
+    <Content Include="routes\administrators\traderObjectionReasons\getTraderObjectionReasons.js" />
+    <Content Include="routes\administrators\traders\setRefundRate.js" />
+    <Content Include="routes\administrators\traders\getTraders.js" />
     <Content Include="routes\users\driverProfile\getDriverDocuments.js" />
     <Content Include="routes\users\driverProfile\getDriverProfile.js" />
     <Content Include="routes\administrators\drivers\getDrivers.js" />
@@ -88,7 +102,6 @@
     <Content Include="routes\drivers\earnings\getEarnings.js" />
     <Content Include="routes\drivers\jobRequests\getTraderRequestPackages.js" />
     <Content Include="routes\drivers\jobRequests\toggleSelectTraderRequest.js" />
-    <Content Include="routes\drivers\onGoingJobs\deleteOnGoingJob.js" />
     <Content Include="routes\drivers\onGoingJobs\finishJob.js" />
     <Content Include="routes\drivers\onGoingJobs\getOnGoingJob.js" />
     <Content Include="routes\drivers\payments\addDriverPayProof.js" />
@@ -96,8 +109,8 @@
     <Content Include="routes\drivers\payments\getBillData.js" />
     <Content Include="routes\drivers\payments\getBills.js" />
     <Content Include="routes\drivers\payments\getPaymentDetails.js" />
-    <Content Include="routes\drivers\traderProfile\getTraderDocuments.js" />
-    <Content Include="routes\drivers\traderProfile\getTraderProfile.js" />
+    <Content Include="routes\users\traderProfile\getTraderDocuments.js" />
+    <Content Include="routes\users\traderProfile\getTraderProfile.js" />
     <Content Include="routes\drivers\drivingLicences\getDrivingLicence.js" />
     <Content Include="routes\drivers\entryExitCards\getEntryExitCard.js" />
     <Content Include="routes\drivers\identityCards\getIdentityCard.js" />
@@ -110,7 +123,7 @@
     <Content Include="routes\drivers\objectionReasons\getObjectionReasons.js" />
     <Content Include="routes\drivers\onGoingJobs\addJobObjection.js" />
     <Content Include="routes\drivers\onGoingJobs\addOnGonigJob.js" />
-    <Content Include="routes\drivers\onGoingJobs\getJobObjectionPackages.js" />
+    <Content Include="routes\drivers\onGoingJobs\getJobObjections.js" />
     <Content Include="routes\drivers\permitLicences\addPermitLicence.js" />
     <Content Include="routes\drivers\identityCards\addIdentityCard.js" />
     <Content Include="routes\drivers\entryExitCards\addEntryExitCard.js" />
@@ -156,8 +169,7 @@
     <Content Include="routes\traders\onGoingJobs\addOnGonigJobFromJobRequest.js" />
     <Content Include="routes\traders\onGoingJobs\addOnGonigJobFromJobOffer.js" />
     <Content Include="routes\traders\onGoingJobs\approveJob.js" />
-    <Content Include="routes\traders\onGoingJobs\deleteOnGoingJob.js" />
-    <Content Include="routes\traders\onGoingJobs\getJobObjectionPackages.js" />
+    <Content Include="routes\traders\onGoingJobs\getJobObjections.js" />
     <Content Include="routes\traders\onGoingJobs\getOnGoingJob.js" />
     <Content Include="routes\traders\payments\getClientSecret.js" />
     <Content Include="routes\traders\payments\addTraderPayProof.js" />
@@ -207,6 +219,10 @@
     <Folder Include="helpers\" />
     <Folder Include="models\" />
     <Folder Include="routes\" />
+    <Folder Include="routes\administrators\driverObjectionReasons\" />
+    <Folder Include="routes\administrators\objectionableJobs\" />
+    <Folder Include="routes\administrators\traderObjectionReasons\" />
+    <Folder Include="routes\administrators\traders\" />
     <Folder Include="routes\users\driverProfile\" />
     <Folder Include="routes\users\driverTruck\" />
     <Folder Include="routes\administrators\login\" />
@@ -219,7 +235,7 @@
     <Folder Include="routes\drivers\completedJobs\" />
     <Folder Include="routes\drivers\earnings\" />
     <Folder Include="routes\drivers\payments\" />
-    <Folder Include="routes\drivers\traderProfile\" />
+    <Folder Include="routes\users\traderProfile\" />
     <Folder Include="routes\drivers\identityCards\" />
     <Folder Include="routes\drivers\entryExitCards\" />
     <Folder Include="routes\drivers\drivingLicences\" />
