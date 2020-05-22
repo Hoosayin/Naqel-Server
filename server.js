@@ -108,6 +108,10 @@ app.use("/drivers", require("./routes/drivers/payments/addDriverPayProof"));
 app.use("/drivers", require("./routes/drivers/payments/deleteDriverPayProof"));
 app.use("/drivers", require("./routes/drivers/payments/getPaymentDetails"));
 
+app.use("/drivers", require("./routes/drivers/questions/addQuestion"));
+app.use("/drivers", require("./routes/drivers/questions/getQuestions"));
+app.use("/drivers", require("./routes/drivers/questions/deleteQuestion"));
+
 // Traders' | Brokers' routes.
 app.use("/traders", require("./routes/traders/login/login"));
 
@@ -166,6 +170,10 @@ app.use("/traders", require("./routes/traders/payments/deleteTraderPayProof"));
 app.use("/traders", require("./routes/traders/payments/getPaymentDetails"));
 app.use("/traders", require("./routes/traders/payments/getClientSecret"));
 
+app.use("/traders", require("./routes/traders/questions/addQuestion"));
+app.use("/traders", require("./routes/traders/questions/deleteQuestion"));
+app.use("/traders", require("./routes/traders/questions/getQuestions"));
+
 // Administrators' routes.
 app.use("/administrators", require("./routes/administrators/register/register"));
 app.use("/administrators", require("./routes/administrators/register/setupAccount"));
@@ -204,6 +212,20 @@ app.use("/administrators", require("./routes/administrators/driverObjectionReaso
 app.use("/administrators", require("./routes/administrators/objectionableJobs/getObjectionableJobs"));
 app.use("/administrators", require("./routes/administrators/objectionableJobs/getJobObjections"));
 app.use("/administrators", require("./routes/administrators/objectionableJobs/discardObjectionableJob"));
+
+app.use("/administrators", require("./routes/administrators/driverQuestions/getDriverQuestions"));
+app.use("/administrators", require("./routes/administrators/driverQuestions/addDriverAnswer"));
+app.use("/administrators", require("./routes/administrators/driverQuestions/classifyDriverQuestion"));
+
+app.use("/administrators", require("./routes/administrators/driverQuestionClasses/getDriverQuestionClasses"));
+app.use("/administrators", require("./routes/administrators/driverQuestionClasses/addDriverQuestionClass"));
+
+app.use("/administrators", require("./routes/administrators/traderQuestions/getTraderQuestions"));
+app.use("/administrators", require("./routes/administrators/traderQuestions/addTraderAnswer"));
+app.use("/administrators", require("./routes/administrators/traderQuestions/classifyTraderQuestion"));
+
+app.use("/administrators", require("./routes/administrators/traderQuestionClasses/getTraderQuestionClasses"));
+app.use("/administrators", require("./routes/administrators/traderQuestionClasses/addTraderQuestionClass"));
 
 app.get("/", (request, response) => {
     response.send("Naqel Server - Up and Running!");
