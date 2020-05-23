@@ -3,6 +3,8 @@ var cors = require("cors");
 var bodyParser = require("body-parser");
 var passport = require("./helpers/passportHelper.js");
 
+const TemporaryFeeRateHelper = require("./helpers/temporaryFeeRateHelper");
+
 var app = express();
 const port = process.env.PORT || 5000;
 
@@ -226,6 +228,21 @@ app.use("/administrators", require("./routes/administrators/traderQuestions/clas
 
 app.use("/administrators", require("./routes/administrators/traderQuestionClasses/getTraderQuestionClasses"));
 app.use("/administrators", require("./routes/administrators/traderQuestionClasses/addTraderQuestionClass"));
+
+app.use("/administrators", require("./routes/administrators/globalAndTemporaryFeeRates/getGlobalAndTemporaryFeeRates"));
+app.use("/administrators", require("./routes/administrators/globalAndTemporaryFeeRates/setGlobalFeeRate"));
+app.use("/administrators", require("./routes/administrators/globalAndTemporaryFeeRates/setTemporaryFeeRate"));
+app.use("/administrators", require("./routes/administrators/globalAndTemporaryFeeRates/clearTemporaryFeeRate"));
+
+app.use("/administrators", require("./routes/administrators/priceRanges/getPriceRanges"));
+app.use("/administrators", require("./routes/administrators/priceRanges/addPriceRange"));
+app.use("/administrators", require("./routes/administrators/priceRanges/updatePriceRange"));
+app.use("/administrators", require("./routes/administrators/priceRanges/deletePriceRange"));
+
+app.use("/administrators", require("./routes/administrators/traderRates/getTraderRates"));
+app.use("/administrators", require("./routes/administrators/traderRates/addTraderRate"));
+app.use("/administrators", require("./routes/administrators/traderRates/updateTraderRate"));
+app.use("/administrators", require("./routes/administrators/traderRates/deleteTraderRate"));
 
 app.get("/", (request, response) => {
     response.send("Naqel Server - Up and Running!");

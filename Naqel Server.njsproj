@@ -29,12 +29,17 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="globalFeeRate.json" />
+    <Content Include="helpers\temporaryFeeRateHelper.js" />
+    <Content Include="helpers\globalFeeRateHelper.js" />
     <Content Include="helpers\codeGenerator.js" />
     <Content Include="helpers\databaseHelper.js" />
     <Content Include="helpers\jwtConfiguration.js" />
     <Content Include="helpers\passportHelper.js" />
     <Content Include="helpers\emailHelper.js" />
     <Content Include="helpers\tokenGenerator.js" />
+    <Content Include="models\traderRates.js" />
+    <Content Include="models\priceRanges.js" />
     <Content Include="models\traderQuestionClasses.js" />
     <Content Include="models\traderQuestions.js" />
     <Content Include="models\traderAnswers.js" />
@@ -71,6 +76,14 @@
     <Content Include="models\traders.js" />
     <Content Include="models\trailers.js" />
     <Content Include="models\trucks.js" />
+    <Content Include="routes\administrators\globalAndTemporaryFeeRates\clearTemporaryFeeRate.js" />
+    <Content Include="routes\administrators\globalAndTemporaryFeeRates\setTemporaryFeeRate.js" />
+    <Content Include="routes\administrators\globalAndTemporaryFeeRates\setGlobalFeeRate.js" />
+    <Content Include="routes\administrators\globalAndTemporaryFeeRates\getGlobalAndTemporaryFeeRates.js" />
+    <Content Include="routes\administrators\priceRanges\deletePriceRange.js" />
+    <Content Include="routes\administrators\priceRanges\updatePriceRange.js" />
+    <Content Include="routes\administrators\priceRanges\addPriceRange.js" />
+    <Content Include="routes\administrators\priceRanges\getPriceRanges.js" />
     <Content Include="routes\administrators\traderQuestions\addTraderAnswer.js" />
     <Content Include="routes\administrators\traderQuestions\classifyTraderQuestion.js" />
     <Content Include="routes\administrators\traderQuestions\getTraderQuestions.js" />
@@ -95,6 +108,10 @@
     <Content Include="routes\administrators\traderObjectionReasons\verifyTraderObjectionReason.js" />
     <Content Include="routes\administrators\traderObjectionReasons\deleteTraderObjectionReason.js" />
     <Content Include="routes\administrators\traderObjectionReasons\getTraderObjectionReasons.js" />
+    <Content Include="routes\administrators\traderRates\addTraderRate.js" />
+    <Content Include="routes\administrators\traderRates\deleteTraderRate.js" />
+    <Content Include="routes\administrators\traderRates\getTraderRates.js" />
+    <Content Include="routes\administrators\traderRates\updateTraderRate.js" />
     <Content Include="routes\administrators\traders\setRefundRate.js" />
     <Content Include="routes\administrators\traders\getTraders.js" />
     <Content Include="routes\drivers\questions\addQuestion.js" />
@@ -236,12 +253,16 @@
     <Content Include="server.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="temporaryFeeRateData.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="helpers\" />
     <Folder Include="models\" />
     <Folder Include="routes\" />
     <Folder Include="routes\administrators\driverObjectionReasons\" />
+    <Folder Include="routes\administrators\globalAndTemporaryFeeRates\" />
+    <Folder Include="routes\administrators\traderRates\" />
+    <Folder Include="routes\administrators\priceRanges\" />
     <Folder Include="routes\administrators\traderQuestions\" />
     <Folder Include="routes\administrators\traderQuestionClasses\" />
     <Folder Include="routes\administrators\driverQuestions\" />
