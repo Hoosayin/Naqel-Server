@@ -3,6 +3,7 @@ const cors = require("cors");
 const { Op } = require("sequelize");
 const passport = require("../../../helpers/passportHelper");
 const Drivers = require("../../../models/drivers");
+const DriverProfilePhotos = require("../../../models/driverProfilePhotos");
 const JobRequests = require("../../../models/jobRequests");
 const TraderRequests = require("../../../models/traderRequests");
 const OnGoingJobs = require("../../../models/onGoingJobs");
@@ -32,6 +33,14 @@ router.get("/getJobRequestPosts", (request, response) => {
                                 where: { DriverID: jobRequest.DriverID }
                             });
 
+                            const driverProfilePhoto = await DriverProfilePhotos.findOne({
+                                attributes: ["PhotoURL"],
+                                where: { DriverID: jobRequest.DriverID }
+                            });
+
+                            let modifiableDriver = driver.dataValues;
+                            modifiableDriver.PhotoURL = driverProfilePhoto ? driverProfilePhoto.PhotoURL : null;
+
                             const onGoingJob = await OnGoingJobs.findOne({
                                 where: { DriverID: jobRequest.DriverID }
                             });
@@ -47,7 +56,7 @@ router.get("/getJobRequestPosts", (request, response) => {
 
                             jobRequestPosts[count++] = {
                                 JobRequest: jobRequest,
-                                Driver: driver,
+                                Driver: modifiableDriver,
                                 DriverOnJob: onGoingJob ? true : false,
                                 TraderRequest: traderRequest
                             };
