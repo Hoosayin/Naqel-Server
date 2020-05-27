@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const uuid = require("uuid-v4");
 const passport = require("../../../helpers/passportHelper");
 const TraderPayProofs = require("../../../models/traderPayProofs");
 const TraderBills = require("../../../models/traderBills");
@@ -23,7 +24,9 @@ router.post("/approveTraderPayProof", (request, response) => {
                         }).then(traderBill => {
                             if (traderBill) {
                                 let amount = traderBill.Amount;
-                                let driverBillAmount = amount * (10 / 100);
+                                let feeRate = traderBill.FeeRate;
+
+                                let driverBillAmount = amount * (feeRate / 100);
                                 let driverEarning = amount - driverBillAmount;
 
                                 let newDriverBill = {
@@ -31,6 +34,8 @@ router.post("/approveTraderPayProof", (request, response) => {
                                     CompletedJobID: traderBill.CompletedJobID,
                                     Amount: driverBillAmount,
                                     Paid: false,
+                                    BillNumber: uuid().substring(0, 8).toUpperCase(),
+                                    FeeRate: feeRate,
                                     Created: new Date()
                                 };
 

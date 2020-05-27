@@ -10,9 +10,9 @@ router.use(cors());
 
 // POST: getClientSecret
 router.post("/getClientSecret", (request, response) => {
-    passport.authenticate("AuthenticateTrader", { session: false }, async result => {
+    passport.authenticate("AuthenticateDriver", { session: false }, async result => {
         try {
-            if (result.Message === "Trader found.") {
+            if (result.Message === "Driver found.") {
                 const amount = request.body.Amount;
 
                 const paymentIntent = await stripe.paymentIntents.create({
@@ -20,17 +20,10 @@ router.post("/getClientSecret", (request, response) => {
                     currency: "usd"
                 });
 
-                stripe.transfers.create({
-                    amount: 400,
-                    currency: 'usd',
-                    destination: 'acct_1GnHdVGh7Qz1jZFv',
-                }, (error, transfer) => {
-                        response.json({
-                            Message: "Client secret found.",
-                            ClientSecret: paymentIntent.client_secret
-                        });
-                    }
-                );
+                response.json({
+                    Message: "Client secret found.",
+                    ClientSecret: paymentIntent.client_secret
+                });
             }
             else {
                 response.json({

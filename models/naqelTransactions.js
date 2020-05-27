@@ -1,9 +1,9 @@
-var databaseHelper = require('../helpers/databaseHelper');
+var databaseHelper = require("../helpers/databaseHelper");
 
 module.exports = databaseHelper.sequelize.define(
-    "DriverBills",
+    "NaqelTransactions",
     {
-        DriverBillID:
+        NaqelTransactionID:
         {
             type: databaseHelper.Sequelize.BIGINT,
             allowNull: false,
@@ -13,42 +13,42 @@ module.exports = databaseHelper.sequelize.define(
         DriverID:
         {
             type: databaseHelper.Sequelize.BIGINT,
-            allowNull: false,
+            allowNull: true,
             references:
             {
                 model: "Drivers",
                 key: "DriverID"
             }
         },
-        CompletedJobID:
+        TraderID:
         {
             type: databaseHelper.Sequelize.BIGINT,
-            allowNull: false,
+            allowNull: true,
             references:
             {
-                model: "CompletedJobs",
-                key: "CompletedJobID"
+                model: "Traders",
+                key: "TraderID"
             }
         },
-        Amount:
+        UserType:
         {
-            type: databaseHelper.Sequelize.FLOAT,
-            allowNull: false
-        },
-        Paid:
-        {
-            type: databaseHelper.Sequelize.INTEGER(1),
+            type: databaseHelper.Sequelize.STRING(50),
             allowNull: false
         },
         BillNumber:
         {
             type: databaseHelper.Sequelize.STRING(50),
-            allowNull: true
+            allowNull: false
         },
-        FeeRate:
+        PaymentMethod:
         {
-            type: databaseHelper.Sequelize.INTEGER,
-            allowNull: true
+            type: databaseHelper.Sequelize.STRING(50),
+            allowNull: false
+        },
+        Amount:
+        {
+            type: databaseHelper.Sequelize.FLOAT,
+            allowNull: false
         },
         Created:
         {
@@ -57,6 +57,6 @@ module.exports = databaseHelper.sequelize.define(
         }
     },
     {
-        tableName: "DriverBills"
+        tableName: "NaqelTransactions"
     }    
 );

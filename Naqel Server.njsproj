@@ -30,6 +30,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="globalFeeRate.json" />
+    <Content Include="helpers\naqelSettingsHelper.js" />
     <Content Include="helpers\temporaryFeeRateHelper.js" />
     <Content Include="helpers\globalFeeRateHelper.js" />
     <Content Include="helpers\codeGenerator.js" />
@@ -38,6 +39,9 @@
     <Content Include="helpers\passportHelper.js" />
     <Content Include="helpers\emailHelper.js" />
     <Content Include="helpers\tokenGenerator.js" />
+    <Content Include="models\naqelTransactions.js" />
+    <Content Include="models\driverPayDetails.js" />
+    <Content Include="models\traderPayDetails.js" />
     <Content Include="models\traderRates.js" />
     <Content Include="models\priceRanges.js" />
     <Content Include="models\traderQuestionClasses.js" />
@@ -76,6 +80,10 @@
     <Content Include="models\traders.js" />
     <Content Include="models\trailers.js" />
     <Content Include="models\trucks.js" />
+    <Content Include="naqelSettings.json" />
+    <Content Include="routes\administrators\accountStatement\getAccountStatement.js" />
+    <Content Include="routes\administrators\driverAccountStatements\getDriverAccountStatement.js" />
+    <Content Include="routes\administrators\driversBills\getDriversBills.js" />
     <Content Include="routes\administrators\globalAndTemporaryFeeRates\clearTemporaryFeeRate.js" />
     <Content Include="routes\administrators\globalAndTemporaryFeeRates\setTemporaryFeeRate.js" />
     <Content Include="routes\administrators\globalAndTemporaryFeeRates\setGlobalFeeRate.js" />
@@ -84,6 +92,11 @@
     <Content Include="routes\administrators\priceRanges\updatePriceRange.js" />
     <Content Include="routes\administrators\priceRanges\addPriceRange.js" />
     <Content Include="routes\administrators\priceRanges\getPriceRanges.js" />
+    <Content Include="routes\administrators\driversBills\approveDriverPayProof.js" />
+    <Content Include="routes\administrators\profile\settings\updateNaqelSettings.js" />
+    <Content Include="routes\administrators\profile\settings\getNaqelSettings.js" />
+    <Content Include="routes\administrators\traderAccountStatements\getTraderAccountStatement.js" />
+    <Content Include="routes\administrators\tradersBills\getTradersBills.js" />
     <Content Include="routes\administrators\traderQuestions\addTraderAnswer.js" />
     <Content Include="routes\administrators\traderQuestions\classifyTraderQuestion.js" />
     <Content Include="routes\administrators\traderQuestions\getTraderQuestions.js" />
@@ -114,9 +127,12 @@
     <Content Include="routes\administrators\traderRates\updateTraderRate.js" />
     <Content Include="routes\administrators\traders\setRefundRate.js" />
     <Content Include="routes\administrators\traders\getTraders.js" />
+    <Content Include="routes\drivers\payments\addDriverPayDetails.js" />
+    <Content Include="routes\drivers\payments\getClientSecret.js" />
     <Content Include="routes\drivers\questions\addQuestion.js" />
     <Content Include="routes\drivers\questions\deleteQuestion.js" />
     <Content Include="routes\drivers\questions\getQuestions.js" />
+    <Content Include="routes\traders\payments\addTraderPayDetails.js" />
     <Content Include="routes\traders\questions\addQuestion.js" />
     <Content Include="routes\traders\questions\deleteQuestion.js" />
     <Content Include="routes\traders\questions\getQuestions.js" />
@@ -261,6 +277,11 @@
     <Folder Include="routes\" />
     <Folder Include="routes\administrators\driverObjectionReasons\" />
     <Folder Include="routes\administrators\globalAndTemporaryFeeRates\" />
+    <Folder Include="routes\administrators\driversBills\" />
+    <Folder Include="routes\administrators\driverAccountStatements\" />
+    <Folder Include="routes\administrators\accountStatement\" />
+    <Folder Include="routes\administrators\traderAccountStatements\" />
+    <Folder Include="routes\administrators\tradersBills\" />
     <Folder Include="routes\administrators\traderRates\" />
     <Folder Include="routes\administrators\priceRanges\" />
     <Folder Include="routes\administrators\traderQuestions\" />

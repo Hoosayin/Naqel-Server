@@ -4,6 +4,7 @@ const passport = require("../../../helpers/passportHelper");
 const CompletedJobs = require("../../../models/completedJobs");
 const TraderBills = require("../../../models/traderBills");
 const TraderPayProofs = require("../../../models/traderPayProofs");
+const TraderPayDetails = require("../../../models/traderPayDetails");
 
 var router = express.Router();
 router.use(cors());
@@ -36,8 +37,25 @@ router.get("/getTraderPaymentDetails", (request, response) => {
                                         });
                                     }
                                     else {
-                                        response.json({
-                                            Message: "Trader pay proof not found."
+                                        TraderPayDetails.findOne({
+                                            where: { TraderBillID: traderBill.TraderBillID }
+                                        }).then(traderPayDetail => {
+                                            if (traderPayDetail) {
+                                                let traderPaymentDetails = {
+                                                    IsOnlinePayment: true,
+                                                    PayDetails: traderPayDetail
+                                                };
+
+                                                response.json({
+                                                    Message: "Trader payment details found.",
+                                                    TraderPaymentDetails: traderPaymentDetails
+                                                });
+                                            }
+                                            else {
+                                                response.json({
+                                                    Message: "Payment details not found."
+                                                });
+                                            }
                                         });
                                     }
                                 });

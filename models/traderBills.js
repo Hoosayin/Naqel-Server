@@ -50,6 +50,16 @@ module.exports = databaseHelper.sequelize.define(
             type: databaseHelper.Sequelize.INTEGER(1),
             allowNull: false
         },
+        BillNumber:
+        {
+            type: databaseHelper.Sequelize.STRING(50),
+            allowNull: true
+        },
+        FeeRate:
+        {
+            type: databaseHelper.Sequelize.INTEGER,
+            allowNull: false
+        },
         Created:
         {
             type: databaseHelper.Sequelize.DATE,

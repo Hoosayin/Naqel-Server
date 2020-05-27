@@ -29,14 +29,18 @@ router.get("/getEarnings", (request, response) => {
                                 where: { CompletedJobID: driverEarning.CompletedJobID }
                             });
 
-                            const driverBill = await DriverBills.findOne({
-                                attributes: ["Paid"],
-                                where: { DriverBillID: driverEarning.DriverBillID }
-                            });
+                            let driverBill = null;
+
+                            if (driverEarning.DriverBillID) {
+                                driverBill = await DriverBills.findOne({
+                                    attributes: ["Paid"],
+                                    where: { DriverBillID: driverEarning.DriverBillID }
+                                });
+                            }
 
                             let modifiableDriverEarning = driverEarning.dataValues;
                             modifiableDriverEarning.JobNumber = completedJob.JobNumber;
-                            modifiableDriverEarning.DuesPaid = driverBill.Paid;
+                            modifiableDriverEarning.DuesPaid = driverEarning.DriverBillID ? driverBill.Paid : true;
 
                             modifiableDriverEarnings[count++] = modifiableDriverEarning;
                         }

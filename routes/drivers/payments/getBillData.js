@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const passport = require("../../../helpers/passportHelper");
+const NaqelSettingsHelper = require("../../../helpers/naqelSettingsHelper");
 
 var router = express.Router();
 router.use(cors());
@@ -10,19 +11,23 @@ router.get("/getBillData", (request, response) => {
     passport.authenticate("AuthenticateDriver", { session: false }, async result => {
         try {
             if (result.Message === "Driver found.") {
-
                 let driver = result.Driver;
 
-                let billData = {
-                    FirstName: driver.FirstName,
-                    LastName: driver.LastName,
-                    Address: driver.Address
-                };
+                NaqelSettingsHelper.GetNaqelSettings(result => {
+                    let billData = {
+                        FirstName: driver.FirstName,
+                        LastName: driver.LastName,
+                        Address: driver.Address,
+                        NaqelSettings: result.NaqelSettings
+                    };
 
-                response.json({
-                    Message: "Bill data found.",
-                    BillData: billData
+                    response.json({
+                        Message: "Bill data found.",
+                        BillData: billData
+                    });
                 });
+
+                
             }
             else {
                 response.json({

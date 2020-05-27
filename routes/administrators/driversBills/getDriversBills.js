@@ -2,38 +2,27 @@ const express = require("express");
 const cors = require("cors");
 const passport = require("../../../helpers/passportHelper");
 const DriverBills = require("../../../models/driverBills");
-const CompletedJobs = require("../../../models/completedJobs");
+const Drivers = require("../../../models/drivers");
 const DriverPayProofs = require("../../../models/driverPayProofs");
 const DriverPayDetails = require("../../../models/driverPayDetails");
 
 var router = express.Router();
 router.use(cors());
 
-// GET: getBills
-router.get("/getBills", (request, response) => {
-    passport.authenticate("AuthenticateDriver", { session: false }, result => {
+// GET: getDriversBills
+router.get("/getDriversBills", (request, response) => {
+    passport.authenticate("AuthenticateAdministrator", { session: false }, result => {
         try {
-            if (result.Message === "Driver found.") {
-                DriverBills.findAll({
-                    where: { DriverID: result.Driver.DriverID }
-                }).then(async driverBills => {
+            if (result.Message === "Administrator found.") {
+                DriverBills.findAll().then(async driverBills => {
                     if (driverBills) {
                         let modifiableDriverBills = [];
                         let count = 0;
-                        let countPaid = 0;
-                        let countUnpaid = 0;
 
                         for (let driverBill of driverBills) {
-                            if (driverBill.Paid) {
-                                countPaid++;
-                            }
-                            else {
-                                countUnpaid++;
-                            }
-
-                            const completedJob = await CompletedJobs.findOne({
-                                attributes: ["JobNumber"],
-                                where: { CompletedJobID: driverBill.CompletedJobID }
+                            const driver = await Drivers.findOne({
+                                attributes: ["Username"],
+                                where: { DriverID: driverBill.DriverID }
                             });
 
                             const driverPayProof = await DriverPayProofs.findOne({
@@ -45,9 +34,9 @@ router.get("/getBills", (request, response) => {
                             });
 
                             let modifiableDriverBill = driverBill.dataValues;
-                            modifiableDriverBill.JobNumber = completedJob.JobNumber;
-                            modifiableDriverBill.HasPayProof = driverPayProof ? true : false;
-                            modifiableDriverBill.HasPayDetails = driverPayDetails ? true : false;
+                            modifiableDriverBill.Username = driver.Username;
+                            modifiableDriverBill.DriverPayProof = driverPayProof;
+                            modifiableDriverBill.DriverPayDetails = driverPayDetails;
 
                             modifiableDriverBills[count++] = modifiableDriverBill;
                         }
@@ -62,10 +51,9 @@ router.get("/getBills", (request, response) => {
 
                         response.json({
                             Message: "Bills found.",
-                            Bills: modifiableDriverBills,
-                            NumberOfPaidBills: countPaid,
-                            NumberOfUnpaidBills: countUnpaid
+                            Bills: modifiableDriverBills
                         });
+
                     }
                     else {
                         response.json({

@@ -3,6 +3,7 @@ const cors = require("cors");
 const passport = require("../../../helpers/passportHelper");
 const DriverBills = require("../../../models/driverBills");
 const DriverPayProofs = require("../../../models/driverPayProofs");
+const DriverPayDetails = require("../../../models/driverPayDetails");
 
 var router = express.Router();
 router.use(cors());
@@ -31,8 +32,25 @@ router.get("/getPaymentDetails", (request, response) => {
                                 });
                             }
                             else {
-                                response.json({
-                                    Message: "Driver pay proof not found."
+                                DriverPayDetails.findOne({
+                                    where: { DriverBillID: driverBill.DriverBillID }
+                                }).then(driverPayDetail => {
+                                    if (driverPayDetail) {
+                                        let paymentDetails = {
+                                            IsOnlinePayment: true,
+                                            PayDetails: driverPayDetail
+                                        };
+
+                                        response.json({
+                                            Message: "Payment details found.",
+                                            PaymentDetails: paymentDetails
+                                        });
+                                    }
+                                    else {
+                                        response.json({
+                                            Message: "Payment details not found."
+                                        });
+                                    }
                                 });
                             }
                         });

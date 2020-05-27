@@ -1,10 +1,15 @@
 const express = require("express");
 const cors = require("cors");
+const uuid = require("uuid-v4");
 const passport = require("../../../helpers/passportHelper");
 const OnGoingJobs = require("../../../models/onGoingJobs");
 const JobObjections = require("../../../models/jobObjections");
 const CompletedJobs = require("../../../models/completedJobs");
 const TraderBills = require("../../../models/traderBills");
+const TraderRates = require("../../../models/traderRates");
+const PriceRanges = require("../../../models/priceRanges");
+const TemporaryFeeRateHelper = require("../../../helpers/temporaryFeeRateHelper");
+const GlobalFeeRateHelper = require("../../../helpers/globalFeeRateHelper");
 
 var router = express.Router();
 router.use(cors());
@@ -14,6 +19,8 @@ router.post("/approveJob", (request, response) => {
     passport.authenticate("AuthenticateTrader", { session: false }, result => {
         try {
             if (result.Message === "Trader found.") {
+                let trader = result.Trader;
+
                 OnGoingJobs.findOne({
                     where: { TraderID: result.Trader.TraderID }
                 }).then(onGoingJob => {
@@ -48,19 +55,114 @@ router.post("/approveJob", (request, response) => {
                                     CompletedJobs.create(newCompletedJob).then(completedJob => {
                                         onGoingJob.destroy();
 
-                                        let newTraderBill = {
-                                            DriverID: completedJob.DriverID,
-                                            TraderID: completedJob.TraderID,
-                                            CompletedJobID: completedJob.CompletedJobID,
-                                            Amount: completedJob.Price,
-                                            Paid: false,
-                                            Created: new Date()
-                                        };
+                                        // Find the FeeRate Here.
+                                        let feeRate = 0;
 
-                                        TraderBills.create(newTraderBill).then(() => {
-                                            response.json({
-                                                Message: "Job is approved."
-                                            });
+                                        TemporaryFeeRateHelper.GetTemporaryFeeRateData(async result => {
+                                            if (result.Message === "Temporary fee rate data found.") {
+                                                feeRate = result.TemporaryFeeRateData.FeeRate;
+
+                                                let newTraderBill = {
+                                                    DriverID: completedJob.DriverID,
+                                                    TraderID: completedJob.TraderID,
+                                                    CompletedJobID: completedJob.CompletedJobID,
+                                                    Amount: completedJob.Price,
+                                                    Paid: false,
+                                                    BillNumber: uuid().substring(0, 8).toUpperCase(),
+                                                    FeeRate: feeRate,
+                                                    Created: new Date()
+                                                };
+
+                                                TraderBills.create(newTraderBill).then(() => {
+                                                    response.json({
+                                                        Message: "Job is approved."
+                                                    });
+                                                });
+                                            }
+                                            else {
+                                                const traderRate = await TraderRates.findOne({
+                                                    where: { TraderID: trader.TraderID }
+                                                });
+
+                                                if (traderRate) {
+                                                    feeRate = traderRate.FeeRate;
+
+                                                    let newTraderBill = {
+                                                        DriverID: completedJob.DriverID,
+                                                        TraderID: completedJob.TraderID,
+                                                        CompletedJobID: completedJob.CompletedJobID,
+                                                        Amount: completedJob.Price,
+                                                        Paid: false,
+                                                        BillNumber: uuid().substring(0, 8).toUpperCase(),
+                                                        FeeRate: feeRate,
+                                                        Created: new Date()
+                                                    };
+
+                                                    TraderBills.create(newTraderBill).then(() => {
+                                                        response.json({
+                                                            Message: "Job is approved."
+                                                        });
+                                                    });
+                                                }
+                                                else {
+                                                    const priceRanges = await PriceRanges.findAll();
+
+                                                    if (priceRanges) {
+                                                        const price = completedJob.Price;
+
+                                                        for (let priceRange of priceRanges) {
+                                                            if (price >= priceRange.StartRange &&
+                                                                price <= priceRange.EndRange) {
+
+                                                                feeRate = priceRange.FeeRate;
+
+                                                                let newTraderBill = {
+                                                                    DriverID: completedJob.DriverID,
+                                                                    TraderID: completedJob.TraderID,
+                                                                    CompletedJobID: completedJob.CompletedJobID,
+                                                                    Amount: completedJob.Price,
+                                                                    Paid: false,
+                                                                    BillNumber: uuid().substring(0, 8).toUpperCase(),
+                                                                    FeeRate: feeRate,
+                                                                    Created: new Date()
+                                                                };
+
+                                                                TraderBills.create(newTraderBill).then(() => {
+                                                                    response.json({
+                                                                        Message: "Job is approved."
+                                                                    });
+                                                                });
+
+                                                                break;
+                                                            }
+                                                        }
+                                                    }
+                                                    else {
+                                                        GlobalFeeRateHelper.GetGlobalFeeRate(result => {
+                                                            if (result.Message === "Global fee rate found.") {
+                                                                feeRate = result.FeeRate;
+
+                                                                let newTraderBill = {
+                                                                    DriverID: completedJob.DriverID,
+                                                                    TraderID: completedJob.TraderID,
+                                                                    CompletedJobID: completedJob.CompletedJobID,
+                                                                    Amount: completedJob.Price,
+                                                                    Paid: false,
+                                                                    BillNumber: uuid().substring(0, 8).toUpperCase(),
+                                                                    FeeRate: feeRate,
+                                                                    Created: new Date()
+                                                                };
+
+                                                                TraderBills.create(newTraderBill).then(() => {
+                                                                    response.json({
+                                                                        Message: "Job is approved."
+                                                                    });
+                                                                });
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                            }
                                         });
                                     });
                                 }

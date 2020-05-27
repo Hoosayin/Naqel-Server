@@ -4,7 +4,9 @@ const fileName = "temporaryFeeRateData.json";
 const setTemporaryFeeRateData = temporaryFeeRateData => {
     let json = temporaryFeeRateData ? JSON.stringify(temporaryFeeRateData) : JSON.stringify({});
 
-    fileStream.writeFile(fileName, json, "utf8", () => { return; })
+    fileStream.writeFile(fileName, json, "utf8", () => {
+        return;
+    });
 };
 
 const getTemporaryFeeRateData = onFileRead => {
@@ -20,10 +22,23 @@ const getTemporaryFeeRateData = onFileRead => {
                     temporaryFeeRateData = JSON.parse(data);
 
                     if (temporaryFeeRateData.FeeRate) {
-                        onFileRead({
-                            Message: "Temporary fee rate data found.",
-                            TemporaryFeeRateData: temporaryFeeRateData
-                        });
+                        const dateDifference = new Date(temporaryFeeRateData.Date) - new Date();
+
+                        if (dateDifference < 0) {
+                            let json = JSON.stringify({});
+
+                            fileStream.writeFile(fileName, json, "utf8", () => {
+                                onFileRead({
+                                    Message: "Temporary fee rate data not found."
+                                });
+                            });
+                        }
+                        else {
+                            onFileRead({
+                                Message: "Temporary fee rate data found.",
+                                TemporaryFeeRateData: temporaryFeeRateData
+                            });
+                        }
                     }
                     else {
                         onFileRead({

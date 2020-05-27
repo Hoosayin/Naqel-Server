@@ -33,7 +33,7 @@ module.exports = databaseHelper.sequelize.define(
         DriverBillID:
         {
             type: databaseHelper.Sequelize.BIGINT,
-            allowNull: false,
+            allowNull: true,
             references:
             {
                 model: "DriverBills",

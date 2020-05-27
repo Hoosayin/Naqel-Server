@@ -3,6 +3,7 @@ const cors = require("cors");
 const passport = require("../../../helpers/passportHelper");
 const TraderBills = require("../../../models/traderBills");
 const TraderPayProofs = require("../../../models/traderPayProofs");
+const TraderPayDetails = require("../../../models/traderPayDetails");
 
 var router = express.Router();
 router.use(cors());
@@ -31,8 +32,25 @@ router.get("/getPaymentDetails", (request, response) => {
                                 });
                             }
                             else {
-                                response.json({
-                                    Message: "Trader pay proof not found."
+                                TraderPayDetails.findOne({
+                                    where: { TraderBillID: traderBill.TraderBillID }
+                                }).then(traderPayDetail => {
+                                    if (traderPayDetail) {
+                                        let paymentDetails = {
+                                            IsOnlinePayment: true,
+                                            PayDetails: traderPayDetail
+                                        };
+
+                                        response.json({
+                                            Message: "Payment details found.",
+                                            PaymentDetails: paymentDetails
+                                        });
+                                    }
+                                    else {
+                                        response.json({
+                                            Message: "Payment details not found."
+                                        });
+                                    }
                                 });
                             }
                         });
