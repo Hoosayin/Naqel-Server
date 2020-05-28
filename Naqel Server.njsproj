@@ -129,6 +129,7 @@
     <Content Include="routes\administrators\traders\getTraders.js" />
     <Content Include="routes\drivers\payments\addDriverPayDetails.js" />
     <Content Include="routes\drivers\payments\getClientSecret.js" />
+    <Content Include="routes\drivers\profile\getDashboardData.js" />
     <Content Include="routes\drivers\questions\addQuestion.js" />
     <Content Include="routes\drivers\questions\deleteQuestion.js" />
     <Content Include="routes\drivers\questions\getQuestions.js" />

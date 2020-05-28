@@ -4,6 +4,7 @@ const passport = require("../../../helpers/passportHelper");
 const JobRequests = require("../../../models/jobRequests");
 const TraderRequests = require("../../../models/traderRequests");
 const Traders = require("../../../models/traders");
+const TraderProfilePhotos = require("../../../models/traderProfilePhotos");
 const OnGoingJobs = require("../../../models/onGoingJobs");
 
 var router = express.Router();
@@ -31,13 +32,21 @@ router.get("/getTraderRequestPackages", (request, response) => {
                                         where: { TraderID: traderRequest.TraderID }
                                     });
 
+                                    const traderProfilePhoto = await TraderProfilePhotos.findOne({
+                                        attributes: ["PhotoURL"],
+                                        where: { TraderID: traderRequest.TraderID }
+                                    });
+
+                                    let modifiableTrader = trader.dataValues;
+                                    modifiableTrader.PhotoURL = traderProfilePhoto ? traderProfilePhoto.PhotoURL : null;
+
                                     const onGoingJob = await OnGoingJobs.findOne({
                                         where: { TraderID: traderRequest.TraderID }
                                     });
 
                                     traderRequestPackages[count++] = {
                                         TraderRequest: traderRequest,
-                                        Trader: trader,
+                                        Trader: modifiableTrader,
                                         TraderOnJob: onGoingJob ? true : false
                                     };
                                 }

@@ -4,6 +4,7 @@ const passport = require("../../../helpers/passportHelper");
 const JobOffers = require("../../../models/jobOffers");
 const DriverRequests = require("../../../models/driverRequests");
 const Drivers = require("../../../models/drivers");
+const DriverProfilePhotos = require("../../../models/driverProfilePhotos");
 const OnGoingJobs = require("../../../models/onGoingJobs");
 
 var router = express.Router();
@@ -31,13 +32,21 @@ router.get("/getDriverRequestPackages", (request, response) => {
                                         where: { DriverID: driverRequest.DriverID }
                                     });
 
+                                    const driverProfilePhoto = await DriverProfilePhotos.findOne({
+                                        attributes: ["PhotoURL"],
+                                        where: { DriverID: driverRequest.DriverID }
+                                    });
+
+                                    let modifiableDriver = driver.dataValues;
+                                    modifiableDriver.PhotoURL = driverProfilePhoto ? driverProfilePhoto.PhotoURL : null;
+
                                     const onGoingJob = await OnGoingJobs.findOne({
                                         where: { DriverID: driverRequest.DriverID }
                                     });
 
                                     driverRequestPackages[count++] = {
                                         DriverRequest: driverRequest,
-                                        Driver: driver,
+                                        Driver: modifiableDriver,
                                         DriverOnJob: onGoingJob ? true : false
                                     };
                                 }

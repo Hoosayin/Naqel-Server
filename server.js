@@ -37,6 +37,7 @@ app.use("/drivers", require("./routes/drivers/register/register"));
 app.use("/drivers", require("./routes/drivers/profile/getDriver"));
 app.use("/drivers", require("./routes/drivers/profile/getProfilePhoto"));
 app.use("/drivers", require("./routes/drivers/profile/uploadDriverProfilePhoto"));
+app.use("/drivers", require("./routes/drivers/profile/getDashboardData"));
 
 app.use("/drivers", require("./routes/drivers/settings/generalSettings"));
 app.use("/drivers", require("./routes/drivers/settings/usernameAndEmailSettings"));
