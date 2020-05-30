@@ -259,6 +259,12 @@ app.use("/administrators", require("./routes/administrators/traderAccountStateme
 app.use("/administrators", require("./routes/administrators/driverAccountStatements/getDriverAccountStatement"));
 app.use("/administrators", require("./routes/administrators/accountStatement/getAccountStatement"));
 
+// Administrators' routes.
+app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/register/register"));
+app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/register/setupAccount"));
+
+app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/login/login"));
+
 app.get("/", (request, response) => {
     response.send("Naqel Server - Up and Running!");
 });

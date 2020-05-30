@@ -77,6 +77,7 @@
     <Content Include="models\drivers.js" />
     <Content Include="models\jobRequests.js" />
     <Content Include="models\traderProfilePhotos.js" />
+    <Content Include="models\transportCompanyResponsibles.js" />
     <Content Include="models\traders.js" />
     <Content Include="models\trailers.js" />
     <Content Include="models\trucks.js" />
@@ -137,6 +138,9 @@
     <Content Include="routes\traders\questions\addQuestion.js" />
     <Content Include="routes\traders\questions\deleteQuestion.js" />
     <Content Include="routes\traders\questions\getQuestions.js" />
+    <Content Include="routes\transportCompanyResponsibles\login\login.js" />
+    <Content Include="routes\transportCompanyResponsibles\register\register.js" />
+    <Content Include="routes\transportCompanyResponsibles\register\setupAccount.js" />
     <Content Include="routes\users\driverProfile\getDriverDocuments.js" />
     <Content Include="routes\users\driverProfile\getDriverProfile.js" />
     <Content Include="routes\administrators\drivers\getDrivers.js" />
@@ -293,7 +297,10 @@
     <Folder Include="routes\administrators\traderObjectionReasons\" />
     <Folder Include="routes\administrators\traders\" />
     <Folder Include="routes\drivers\questions\" />
+    <Folder Include="routes\transportCompanyResponsibles\" />
     <Folder Include="routes\traders\questions\" />
+    <Folder Include="routes\transportCompanyResponsibles\login\" />
+    <Folder Include="routes\transportCompanyResponsibles\register\" />
     <Folder Include="routes\users\driverProfile\" />
     <Folder Include="routes\users\driverTruck\" />
     <Folder Include="routes\administrators\login\" />

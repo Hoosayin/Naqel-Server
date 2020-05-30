@@ -1,13 +1,19 @@
 const bcrypt = require("bcrypt");
 const Sequelize = require("sequelize");
+const uuid = require("uuid-v4");
+
 const jwtConfiguration = require("./jwtConfiguration");
+const codeGenerator = require("./codeGenerator");
+
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const JWTStrategy = require("passport-jwt").Strategy;
 const ExtractJWT = require("passport-jwt").ExtractJwt;
+
 const Drivers = require("../models/drivers");
 const Traders = require("../models/traders");
 const Administrators = require("../models/administrators");
+const TransportCompanyResponsibles = require("../models/transportCompanyResponsibles");
 
 const BCRYPT_SALT_ROUNDS = 12;
 const Op = Sequelize.Op;
@@ -99,6 +105,40 @@ passport.use("RegisterAdministrator", new LocalStrategy({
             },
         }).then(administrator => {
             if (administrator) {
+                return onAuthenticated({
+                    Message: "Username or email is already taken.",
+                });
+            }
+            else {
+                return onAuthenticated({
+                    Message: "Credentials are verified.",
+                });
+            }
+        });
+    } catch (error) {
+        return onAuthenticated({
+            Message: error.message,
+        });
+    }
+}));
+
+// Register TransportCompanyResponsible
+passport.use("RegisterTransportCompanyResponsible", new LocalStrategy({
+    usernameField: "Username",
+    passwordField: "Password",
+    passReqToCallback: true,
+    session: false,
+}, (request, username, password, onAuthenticated) => {
+        try {
+            TransportCompanyResponsibles.findOne({
+            where: {
+                [Op.or]: [
+                    { Username: request.body.Username },
+                    { Email: request.body.Email },
+                ],
+            },
+            }).then(transportCompanyResponsible => {
+                if (transportCompanyResponsible) {
                 return onAuthenticated({
                     Message: "Username or email is already taken.",
                 });
@@ -211,6 +251,42 @@ passport.use("SetupAdministratorAccount", new LocalStrategy({
                 Message: "Invalid secret code."
             });
         }
+    } catch (error) {
+        return onAuthenticated({
+            Message: error.message
+        });
+    }
+}));
+
+// Setup Transport Company Responsible Account
+passport.use("SetupTransportCompanyResponsibleAccount", new LocalStrategy({
+    usernameField: "Username",
+    passwordField: "Password",
+    passReqToCallback: true,
+    session: false,
+}, (request, username, password, onAuthenticated) => {
+    try {
+        let newTransportCompanyResponsible = {
+            Email: request.body.Email,
+            Username: request.body.Username,
+            Password: request.body.Password,
+            Name: request.body.Name,
+            PhoneNumber: request.body.PhoneNumber,
+            InternalNumber: uuid().substring(0, 12).toUpperCase(),
+            CommercialRegisterNumber: codeGenerator(10),
+            Active: true,
+            Created: new Date()
+        };
+
+        bcrypt.hash(request.body.Password, BCRYPT_SALT_ROUNDS).then(passwordHash => {
+            newTransportCompanyResponsible.Password = passwordHash;
+
+            TransportCompanyResponsibles.create(newTransportCompanyResponsible).then(() => {
+                return onAuthenticated({
+                    Message: "Transport company responsible created."
+                });
+            });
+        });
     } catch (error) {
         return onAuthenticated({
             Message: error.message
@@ -339,6 +415,49 @@ passport.use("LoginAdministrator", new LocalStrategy({
     }
 }));
 
+// Login Transport Company Responsible
+passport.use("LoginTransportCompanyResponsible", new LocalStrategy({
+    usernameField: "EmailOrUsername",
+    passwordField: "Password",
+    passReqToCallback: true,
+    session: false,
+}, (request, username, password, onAuthenticated) => {
+        try {
+            TransportCompanyResponsibles.findOne({
+            where: {
+                [Op.or]: [
+                    { Username: request.body.EmailOrUsername },
+                    { Email: request.body.EmailOrUsername },
+                ]
+                }
+            }).then(transportCompanyResponsible => {
+                if (!transportCompanyResponsible) {
+                return onAuthenticated({
+                    Message: "Transport company responsible not found."
+                });
+            }
+            else {
+                bcrypt.compare(request.body.Password, administrator.Password).then(response => {
+                    if (!response) {
+                        return onAuthenticated({
+                            Message: "Invalid password."
+                        });
+                    }
+                    return onAuthenticated({
+                        Message: "Transport company responsible found.",
+                        TransportCompanyResponsible: transportCompanyResponsible.dataValues
+                    });
+                });
+            }
+        });
+    }
+    catch (error) {
+        onAuthenticated({
+            Message: error.message
+        });
+    }
+}));
+
 // Authenticate Driver 
 passport.use("AuthenticateDriver", new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme("JWT"),
@@ -412,6 +531,33 @@ passport.use("AuthenticateAdministrator", new JWTStrategy({
             } else {
                 onAuthenticated({
                     Message: "Administrator not found."
+                });
+            }
+        });
+    } catch (error) {
+        onAuthenticated({
+            Message: error.message
+        });
+    }
+}));
+
+// Authenticate Transport Company Responsible
+passport.use("AuthenticateTransportCompanyResponsible", new JWTStrategy({
+    jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme("JWT"),
+    secretOrKey: jwtConfiguration.secret,
+}, (JWTPayload, onAuthenticated) => {
+        try {
+            TransportCompanyResponsibles.findOne({
+                where: { TransportCompanyResponsibleID: JWTPayload.TransportCompanyResponsibleID },
+            }).then(transportCompanyResponsible => {
+                if (transportCompanyResponsible) {
+                onAuthenticated({
+                    Message: "Transport company responsible found.",
+                    TransportCompanyResponsible: transportCompanyResponsible
+                });
+            } else {
+                onAuthenticated({
+                    Message: "Transport company responsible not found."
                 });
             }
         });
