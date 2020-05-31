@@ -436,8 +436,8 @@ passport.use("LoginTransportCompanyResponsible", new LocalStrategy({
                     Message: "Transport company responsible not found."
                 });
             }
-            else {
-                bcrypt.compare(request.body.Password, administrator.Password).then(response => {
+                else {
+                    bcrypt.compare(request.body.Password, transportCompanyResponsible.Password).then(response => {
                     if (!response) {
                         return onAuthenticated({
                             Message: "Invalid password."
@@ -546,11 +546,11 @@ passport.use("AuthenticateTransportCompanyResponsible", new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme("JWT"),
     secretOrKey: jwtConfiguration.secret,
 }, (JWTPayload, onAuthenticated) => {
-        try {
-            TransportCompanyResponsibles.findOne({
-                where: { TransportCompanyResponsibleID: JWTPayload.TransportCompanyResponsibleID },
-            }).then(transportCompanyResponsible => {
-                if (transportCompanyResponsible) {
+    try {
+        TransportCompanyResponsibles.findOne({
+            where: { TransportCompanyResponsibleID: JWTPayload.TransportCompanyResponsibleID },
+        }).then(transportCompanyResponsible => {
+            if (transportCompanyResponsible) {
                 onAuthenticated({
                     Message: "Transport company responsible found.",
                     TransportCompanyResponsible: transportCompanyResponsible

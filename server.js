@@ -44,6 +44,7 @@ app.use("/drivers", require("./routes/drivers/settings/usernameAndEmailSettings"
 app.use("/drivers", require("./routes/drivers/settings/passwordSettings"));
 
 app.use("/drivers", require("./routes/drivers/trucks/getTruck"));
+app.use("/drivers", require("./routes/drivers/trucks/getOwner"));
 app.use("/drivers", require("./routes/drivers/trucks/addTruck"));
 app.use("/drivers", require("./routes/drivers/trucks/updateTruck"));
 app.use("/drivers", require("./routes/drivers/trucks/updateTruckPhoto"));
@@ -264,6 +265,23 @@ app.use("/transportCompanyResponsibles", require("./routes/transportCompanyRespo
 app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/register/setupAccount"));
 
 app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/login/login"));
+
+app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/profile/getTransportCompanyResponsible"));
+
+app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/commercialRegisterCertificates/addCommercialRegisterCertificate"));
+app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/commercialRegisterCertificates/deleteCommercialRegisterCertificate"));
+app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/commercialRegisterCertificates/getCommercialRegisterCertificate"));
+app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/commercialRegisterCertificates/updateCommercialRegisterCertificate"));
+
+app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/serverSideValidators/validateEmail"));
+app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/serverSideValidators/validatePassword"));
+app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/serverSideValidators/validateUsername"));
+
+app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/settings/generalSettings"));
+app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/settings/passwordSettings"));
+app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/settings/usernameAndEmailSettings"));
+
+app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/trucks/getTrucks"));
 
 app.get("/", (request, response) => {
     response.send("Naqel Server - Up and Running!");

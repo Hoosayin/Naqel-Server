@@ -27,25 +27,27 @@ router.get("/getOnGoingJob", (request, response) => {
                         let trader = await Traders.findOne({
                             attributes: ["FirstName", "LastName"],
                             where: { TraderID: onGoingJob.TraderID }
-                        }).dataValues;
+                        });
 
                         const traderProfilePhoto = await TraderProfilePhotos.findOne({
                             attributes: ["PhotoURL"],
                             where: { TraderID: onGoingJob.TraderID }
                         });
 
+                        trader = trader.dataValues;
                         trader.PhotoURL = traderProfilePhoto ? traderProfilePhoto.PhotoURL : null;
 
                         let driver = await Drivers.findOne({
                             attributes: ["FirstName", "LastName"],
                             where: { DriverID: onGoingJob.DriverID }
-                        }).dataValues;
+                        });
 
                         const driverProfilePhoto = await DriverProfilePhotos.findOne({
                             attributes: ["PhotoURL"],
                             where: { DriverID: onGoingJob.DriverID }
                         });
 
+                        driver = driver.dataValues;
                         driver.PhotoURL = driverProfilePhoto ? driverProfilePhoto.PhotoURL : null;
 
                         let modifiableOnGoingJob = onGoingJob.dataValues;

@@ -1,5 +1,5 @@
 const generate = (() => {
-    const USABLE_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".split("");
+    const USABLE_CHARACTERS = "0123456789".split("");
 
     return length => {
         return new Array(length).fill(null).map(() => {

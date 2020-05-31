@@ -22,7 +22,7 @@ router.post("/addTruck", (request, response) => {
                     else {
                         let newTruck = {
                             DriverID: result.Driver.DriverID,
-                            TransportCompanyID: null,
+                            TransportCompanyResponsibleID: request.body.TransportCompanyResponsibleID,
                             PlateNumber: request.body.PlateNumber,
                             Owner: request.body.Owner,
                             ProductionYear: request.body.ProductionYear,

@@ -16,6 +16,7 @@ router.post("/updateTruck", (request, response) => {
                 }).then(truck => {
                     if (truck) {
                         let updatedTruck = {
+                            TransportCompanyResponsibleID: request.body.TransportCompanyResponsibleID,
                             PlateNumber: request.body.PlateNumber,
                             Owner: request.body.Owner,
                             ProductionYear: request.body.ProductionYear,

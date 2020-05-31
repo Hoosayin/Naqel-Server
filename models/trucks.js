@@ -20,13 +20,13 @@ module.exports = databaseHelper.sequelize.define(
                 key: 'DriverID'
             }
         },
-        TransportCompanyID: {
+        TransportCompanyResponsibleID: {
             type: databaseHelper.Sequelize.BIGINT,
             allowNull: true,
             references:
             {
-                model: "TransportCompany",
-                key: 'TransportComapnyID'
+                model: "TransportCompanyResponsibles",
+                key: "TransportComapnyResponsibleID"
             }
         },
         PlateNumber:
