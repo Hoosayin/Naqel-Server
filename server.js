@@ -3,8 +3,6 @@ var cors = require("cors");
 var bodyParser = require("body-parser");
 var passport = require("./helpers/passportHelper.js");
 
-const TemporaryFeeRateHelper = require("./helpers/temporaryFeeRateHelper");
-
 var app = express();
 const port = process.env.PORT || 5000;
 
