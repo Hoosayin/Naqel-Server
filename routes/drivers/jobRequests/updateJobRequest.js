@@ -17,7 +17,11 @@ router.post("/updateJobRequest", (request, response) => {
                     if (jobRequest) {
                         let updatedJobRequest = {
                             LoadingPlace: request.body.LoadingPlace,
+                            LoadingLat: request.body.LoadingLat,
+                            LoadingLng: request.body.LoadingLng,
                             UnloadingPlace: request.body.UnloadingPlace,
+                            UnloadingLat: request.body.UnloadingLat,
+                            UnloadingLng: request.body.UnloadingLng,
                             TripType: request.body.TripType,
                             Price: request.body.Price,
                         };

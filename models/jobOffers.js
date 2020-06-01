@@ -40,20 +40,30 @@ module.exports = databaseHelper.sequelize.define(
             type: databaseHelper.Sequelize.TEXT,
             allowNull: false
         },
+        LoadingLat:
+        {
+            type: databaseHelper.Sequelize.DOUBLE,
+            allowNull: false
+        },
+        LoadingLng:
+        {
+            type: databaseHelper.Sequelize.DOUBLE,
+            allowNull: false
+        },
         UnloadingPlace:
         {
             type: databaseHelper.Sequelize.TEXT,
             allowNull: false
         },
-        LoadingLocation:
+        UnloadingLat:
         {
-            type: databaseHelper.Sequelize.TEXT,
-            allowNull: true
+            type: databaseHelper.Sequelize.DOUBLE,
+            allowNull: false
         },
-        UnloadingLocation:
+        UnloadingLng:
         {
-            type: databaseHelper.Sequelize.TEXT,
-            allowNull: true
+            type: databaseHelper.Sequelize.DOUBLE,
+            allowNull: false
         },
         LoadingDate:
         {

@@ -14,7 +14,11 @@ router.post("/addJobRequest", (request, response) => {
                 let newJobRequest = {
                     DriverID: result.Driver.DriverID,
                     LoadingPlace: request.body.LoadingPlace,
+                    LoadingLat: request.body.LoadingLat,
+                    LoadingLng: request.body.LoadingLng,
                     UnloadingPlace: request.body.UnloadingPlace,
+                    UnloadingLat: request.body.UnloadingLat,
+                    UnloadingLng: request.body.UnloadingLng,
                     TripType: request.body.TripType,
                     Price: request.body.Price,
                     WaitingTime: 48,

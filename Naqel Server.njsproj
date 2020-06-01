@@ -196,7 +196,6 @@
     <Content Include="routes\drivers\objectionReasons\addObjectionReason.js" />
     <Content Include="routes\drivers\objectionReasons\getObjectionReasons.js" />
     <Content Include="routes\drivers\onGoingJobs\addJobObjection.js" />
-    <Content Include="routes\drivers\onGoingJobs\addOnGonigJob.js" />
     <Content Include="routes\drivers\onGoingJobs\getJobObjections.js" />
     <Content Include="routes\drivers\permitLicences\addPermitLicence.js" />
     <Content Include="routes\drivers\identityCards\addIdentityCard.js" />

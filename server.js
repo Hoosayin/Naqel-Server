@@ -91,7 +91,6 @@ app.use("/drivers", require("./routes/drivers/jobOffers/getJobOfferPosts"));
 app.use("/drivers", require("./routes/drivers/jobOffers/addDriverRequest"));
 app.use("/drivers", require("./routes/drivers/jobOffers/deleteDriverRequest"));
 
-app.use("/drivers", require("./routes/drivers/onGoingJobs/addOnGonigJob"));
 app.use("/drivers", require("./routes/drivers/onGoingJobs/getOnGoingJob"));
 app.use("/drivers", require("./routes/drivers/onGoingJobs/addJobObjection"));
 app.use("/drivers", require("./routes/drivers/onGoingJobs/finishJob"));
