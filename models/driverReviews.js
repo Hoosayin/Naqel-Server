@@ -52,7 +52,7 @@ module.exports = databaseHelper.sequelize.define(
         },
         Created:
         {
-            type: databaseHelper.Sequelize.DATEONLY,
+            type: databaseHelper.Sequelize.DATE,
             defaultValue: databaseHelper.Sequelize.NOW,
             allowNull: false
         }
