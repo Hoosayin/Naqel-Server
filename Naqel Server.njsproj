@@ -39,12 +39,14 @@
     <Content Include="helpers\passportHelper.js" />
     <Content Include="helpers\emailHelper.js" />
     <Content Include="helpers\tokenGenerator.js" />
+    <Content Include="models\exoneratedTraders.js" />
     <Content Include="models\responsibleQuestionClasses.js" />
     <Content Include="models\responsibleAnswers.js" />
     <Content Include="models\responsibleQuestions.js" />
     <Content Include="models\naqelTransactions.js" />
     <Content Include="models\driverPayDetails.js" />
     <Content Include="models\responsibleCommercialRegisterCertificates.js" />
+    <Content Include="models\specialTraderBills.js" />
     <Content Include="models\traderPayDetails.js" />
     <Content Include="models\traderRates.js" />
     <Content Include="models\priceRanges.js" />
@@ -136,8 +138,10 @@
     <Content Include="routes\administrators\traderRates\deleteTraderRate.js" />
     <Content Include="routes\administrators\traderRates\getTraderRates.js" />
     <Content Include="routes\administrators\traderRates\updateTraderRate.js" />
+    <Content Include="routes\administrators\traders\exonerateTrader.js" />
     <Content Include="routes\administrators\traders\setRefundRate.js" />
     <Content Include="routes\administrators\traders\getTraders.js" />
+    <Content Include="routes\administrators\traders\chargeTrader.js" />
     <Content Include="routes\drivers\payments\addDriverPayDetails.js" />
     <Content Include="routes\drivers\payments\getClientSecret.js" />
     <Content Include="routes\drivers\profile\getDashboardData.js" />
@@ -145,7 +149,9 @@
     <Content Include="routes\drivers\questions\deleteQuestion.js" />
     <Content Include="routes\drivers\questions\getQuestions.js" />
     <Content Include="routes\drivers\trucks\getOwner.js" />
+    <Content Include="routes\traders\payments\requestSpecialBill.js" />
     <Content Include="routes\traders\payments\addTraderPayDetails.js" />
+    <Content Include="routes\traders\profile\getDashboardData.js" />
     <Content Include="routes\traders\questions\addQuestion.js" />
     <Content Include="routes\traders\questions\deleteQuestion.js" />
     <Content Include="routes\traders\questions\getQuestions.js" />

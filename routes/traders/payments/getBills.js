@@ -5,6 +5,7 @@ const TraderBills = require("../../../models/traderBills");
 const CompletedJobs = require("../../../models/completedJobs");
 const TraderPayProofs = require("../../../models/traderPayProofs");
 const TraderPayDetails = require("../../../models/traderPayDetails");
+const SpecialTraderBills = require("../../../models/specialTraderBills");
 
 var router = express.Router();
 router.use(cors());
@@ -44,8 +45,17 @@ router.get("/getBills", (request, response) => {
                                 where: { TraderBillID: traderBill.TraderBillID }
                             });
 
+                            let specialTraderBill = null;
+
+                            if (result.Trader.Type === "Broker") {
+                                specialTraderBill = await SpecialTraderBills.findOne({
+                                    where: { TraderBillID: traderBill.TraderBillID }
+                                });
+                            }
+
                             let modifiableTraderBill = traderBill.dataValues;
                             modifiableTraderBill.JobNumber = completedJob.JobNumber;
+                            modifiableTraderBill.SpecialTraderBill = specialTraderBill;
                             modifiableTraderBill.HasPayProof = traderPayProof ? true : false;
                             modifiableTraderBill.HasPayDetails = traderPayDetail ? true : false;
 
@@ -64,7 +74,8 @@ router.get("/getBills", (request, response) => {
                             Message: "Bills found.",
                             Bills: modifiableTraderBills,
                             NumberOfPaidBills: countPaid,
-                            NumberOfUnpaidBills: countUnpaid
+                            NumberOfUnpaidBills: countUnpaid,
+                            CanRequestSpecialBills: result.Trader.Type === "Broker" ? true : false
                         });
                     }
                     else {

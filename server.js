@@ -123,6 +123,7 @@ app.use("/traders", require("./routes/traders/register/register"));
 app.use("/traders", require("./routes/traders/profile/getTrader"));
 app.use("/traders", require("./routes/traders/profile/getProfilePhoto"));
 app.use("/traders", require("./routes/traders/profile/uploadTraderProfilePhoto"));
+app.use("/traders", require("./routes/traders/profile/getDashboardData"));
 
 app.use("/traders", require("./routes/traders/settings/generalSettings"));
 app.use("/traders", require("./routes/traders/settings/passwordSettings"));
@@ -173,6 +174,7 @@ app.use("/traders", require("./routes/traders/payments/deleteTraderPayProof"));
 app.use("/traders", require("./routes/traders/payments/getPaymentDetails"));
 app.use("/traders", require("./routes/traders/payments/getClientSecret"));
 app.use("/traders", require("./routes/traders/payments/addTraderPayDetails"));
+app.use("/traders", require("./routes/traders/payments/requestSpecialBill"));
 
 app.use("/traders", require("./routes/traders/questions/addQuestion"));
 app.use("/traders", require("./routes/traders/questions/deleteQuestion"));
@@ -204,6 +206,8 @@ app.use("/administrators", require("./routes/administrators/drivers/unblockDrive
 
 app.use("/administrators", require("./routes/administrators/traders/getTraders"));
 app.use("/administrators", require("./routes/administrators/traders/setRefundRate"));
+app.use("/administrators", require("./routes/administrators/traders/exonerateTrader"));
+app.use("/administrators", require("./routes/administrators/traders/exonerateTrader"));
 
 app.use("/administrators", require("./routes/administrators/traderObjectionReasons/getTraderObjectionReasons"));
 app.use("/administrators", require("./routes/administrators/traderObjectionReasons/addTraderObjectionReason"));

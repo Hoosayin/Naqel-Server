@@ -4,6 +4,7 @@ const passport = require("../../../helpers/passportHelper");
 const Traders = require("../../../models/traders");
 const TraderProfilePhotos = require("../../../models/traderProfilePhotos");
 const TraderRefundRates = require("../../../models/traderRefundRates");
+const ExoneratedTraders = require("../../../models/exoneratedTraders");
 
 var router = express.Router();
 router.use(cors());
@@ -29,9 +30,23 @@ router.get("/getTraders", (request, response) => {
                                 where: { TraderID: trader.TraderID }
                             });
 
+                            let exoneratedTrader = await ExoneratedTraders.findOne({
+                                where: { TraderID: trader.TraderID }
+                            });
+
+                            if (exoneratedTrader) {
+                                const dateDifference = new Date(exoneratedTrader.ExonerateDate) - new Date();
+
+                                if (dateDifference < 0) {
+                                    exoneratedTrader.destroy();
+                                    exoneratedTrader = null;
+                                }
+                            }
+
                             let modifiableTrader = trader.dataValues;
                             modifiableTrader.PhotoURL = traderProfilePhoto ? traderProfilePhoto.PhotoURL : null;
                             modifiableTrader.TraderRefundRate = traderRefundRate;
+                            modifiableTrader.IsExonerated = exoneratedTrader ? true : false;
 
                             modifiableTraders[count++] = modifiableTrader;
                         }

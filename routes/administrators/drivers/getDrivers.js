@@ -25,9 +25,18 @@ router.get("/getDrivers", (request, response) => {
                                 where: { DriverID: driver.DriverID }
                             });
 
-                            const blockedDriver = await BlockedDrivers.findOne({
+                            let blockedDriver = await BlockedDrivers.findOne({
                                 where: { DriverID: driver.DriverID }
                             });
+
+                            if (blockedDriver) {
+                                const dateDifference = new Date(blockedDriver.BlockDate) - new Date();
+
+                                if (dateDifference < 0) {
+                                    blockedDriver.destroy();
+                                    blockedDriver = null;
+                                }
+                            }
 
                             let modifiableDriver = driver.dataValues;
                             modifiableDriver.PhotoURL = driverProfilePhoto ? driverProfilePhoto.PhotoURL : null;
