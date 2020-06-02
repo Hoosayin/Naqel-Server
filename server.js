@@ -262,6 +262,7 @@ app.use("/administrators", require("./routes/administrators/driversBills/approve
 
 app.use("/administrators", require("./routes/administrators/traderAccountStatements/getTraderAccountStatement"));
 app.use("/administrators", require("./routes/administrators/driverAccountStatements/getDriverAccountStatement"));
+app.use("/administrators", require("./routes/administrators/responsibleAccountStatements/getResponsibleAccountStatement"));
 app.use("/administrators", require("./routes/administrators/accountStatement/getAccountStatement"));
 
 // Administrators' routes.
@@ -294,6 +295,7 @@ app.use("/transportCompanyResponsibles", require("./routes/transportCompanyRespo
 app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/questions/deleteQuestion"));
 app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/questions/getQuestions"));
 
+app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/financialAccounts/getAccountStatement"));
 app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/financialAccounts/getTruckAccountStatement"));
 
 app.get("/", (request, response) => {

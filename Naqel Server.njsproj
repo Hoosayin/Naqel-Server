@@ -88,6 +88,7 @@
     <Content Include="naqelSettings.json" />
     <Content Include="routes\administrators\accountStatement\getAccountStatement.js" />
     <Content Include="routes\administrators\driverAccountStatements\getDriverAccountStatement.js" />
+    <Content Include="routes\administrators\responsibleAccountStatements\getResponsibleAccountStatement.js" />
     <Content Include="routes\administrators\responsibleQuestions\addResponsibleAnswer.js" />
     <Content Include="routes\administrators\responsibleQuestions\classifyResponsibleQuestion.js" />
     <Content Include="routes\administrators\responsibleQuestions\getResponsibleQuestions.js" />
@@ -152,6 +153,7 @@
     <Content Include="routes\transportCompanyResponsibles\commercialRegisterCertificates\deleteCommercialRegisterCertificate.js" />
     <Content Include="routes\transportCompanyResponsibles\commercialRegisterCertificates\getCommercialRegisterCertificate.js" />
     <Content Include="routes\transportCompanyResponsibles\commercialRegisterCertificates\updateCommercialRegisterCertificate.js" />
+    <Content Include="routes\transportCompanyResponsibles\financialAccounts\getAccountStatement.js" />
     <Content Include="routes\transportCompanyResponsibles\financialAccounts\getTruckAccountStatement.js" />
     <Content Include="routes\transportCompanyResponsibles\login\login.js" />
     <Content Include="routes\transportCompanyResponsibles\profile\getTransportCompanyResponsible.js" />
@@ -308,6 +310,7 @@
     <Folder Include="models\" />
     <Folder Include="routes\" />
     <Folder Include="routes\administrators\driverObjectionReasons\" />
+    <Folder Include="routes\administrators\responsibleAccountStatements\" />
     <Folder Include="routes\administrators\responsibleQuestions\" />
     <Folder Include="routes\administrators\responsibleQuestionClasses\" />
     <Folder Include="routes\administrators\globalAndTemporaryFeeRates\" />
