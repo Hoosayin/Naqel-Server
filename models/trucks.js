@@ -20,6 +20,11 @@ module.exports = databaseHelper.sequelize.define(
                 key: 'DriverID'
             }
         },
+        TruckNumber:
+        {
+            type: databaseHelper.Sequelize.STRING(50),
+            allowNull: true
+        },
         TransportCompanyResponsibleID: {
             type: databaseHelper.Sequelize.BIGINT,
             allowNull: true,

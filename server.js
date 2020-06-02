@@ -233,6 +233,13 @@ app.use("/administrators", require("./routes/administrators/traderQuestions/clas
 app.use("/administrators", require("./routes/administrators/traderQuestionClasses/getTraderQuestionClasses"));
 app.use("/administrators", require("./routes/administrators/traderQuestionClasses/addTraderQuestionClass"));
 
+app.use("/administrators", require("./routes/administrators/responsibleQuestions/getResponsibleQuestions"));
+app.use("/administrators", require("./routes/administrators/responsibleQuestions/addResponsibleAnswer"));
+app.use("/administrators", require("./routes/administrators/responsibleQuestions/classifyResponsibleQuestion"));
+
+app.use("/administrators", require("./routes/administrators/responsibleQuestionClasses/getResponsibleQuestionClasses"));
+app.use("/administrators", require("./routes/administrators/responsibleQuestionClasses/addResponsibleQuestionClass"));
+
 app.use("/administrators", require("./routes/administrators/globalAndTemporaryFeeRates/getGlobalAndTemporaryFeeRates"));
 app.use("/administrators", require("./routes/administrators/globalAndTemporaryFeeRates/setGlobalFeeRate"));
 app.use("/administrators", require("./routes/administrators/globalAndTemporaryFeeRates/setTemporaryFeeRate"));
@@ -279,6 +286,15 @@ app.use("/transportCompanyResponsibles", require("./routes/transportCompanyRespo
 app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/settings/usernameAndEmailSettings"));
 
 app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/trucks/getTrucks"));
+
+app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/truckJobs/getTruckJobs"));
+app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/truckJobs/getTruckJobDetails"));
+
+app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/questions/addQuestion"));
+app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/questions/deleteQuestion"));
+app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/questions/getQuestions"));
+
+app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/financialAccounts/getTruckAccountStatement"));
 
 app.get("/", (request, response) => {
     response.send("Naqel Server - Up and Running!");

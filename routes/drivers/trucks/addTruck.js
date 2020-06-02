@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const uuid = require("uuid-v4");
 const passport = require("../../../helpers/passportHelper");
 const Trucks = require("../../../models/trucks");
 
@@ -23,6 +24,7 @@ router.post("/addTruck", (request, response) => {
                         let newTruck = {
                             DriverID: result.Driver.DriverID,
                             TransportCompanyResponsibleID: request.body.TransportCompanyResponsibleID,
+                            TruckNumber: uuid().substring(0, 8).toUpperCase(),
                             PlateNumber: request.body.PlateNumber,
                             Owner: request.body.Owner,
                             ProductionYear: request.body.ProductionYear,

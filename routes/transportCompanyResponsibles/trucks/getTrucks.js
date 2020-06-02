@@ -12,7 +12,7 @@ router.get("/getTrucks", (request, response) => {
         try {
             if (result.Message === "Transport company responsible found.") {
                 Trucks.findAll({
-                    attributes: ["TruckID", "DriverID", "Brand", "Model"],
+                    attributes: ["TruckID", "DriverID", "TruckNumber", "Brand", "Model"],
                     where: { TransportCompanyResponsibleID: result.TransportCompanyResponsible.TransportCompanyResponsibleID }
                 }).then(trucks => {
                     if (trucks) {

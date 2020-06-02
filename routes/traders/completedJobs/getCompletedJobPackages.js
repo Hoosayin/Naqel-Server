@@ -29,6 +29,9 @@ router.get("/getCompletedJobPackages", (request, response) => {
                                 where: { CompletedJobID: completedJob.CompletedJobID }
                             });
 
+                            completedJob = completedJob.dataValues;
+                            completedJob.Created = new Date(completedJob.Created);
+
                             completedJobPackages[count++] = {
                                 CompletedJob: completedJob,
                                 BillPaid: traderBill.Paid,

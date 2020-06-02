@@ -39,6 +39,9 @@
     <Content Include="helpers\passportHelper.js" />
     <Content Include="helpers\emailHelper.js" />
     <Content Include="helpers\tokenGenerator.js" />
+    <Content Include="models\responsibleQuestionClasses.js" />
+    <Content Include="models\responsibleAnswers.js" />
+    <Content Include="models\responsibleQuestions.js" />
     <Content Include="models\naqelTransactions.js" />
     <Content Include="models\driverPayDetails.js" />
     <Content Include="models\responsibleCommercialRegisterCertificates.js" />
@@ -85,6 +88,11 @@
     <Content Include="naqelSettings.json" />
     <Content Include="routes\administrators\accountStatement\getAccountStatement.js" />
     <Content Include="routes\administrators\driverAccountStatements\getDriverAccountStatement.js" />
+    <Content Include="routes\administrators\responsibleQuestions\addResponsibleAnswer.js" />
+    <Content Include="routes\administrators\responsibleQuestions\classifyResponsibleQuestion.js" />
+    <Content Include="routes\administrators\responsibleQuestions\getResponsibleQuestions.js" />
+    <Content Include="routes\administrators\responsibleQuestionClasses\addResponsibleQuestionClass.js" />
+    <Content Include="routes\administrators\responsibleQuestionClasses\getResponsibleQuestionClasses.js" />
     <Content Include="routes\administrators\driversBills\getDriversBills.js" />
     <Content Include="routes\administrators\globalAndTemporaryFeeRates\clearTemporaryFeeRate.js" />
     <Content Include="routes\administrators\globalAndTemporaryFeeRates\setTemporaryFeeRate.js" />
@@ -144,8 +152,12 @@
     <Content Include="routes\transportCompanyResponsibles\commercialRegisterCertificates\deleteCommercialRegisterCertificate.js" />
     <Content Include="routes\transportCompanyResponsibles\commercialRegisterCertificates\getCommercialRegisterCertificate.js" />
     <Content Include="routes\transportCompanyResponsibles\commercialRegisterCertificates\updateCommercialRegisterCertificate.js" />
+    <Content Include="routes\transportCompanyResponsibles\financialAccounts\getTruckAccountStatement.js" />
     <Content Include="routes\transportCompanyResponsibles\login\login.js" />
     <Content Include="routes\transportCompanyResponsibles\profile\getTransportCompanyResponsible.js" />
+    <Content Include="routes\transportCompanyResponsibles\questions\addQuestion.js" />
+    <Content Include="routes\transportCompanyResponsibles\questions\deleteQuestion.js" />
+    <Content Include="routes\transportCompanyResponsibles\questions\getQuestions.js" />
     <Content Include="routes\transportCompanyResponsibles\register\register.js" />
     <Content Include="routes\transportCompanyResponsibles\register\setupAccount.js" />
     <Content Include="routes\transportCompanyResponsibles\serverSideValidators\validateEmail.js" />
@@ -154,6 +166,8 @@
     <Content Include="routes\transportCompanyResponsibles\settings\generalSettings.js" />
     <Content Include="routes\transportCompanyResponsibles\settings\passwordSettings.js" />
     <Content Include="routes\transportCompanyResponsibles\settings\usernameAndEmailSettings.js" />
+    <Content Include="routes\transportCompanyResponsibles\truckJobs\getTruckJobDetails.js" />
+    <Content Include="routes\transportCompanyResponsibles\truckJobs\getTruckJobs.js" />
     <Content Include="routes\transportCompanyResponsibles\trucks\getTrucks.js" />
     <Content Include="routes\users\driverProfile\getDriverDocuments.js" />
     <Content Include="routes\users\driverProfile\getDriverProfile.js" />
@@ -294,6 +308,8 @@
     <Folder Include="models\" />
     <Folder Include="routes\" />
     <Folder Include="routes\administrators\driverObjectionReasons\" />
+    <Folder Include="routes\administrators\responsibleQuestions\" />
+    <Folder Include="routes\administrators\responsibleQuestionClasses\" />
     <Folder Include="routes\administrators\globalAndTemporaryFeeRates\" />
     <Folder Include="routes\administrators\driversBills\" />
     <Folder Include="routes\administrators\driverAccountStatements\" />
@@ -314,6 +330,9 @@
     <Folder Include="routes\traders\questions\" />
     <Folder Include="routes\transportCompanyResponsibles\commercialRegisterCertificates\" />
     <Folder Include="routes\transportCompanyResponsibles\login\" />
+    <Folder Include="routes\transportCompanyResponsibles\financialAccounts\" />
+    <Folder Include="routes\transportCompanyResponsibles\questions\" />
+    <Folder Include="routes\transportCompanyResponsibles\truckJobs\" />
     <Folder Include="routes\transportCompanyResponsibles\trucks\" />
     <Folder Include="routes\transportCompanyResponsibles\profile\" />
     <Folder Include="routes\transportCompanyResponsibles\register\" />

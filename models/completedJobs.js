@@ -1,4 +1,4 @@
-var databaseHelper = require('../helpers/databaseHelper');
+var databaseHelper = require("../helpers/databaseHelper");
 
 module.exports = databaseHelper.sequelize.define(
     "CompletedJobs",
@@ -20,11 +20,6 @@ module.exports = databaseHelper.sequelize.define(
                 key: "DriverID"
             }
         },
-        JobNumber:
-        {
-            type: databaseHelper.Sequelize.STRING(50),
-            allowNull: false
-        },
         TraderID:
         {
             type: databaseHelper.Sequelize.BIGINT,
@@ -34,6 +29,21 @@ module.exports = databaseHelper.sequelize.define(
                 model: "Traders",
                 key: "TraderID"
             }
+        },
+        TruckID:
+        {
+            type: databaseHelper.Sequelize.BIGINT,
+            allowNull: true,
+            references:
+            {
+                model: "Trucks",
+                key: "TruckID"
+            }
+        },
+        JobNumber:
+        {
+            type: databaseHelper.Sequelize.STRING(50),
+            allowNull: false
         },
         TripType:
         {
