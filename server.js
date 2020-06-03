@@ -207,7 +207,7 @@ app.use("/administrators", require("./routes/administrators/drivers/unblockDrive
 app.use("/administrators", require("./routes/administrators/traders/getTraders"));
 app.use("/administrators", require("./routes/administrators/traders/setRefundRate"));
 app.use("/administrators", require("./routes/administrators/traders/exonerateTrader"));
-app.use("/administrators", require("./routes/administrators/traders/exonerateTrader"));
+app.use("/administrators", require("./routes/administrators/traders/chargeTrader"));
 
 app.use("/administrators", require("./routes/administrators/traderObjectionReasons/getTraderObjectionReasons"));
 app.use("/administrators", require("./routes/administrators/traderObjectionReasons/addTraderObjectionReason"));
