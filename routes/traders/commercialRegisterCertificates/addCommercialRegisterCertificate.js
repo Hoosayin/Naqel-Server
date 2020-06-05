@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const codeGenerator = require("../../../helpers/codeGenerator");
 const passport = require("../../../helpers/passportHelper");
 const TraderCommercialRegisterCertificates = require("../../../models/traderCommercialRegisterCertificates");
 
@@ -22,7 +23,7 @@ router.post("/addCommercialRegisterCertificate", (request, response) => {
                     else {
                         let newCommercialRegisterCertificate = {
                             TraderID: result.Trader.TraderID,
-                            Number: request.body.Number,
+                            Number: codeGenerator(10),
                             Type: request.body.Type,
                             PhotoURL: request.body.PhotoURL
                         };

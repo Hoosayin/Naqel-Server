@@ -25,7 +25,7 @@ router.post("/accountSetup", (req, res, next) => {
                 Gender: req.body.Gender,
                 Nationality: req.body.Nationality,
                 Username: driver.Username,
-                Active: '1',
+                Active: false,
             };
 
             console.log(newDriver);
