@@ -7,7 +7,7 @@ emailHelper.sendEmail = (to, subject, message, onEmailSent) => {
         service: "gmail",
         auth: {
             user: "naqelTB@gmail.com",
-            pass: "1NaqelTB@",
+            pass: "Naqel@2020",
         },
     });
 
