@@ -30,6 +30,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="globalFeeRate.json" />
+    <Content Include="helpers\mangopay.js" />
     <Content Include="helpers\naqelSettingsHelper.js" />
     <Content Include="helpers\temporaryFeeRateHelper.js" />
     <Content Include="helpers\globalFeeRateHelper.js" />

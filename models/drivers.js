@@ -66,6 +66,16 @@ module.exports = databaseHelper.sequelize.define(
             type: databaseHelper.Sequelize.TEXT,
             allowNull: false
         },
+        MangopayID:
+        {
+            type: databaseHelper.Sequelize.STRING(50),
+            allowNull: true
+        },
+        WalletID:
+        {
+            type: databaseHelper.Sequelize.STRING(50),
+            allowNull: true
+        },
         Active:
         {
             type: databaseHelper.Sequelize.INTEGER(1),
@@ -73,7 +83,7 @@ module.exports = databaseHelper.sequelize.define(
         }
     },
     {
-        tableName: 'Drivers'
+        tableName: "Drivers"
     },
     {
         timestamps: false

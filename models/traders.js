@@ -84,7 +84,17 @@ module.exports = databaseHelper.sequelize.define(
         {
             type: databaseHelper.Sequelize.STRING(250),
             allowNull: true
-        }
+        },
+        MangopayID:
+        {
+            type: databaseHelper.Sequelize.STRING(50),
+            allowNull: true
+        },
+        WalletID:
+        {
+            type: databaseHelper.Sequelize.STRING(50),
+            allowNull: true
+        },
     },
     {
         tableName: "Traders"

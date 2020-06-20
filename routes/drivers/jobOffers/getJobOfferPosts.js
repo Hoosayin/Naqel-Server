@@ -21,33 +21,37 @@ router.get("/getJobOfferPosts", (request, response) => {
                         let count = 0;
 
                         for (let jobOffer of jobOffers) {
-                            const trader = await Traders.findOne({
-                                attributes: ["FirstName", "LastName"],
-                                where: { TraderID: jobOffer.TraderID }
-                            });
+                            const createdHoursAgo = Math.abs(new Date() - new Date(jobOffer.TimeCreated)) / 36e5;
 
-                            const traderProfilePhoto = await TraderProfilePhotos.findOne({
-                                attributes: ["PhotoURL"],
-                                where: { TraderID: jobOffer.TraderID }
-                            });
+                            if (createdHoursAgo < jobOffer.WaitingTime) {
+                                const trader = await Traders.findOne({
+                                    attributes: ["FirstName", "LastName"],
+                                    where: { TraderID: jobOffer.TraderID }
+                                });
 
-                            let modifiableTrader = trader.dataValues;
-                            modifiableTrader.PhotoURL = traderProfilePhoto ? traderProfilePhoto.PhotoURL : null;
+                                const traderProfilePhoto = await TraderProfilePhotos.findOne({
+                                    attributes: ["PhotoURL"],
+                                    where: { TraderID: jobOffer.TraderID }
+                                });
 
-                            const driverRequest = await DriverRequests.findOne({
-                                where: {
-                                    [Op.and]: [
-                                        { JobOfferID: jobOffer.JobOfferID },
-                                        { DriverID: result.Driver.DriverID }
-                                    ]
-                                }
-                            });
+                                let modifiableTrader = trader.dataValues;
+                                modifiableTrader.PhotoURL = traderProfilePhoto ? traderProfilePhoto.PhotoURL : null;
 
-                            jobOfferPosts[count++] = {
-                                JobOffer: jobOffer,
-                                Trader: modifiableTrader,
-                                DriverRequest: driverRequest
-                            };
+                                const driverRequest = await DriverRequests.findOne({
+                                    where: {
+                                        [Op.and]: [
+                                            { JobOfferID: jobOffer.JobOfferID },
+                                            { DriverID: result.Driver.DriverID }
+                                        ]
+                                    }
+                                });
+
+                                jobOfferPosts[count++] = {
+                                    JobOffer: jobOffer,
+                                    Trader: modifiableTrader,
+                                    DriverRequest: driverRequest
+                                };
+                            }
                         }
 
                         jobOfferPosts.sort((a, b) => {

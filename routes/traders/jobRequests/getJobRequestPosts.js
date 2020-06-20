@@ -28,38 +28,42 @@ router.get("/getJobRequestPosts", (request, response) => {
                         let count = 0;
 
                         for (let jobRequest of jobRequests) {
-                            const driver = await Drivers.findOne({
-                                attributes: ["FirstName", "LastName"],
-                                where: { DriverID: jobRequest.DriverID }
-                            });
+                            const createdHoursAgo = Math.abs(new Date() - new Date(jobRequest.TimeCreated)) / 36e5;
 
-                            const driverProfilePhoto = await DriverProfilePhotos.findOne({
-                                attributes: ["PhotoURL"],
-                                where: { DriverID: jobRequest.DriverID }
-                            });
+                            if (createdHoursAgo) {
+                                const driver = await Drivers.findOne({
+                                    attributes: ["FirstName", "LastName"],
+                                    where: { DriverID: jobRequest.DriverID }
+                                });
 
-                            let modifiableDriver = driver.dataValues;
-                            modifiableDriver.PhotoURL = driverProfilePhoto ? driverProfilePhoto.PhotoURL : null;
+                                const driverProfilePhoto = await DriverProfilePhotos.findOne({
+                                    attributes: ["PhotoURL"],
+                                    where: { DriverID: jobRequest.DriverID }
+                                });
 
-                            const onGoingJob = await OnGoingJobs.findOne({
-                                where: { DriverID: jobRequest.DriverID }
-                            });
+                                let modifiableDriver = driver.dataValues;
+                                modifiableDriver.PhotoURL = driverProfilePhoto ? driverProfilePhoto.PhotoURL : null;
 
-                            const traderRequest = await TraderRequests.findOne({
-                                where: {
-                                    [Op.and]: [
-                                        { JobRequestID: jobRequest.JobRequestID },
-                                        { TraderID: result.Trader.TraderID }
-                                    ]
-                                }
-                            });
+                                const onGoingJob = await OnGoingJobs.findOne({
+                                    where: { DriverID: jobRequest.DriverID }
+                                });
 
-                            jobRequestPosts[count++] = {
-                                JobRequest: jobRequest,
-                                Driver: modifiableDriver,
-                                DriverOnJob: onGoingJob ? true : false,
-                                TraderRequest: traderRequest
-                            };
+                                const traderRequest = await TraderRequests.findOne({
+                                    where: {
+                                        [Op.and]: [
+                                            { JobRequestID: jobRequest.JobRequestID },
+                                            { TraderID: result.Trader.TraderID }
+                                        ]
+                                    }
+                                });
+
+                                jobRequestPosts[count++] = {
+                                    JobRequest: jobRequest,
+                                    Driver: modifiableDriver,
+                                    DriverOnJob: onGoingJob ? true : false,
+                                    TraderRequest: traderRequest
+                                };
+                            }
                         }
 
                         if (jobRequestPosts.length > 0) {
