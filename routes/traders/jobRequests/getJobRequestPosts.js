@@ -30,7 +30,7 @@ router.get("/getJobRequestPosts", (request, response) => {
                         for (let jobRequest of jobRequests) {
                             const createdHoursAgo = Math.abs(new Date() - new Date(jobRequest.TimeCreated)) / 36e5;
 
-                            if (createdHoursAgo) {
+                            if (createdHoursAgo < jobRequest.WaitingTime) {
                                 const driver = await Drivers.findOne({
                                     attributes: ["FirstName", "LastName"],
                                     where: { DriverID: jobRequest.DriverID }
