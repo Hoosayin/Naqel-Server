@@ -24,6 +24,7 @@ router.post("/updateJobRequest", (request, response) => {
                             UnloadingLng: request.body.UnloadingLng,
                             TripType: request.body.TripType,
                             Price: request.body.Price,
+                            WaitingTime: request.body.WaitingTime,
                         };
 
                         JobRequests.update(updatedJobRequest, { where: { JobRequestID: jobRequest.JobRequestID } }).then(() => {

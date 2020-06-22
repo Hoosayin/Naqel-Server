@@ -29,6 +29,7 @@ router.post("/updateJobOffer", (request, response) => {
                             LoadingTime: request.body.LoadingTime,
                             EntryExit: request.body.EntryExit,
                             Price: request.body.Price,
+                            WaitingTime: request.body.WaitingTime,
                             AcceptedDelay: request.body.AcceptedDelay,
                             JobOfferType: request.body.JobOfferType
                         };

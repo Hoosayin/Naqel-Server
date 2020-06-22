@@ -21,6 +21,9 @@ router.get("/getTraderProfile", (request, response) => {
                         where: { TraderID: trader.TraderID }
                     });
 
+                    trader = trader.dataValues;
+                    trader.PhotoURL = traderProfilePhoto ? traderProfilePhoto.PhotoURL : null;
+
                     let traderProfile = {
                         Trader: trader,
                         ProfilePhoto: traderProfilePhoto ? traderProfilePhoto.PhotoURL : null,

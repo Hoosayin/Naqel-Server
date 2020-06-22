@@ -30,7 +30,7 @@ router.post("/addJobOffer", (request, response) => {
                     AcceptedDelay: request.body.AcceptedDelay,
                     JobOfferType: request.body.JobOfferType,
                     Price: request.body.Price,
-                    WaitingTime: 48,
+                    WaitingTime: request.body.WaitingTime,
                     TimeCreated: new Date()
                 };
 

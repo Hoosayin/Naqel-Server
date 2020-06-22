@@ -21,7 +21,7 @@ router.post("/addJobRequest", (request, response) => {
                     UnloadingLng: request.body.UnloadingLng,
                     TripType: request.body.TripType,
                     Price: request.body.Price,
-                    WaitingTime: 48,
+                    WaitingTime: request.body.WaitingTime,
                     TimeCreated: new Date()
                 };
 

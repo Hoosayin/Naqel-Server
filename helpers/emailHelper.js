@@ -19,8 +19,11 @@ emailHelper.sendEmail = (to, subject, message, onEmailSent) => {
     };
 
     console.log("sending mail");
-    transporter.sendMail(mailOptions);
-    onEmailSent();
+    transporter.sendMail(mailOptions).then(result => {
+        onEmailSent(true);
+    }).catch(error => {
+        onEmailSent(false);
+    });
 };
 
 module.exports = emailHelper;

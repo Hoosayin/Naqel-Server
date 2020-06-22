@@ -30,7 +30,7 @@ router.post("/register", (req, res, next) => {
                 const subject = "Confirmation Code";
                 const message = `Your confirmation code is ${code}`;
 
-                emailHelper.sendEmail(to, subject, message, () => {
+                emailHelper.sendEmail(to, subject, message, emailSent => {
                     const newCredentails = {
                         Username: req.body.Username,
                         Email: req.body.Email,
