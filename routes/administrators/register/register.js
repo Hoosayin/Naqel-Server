@@ -14,7 +14,7 @@ router.post("/register", (request, response) => {
     passport.authenticate("RegisterAdministrator", result => {
         try {
             if (result.Message === "Credentials are verified.") {
-                //const code = codeGenerator(6);
+                const code = codeGenerator(6);
 
                 //const to = request.body.Email;
                 //const subject = "Confirmation Code";

@@ -24,7 +24,7 @@ router.post("/register", (req, res, next) => {
             req.logIn(driver, error => {
                 console.log(driver);
 
-                //const code = codeGenerator(6);
+                const code = codeGenerator(6);
 
                 //const to = req.body.Email;
                 //const subject = "Confirmation Code";
