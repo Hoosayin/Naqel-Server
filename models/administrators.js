@@ -20,6 +20,11 @@ module.exports = databaseHelper.sequelize.define(
             type: databaseHelper.Sequelize.TEXT,
             allowNull: false
         },
+        PhoneNumber:
+        {
+            type: databaseHelper.Sequelize.STRING(50),
+            allowNull: false
+        },
         Password:
         {
             type: databaseHelper.Sequelize.STRING(250),

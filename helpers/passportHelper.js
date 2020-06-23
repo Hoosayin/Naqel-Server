@@ -26,31 +26,30 @@ passport.use("RegisterDriver", new LocalStrategy({
     passReqToCallback: true,
     session: false,
 }, (request, username, password, onAuthenticated) => {
-    const newCredentails = {
-        Username: request.body.Username,
-        Email: request.body.Email,
-    };
-
     try {
         Drivers.findOne({
             where: {
                 [Op.or]: [
                     { Username: request.body.Username },
-                    { Email: request.body.Email },
+                    { PhoneNumber: request.body.PhoneNumber },
                 ],
             },
         }).then(driver => {
             if (driver) {
-                return onAuthenticated(null, false, {
-                    message: "Username or email is already taken.",
+                return onAuthenticated({
+                    Message: "Username or phone number is already taken.",
                 });
             }
             else {
-                return onAuthenticated(null, newCredentails);
+                return onAuthenticated({
+                    Message: "Credentials are verified.",
+                });
             }
         });
     } catch (error) {
-        return onAuthenticated(error);
+        return onAuthenticated({
+            Message: error.message
+        });
     }
 }));
 
@@ -61,31 +60,30 @@ passport.use("RegisterTrader", new LocalStrategy({
     passReqToCallback: true,
     session: false,
 }, (request, username, password, onAuthenticated) => {
-    const newCredentails = {
-        Username: request.body.Username,
-        Email: request.body.Email,
-    };
-
     try {
         Traders.findOne({
             where: {
                 [Op.or]: [
                     { Username: request.body.Username },
-                    { Email: request.body.Email },
+                    { PhoneNumber: request.body.PhoneNumber },
                 ],
             },
         }).then(trader => {
             if (trader) {
-                return onAuthenticated(null, false, {
-                    message: "Username or email is already taken.",
+                return onAuthenticated({
+                    Message: "Username or phone number is already taken.",
                 });
             }
             else {
-                return onAuthenticated(null, newCredentails);
+                return onAuthenticated({
+                    Message: "Credentials are verified.",
+                });
             }
         });
     } catch (error) {
-        return onAuthenticated(error);
+        return onAuthenticated({
+            Message: error.message
+        });
     }
 }));
 
@@ -101,13 +99,13 @@ passport.use("RegisterAdministrator", new LocalStrategy({
             where: {
                 [Op.or]: [
                     { Username: request.body.Username },
-                    { Email: request.body.Email },
+                    { PhoneNumber: request.body.PhoneNumber },
                 ],
             },
         }).then(administrator => {
             if (administrator) {
                 return onAuthenticated({
-                    Message: "Username or email is already taken.",
+                    Message: "Username or phone number is already taken.",
                 });
             }
             else {
@@ -135,13 +133,13 @@ passport.use("RegisterTransportCompanyResponsible", new LocalStrategy({
             where: {
                 [Op.or]: [
                     { Username: request.body.Username },
-                    { Email: request.body.Email },
+                    { PhoneNumber: request.body.PhoneNumber },
                 ],
             },
             }).then(transportCompanyResponsible => {
                 if (transportCompanyResponsible) {
                 return onAuthenticated({
-                    Message: "Username or email is already taken.",
+                    Message: "Username or phone number is already taken.",
                 });
             }
             else {
