@@ -24,24 +24,35 @@ router.post("/register", (req, res, next) => {
             req.logIn(driver, error => {
                 console.log(driver);
 
-                const code = codeGenerator(6);
+                //const code = codeGenerator(6);
 
-                const to = req.body.Email;
-                const subject = "Confirmation Code";
-                const message = `Your confirmation code is ${code}`;
+                //const to = req.body.Email;
+                //const subject = "Confirmation Code";
+                //const message = `Your confirmation code is ${code}`;
 
-                emailHelper.sendEmail(to, subject, message, emailSent => {
-                    const newCredentails = {
-                        Username: req.body.Username,
-                        Email: req.body.Email,
-                        Password: req.body.Password,
-                        RegisterAs: req.body.RegisterAs,
-                        Code: code
-                    };
+                //emailHelper.sendEmail(to, subject, message, emailSent => {
+                //    const newCredentails = {
+                //        Username: req.body.Username,
+                //        Email: req.body.Email,
+                //        Password: req.body.Password,
+                //        RegisterAs: req.body.RegisterAs,
+                //        Code: code
+                //    };
 
-                    let token = jsonWebToken.sign(newCredentails, jwtConfiguration.secret);
-                    res.send(token);
-                });               
+                //    let token = jsonWebToken.sign(newCredentails, jwtConfiguration.secret);
+                //    res.send(token);
+                //}); 
+
+                const newCredentails = {
+                    Username: req.body.Username,
+                    Email: req.body.Email,
+                    Password: req.body.Password,
+                    RegisterAs: req.body.RegisterAs,
+                    Code: code
+                };
+
+                let token = jsonWebToken.sign(newCredentails, jwtConfiguration.secret);
+                res.send(token);
             });
         }
     })(req, res, next);

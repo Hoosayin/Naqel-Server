@@ -14,34 +14,49 @@ router.post("/register", (request, response) => {
     passport.authenticate("RegisterTransportCompanyResponsible", result => {
         try {
             if (result.Message === "Credentials are verified.") {
-                const code = codeGenerator(6);
+                //const code = codeGenerator(6);
 
-                const to = request.body.Email;
-                const subject = "Confirmation Code";
-                const message = `Your confirmation code is ${code}`;
+                //const to = request.body.Email;
+                //const subject = "Confirmation Code";
+                //const message = `Your confirmation code is ${code}`;
 
-                emailHelper.sendEmail(to, subject, message, emailSent => {
-                    if (emailSent) {
-                        const newCredentails = {
-                            Username: request.body.Username,
-                            Email: request.body.Email,
-                            Password: request.body.Password,
-                            RegisterAs: request.body.RegisterAs,
-                            Code: code
-                        };
+                //emailHelper.sendEmail(to, subject, message, emailSent => {
+                //    if (emailSent) {
+                //        const newCredentails = {
+                //            Username: request.body.Username,
+                //            Email: request.body.Email,
+                //            Password: request.body.Password,
+                //            RegisterAs: request.body.RegisterAs,
+                //            Code: code
+                //        };
 
-                        let token = jsonWebToken.sign(newCredentails, jwtConfiguration.secret);
+                //        let token = jsonWebToken.sign(newCredentails, jwtConfiguration.secret);
 
-                        response.json({
-                            Message: "Token received.",
-                            Token: token
-                        });
-                    }
-                    else {
-                        response.json({
-                            Message: "Failed to send code."
-                        });
-                    }
+                //        response.json({
+                //            Message: "Token received.",
+                //            Token: token
+                //        });
+                //    }
+                //    else {
+                //        response.json({
+                //            Message: "Failed to send code."
+                //        });
+                //    }
+                //});
+
+                const newCredentails = {
+                    Username: request.body.Username,
+                    Email: request.body.Email,
+                    Password: request.body.Password,
+                    RegisterAs: request.body.RegisterAs,
+                    Code: code
+                };
+
+                let token = jsonWebToken.sign(newCredentails, jwtConfiguration.secret);
+
+                response.json({
+                    Message: "Token received.",
+                    Token: token
                 });
             }
             else {
