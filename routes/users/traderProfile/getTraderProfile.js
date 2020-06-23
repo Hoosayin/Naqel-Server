@@ -23,16 +23,11 @@ router.get("/getTraderProfile", (request, response) => {
 
                     trader = trader.dataValues;
                     trader.PhotoURL = traderProfilePhoto ? traderProfilePhoto.PhotoURL : null;
-
-                    let traderProfile = {
-                        Trader: trader,
-                        ProfilePhoto: traderProfilePhoto ? traderProfilePhoto.PhotoURL : null,
-                        OnJob: onGoingJob ? true : false
-                    };
+                    trader.OnJob = onGoingJob ? true : false;
 
                     response.json({
                         Message: "Trader profile found.",
-                        TraderProfile: traderProfile
+                        Trader: trader
                     });
                 });
             }

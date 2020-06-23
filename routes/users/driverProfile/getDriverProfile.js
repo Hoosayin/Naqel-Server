@@ -47,17 +47,12 @@ router.get("/getDriverProfile", (request, response) => {
 
                     driver = driver.dataValues;
                     driver.PhotoURL = driverProfilePhoto ? driverProfilePhoto.PhotoURL : null;
-
-                    let driverProfile = {
-                        Driver: driver,
-                        ProfilePhoto: driverProfilePhoto ? driverProfilePhoto.PhotoURL : null,
-                        RatingAndReviews: driverReviewsAggregation,
-                        OnJob: onGoingJob ? true : false
-                    };
+                    driver.RatingAndReviews = driverReviewsAggregation;
+                    driver.OnJob = onGoingJob ? true : false;
 
                     response.json({
                         Message: "Driver profile found.",
-                        DriverProfile: driverProfile
+                        Driver: driver
                     });
                 });
             }
