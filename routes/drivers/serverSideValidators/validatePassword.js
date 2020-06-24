@@ -8,7 +8,7 @@ router.use(cors());
 
 // POST: validatePassword
 router.post("/validatePassword", (request, response) => {
-    passport.authenticate("AuthenticateTrader", { session: false }, result => {
+    passport.authenticate("AuthenticateDriver", { session: false }, result => {
         try {
             if (result.Message === "Driver found.") {
                 bcrypt.compare(request.body.Password, result.Driver.Password).then(matched => {
