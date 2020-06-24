@@ -17,7 +17,6 @@ router.post("/register", (request, response) => {
                     PhoneNumber: request.body.PhoneNumber,
                     Password: request.body.Password,
                     RegisterAs: request.body.RegisterAs,
-                    Code: code
                 };
 
                 let token = jsonWebToken.sign(newCredentails, jwtConfiguration.secret);

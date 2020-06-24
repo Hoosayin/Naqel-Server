@@ -284,6 +284,7 @@ passport.use("SetupAdministratorAccount", new LocalStrategy({
         if (request.body.AdministratorSecret === "admin123123") {
             let newAdministrator = {
                 Email: request.body.Email,
+                PhoneNumber: request.body.PhoneNumber,
                 Username: request.body.Username,
                 Password: request.body.Password,
                 FirstName: request.body.FirstName,
