@@ -109,6 +109,7 @@
     <Content Include="routes\administrators\driversBills\approveDriverPayProof.js" />
     <Content Include="routes\administrators\profile\settings\updateNaqelSettings.js" />
     <Content Include="routes\administrators\profile\settings\getNaqelSettings.js" />
+    <Content Include="routes\administrators\serverSideValidators\validatePhoneNumber.js" />
     <Content Include="routes\administrators\traderAccountStatements\getTraderAccountStatement.js" />
     <Content Include="routes\administrators\tradersBills\getTradersBills.js" />
     <Content Include="routes\administrators\traderQuestions\addTraderAnswer.js" />
@@ -172,6 +173,8 @@
     <Content Include="routes\transportCompanyResponsibles\register\setupAccount.js" />
     <Content Include="routes\transportCompanyResponsibles\serverSideValidators\validateEmail.js" />
     <Content Include="routes\transportCompanyResponsibles\serverSideValidators\validatePassword.js" />
+    <Content Include="routes\traders\serverSideValidators\validatePhoneNumber.js" />
+    <Content Include="routes\transportCompanyResponsibles\serverSideValidators\validatePhoneNumber.js" />
     <Content Include="routes\transportCompanyResponsibles\serverSideValidators\validateUsername.js" />
     <Content Include="routes\transportCompanyResponsibles\settings\generalSettings.js" />
     <Content Include="routes\transportCompanyResponsibles\settings\passwordSettings.js" />

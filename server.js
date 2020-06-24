@@ -133,6 +133,7 @@ app.use("/traders", require("./routes/traders/settings/usernameAndEmailSettings"
 app.use("/traders", require("./routes/traders/serverSideValidators/validateUsername"));
 app.use("/traders", require("./routes/traders/serverSideValidators/validateEmail"));
 app.use("/traders", require("./routes/traders/serverSideValidators/validatePassword"));
+app.use("/traders", require("./routes/traders/serverSideValidators/validatePhoneNumber"));
 
 app.use("/traders", require("./routes/traders/identityCards/addIdentityCard"));
 app.use("/traders", require("./routes/traders/identityCards/getIdentityCard"));
@@ -199,6 +200,7 @@ app.use("/administrators", require("./routes/administrators/profile/settings/upd
 app.use("/administrators", require("./routes/administrators/serverSideValidators/validateUsername"));
 app.use("/administrators", require("./routes/administrators/serverSideValidators/validateEmail"));
 app.use("/administrators", require("./routes/administrators/serverSideValidators/validatePassword"));
+app.use("/administrators", require("./routes/administrators/serverSideValidators/validatePhoneNumber"));
 
 app.use("/administrators", require("./routes/administrators/drivers/getDrivers"));
 app.use("/administrators", require("./routes/administrators/drivers/activateDriverAccount"));
@@ -286,6 +288,7 @@ app.use("/transportCompanyResponsibles", require("./routes/transportCompanyRespo
 app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/serverSideValidators/validateEmail"));
 app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/serverSideValidators/validatePassword"));
 app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/serverSideValidators/validateUsername"));
+app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/serverSideValidators/validatePhoneNumber"));
 
 app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/settings/generalSettings"));
 app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/settings/passwordSettings"));
