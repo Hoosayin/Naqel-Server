@@ -352,14 +352,19 @@ passport.use("SetupTransportCompanyResponsibleAccount", new LocalStrategy({
 
 // Login Driver
 passport.use("LoginDriver", new LocalStrategy({
-    usernameField: "PhoneNumber",
+    usernameField: "PhoneNumberOrUsername",
     passwordField: "Password",
     passReqToCallback: true,
     session: false,
 }, (request, username, password, onAuthenticated) => {
     try {
         Drivers.findOne({
-            where: { PhoneNumber: request.body.PhoneNumber }
+            where: {
+                [Op.or]: [
+                    { PhoneNumber: request.body.PhoneNumberOrUsername },
+                    { Username: request.body.PhoneNumberOrUsername }
+                ]
+            }
         }).then(driver => {
             if (!driver) {
                 return onAuthenticated({
@@ -390,14 +395,19 @@ passport.use("LoginDriver", new LocalStrategy({
 
 // Login Trader
 passport.use("LoginTrader", new LocalStrategy({
-    usernameField: "EmailOrUsername",
+    usernameField: "PhoneNumberOrUsername",
     passwordField: "Password",
     passReqToCallback: true,
     session: false,
 }, (request, username, password, onAuthenticated) => {
     try {
         Traders.findOne({
-            where: { PhoneNumber: request.body.PhoneNumber },
+            where: {
+                [Op.or]: [
+                    { PhoneNumber: request.body.PhoneNumberOrUsername },
+                    { Username: request.body.PhoneNumberOrUsername }
+                ]
+            }
         }).then(trader => {
             if (!trader) {
                 return onAuthenticated(null, false, { Message: "Username not found." });
@@ -420,14 +430,19 @@ passport.use("LoginTrader", new LocalStrategy({
 
 // Login Administrator
 passport.use("LoginAdministrator", new LocalStrategy({
-    usernameField: "EmailOrUsername",
+    usernameField: "PhoneNumberOrUsername",
     passwordField: "Password",
     passReqToCallback: true,
     session: false,
 }, (request, username, password, onAuthenticated) => {
     try {
         Administrators.findOne({
-            where: { PhoneNumber: request.body.PhoneNumber }
+            where: {
+                [Op.or]: [
+                    { PhoneNumber: request.body.PhoneNumberOrUsername },
+                    { Username: request.body.PhoneNumberOrUsername }
+                ]
+            }
         }).then(administrator => {
             if (!administrator) {
                 return onAuthenticated({
@@ -458,14 +473,19 @@ passport.use("LoginAdministrator", new LocalStrategy({
 
 // Login Transport Company Responsible
 passport.use("LoginTransportCompanyResponsible", new LocalStrategy({
-    usernameField: "EmailOrUsername",
+    usernameField: "PhoneNumberOrUsername",
     passwordField: "Password",
     passReqToCallback: true,
     session: false,
 }, (request, username, password, onAuthenticated) => {
         try {
             TransportCompanyResponsibles.findOne({
-                where: { PhoneNumber: request.body.PhoneNumber }
+                where: {
+                    [Op.or]: [
+                        { PhoneNumber: request.body.PhoneNumberOrUsername },
+                        { Username: request.body.PhoneNumberOrUsername }
+                    ]
+                }
             }).then(transportCompanyResponsible => {
                 if (!transportCompanyResponsible) {
                 return onAuthenticated({
