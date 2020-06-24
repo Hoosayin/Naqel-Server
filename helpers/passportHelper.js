@@ -359,12 +359,7 @@ passport.use("LoginDriver", new LocalStrategy({
 }, (request, username, password, onAuthenticated) => {
     try {
         Drivers.findOne({
-            where: {
-                [Op.or]: [
-                    { Username: request.body.EmailOrUsername },
-                    { Email: request.body.EmailOrUsername },
-                ]
-            }
+            where: { PhoneNumber: request.body.PhoneNumber }
         }).then(driver => {
             if (!driver) {
                 return onAuthenticated({
@@ -402,12 +397,7 @@ passport.use("LoginTrader", new LocalStrategy({
 }, (request, username, password, onAuthenticated) => {
     try {
         Traders.findOne({
-            where: {
-                [Op.or]: [
-                    { Username: request.body.EmailOrUsername },
-                    { Email: request.body.EmailOrUsername },
-                ],
-            },
+            where: { PhoneNumber: request.body.PhoneNumber },
         }).then(trader => {
             if (!trader) {
                 return onAuthenticated(null, false, { Message: "Username not found." });
@@ -437,12 +427,7 @@ passport.use("LoginAdministrator", new LocalStrategy({
 }, (request, username, password, onAuthenticated) => {
     try {
         Administrators.findOne({
-            where: {
-                [Op.or]: [
-                    { Username: request.body.EmailOrUsername },
-                    { Email: request.body.EmailOrUsername },
-                ]
-            }
+            where: { PhoneNumber: request.body.PhoneNumber }
         }).then(administrator => {
             if (!administrator) {
                 return onAuthenticated({
@@ -480,12 +465,7 @@ passport.use("LoginTransportCompanyResponsible", new LocalStrategy({
 }, (request, username, password, onAuthenticated) => {
         try {
             TransportCompanyResponsibles.findOne({
-            where: {
-                [Op.or]: [
-                    { Username: request.body.EmailOrUsername },
-                    { Email: request.body.EmailOrUsername },
-                ]
-                }
+                where: { PhoneNumber: request.body.PhoneNumber }
             }).then(transportCompanyResponsible => {
                 if (!transportCompanyResponsible) {
                 return onAuthenticated({
