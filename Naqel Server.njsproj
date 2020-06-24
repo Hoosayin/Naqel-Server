@@ -149,6 +149,7 @@
     <Content Include="routes\drivers\questions\addQuestion.js" />
     <Content Include="routes\drivers\questions\deleteQuestion.js" />
     <Content Include="routes\drivers\questions\getQuestions.js" />
+    <Content Include="routes\drivers\serverSideValidators\validatePhoneNumber.js" />
     <Content Include="routes\drivers\trucks\getOwner.js" />
     <Content Include="routes\traders\payments\requestSpecialBill.js" />
     <Content Include="routes\traders\payments\addTraderPayDetails.js" />

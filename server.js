@@ -56,6 +56,7 @@ app.use("/drivers", require("./routes/drivers/trucks/trailers/updateTrailer"));
 app.use("/drivers", require("./routes/drivers/serverSideValidators/validateEmail"));
 app.use("/drivers", require("./routes/drivers/serverSideValidators/validatePassword"));
 app.use("/drivers", require("./routes/drivers/serverSideValidators/validateUsername"));
+app.use("/drivers", require("./routes/drivers/serverSideValidators/validatePhoneNumber"));
 
 app.use("/drivers", require("./routes/drivers/drivingLicences/getDrivingLicence"));
 app.use("/drivers", require("./routes/drivers/drivingLicences/addDrivingLicence"));
