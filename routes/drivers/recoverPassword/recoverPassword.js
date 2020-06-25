@@ -21,7 +21,7 @@ router.post("/recoverPassword", (request, response) => {
 
                 Drivers.update(updatedDriver, { where: { DriverID: driver.DriverID } }).then(() => {
                     response.json({
-                        Message: "Phone number is updated."
+                        Message: "Password is updated."
                     });
                 });
             });
