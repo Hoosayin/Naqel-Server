@@ -121,6 +121,8 @@ app.use("/drivers", require("./routes/drivers/questions/deleteQuestion"));
 // Traders' | Brokers' routes.
 app.use("/traders", require("./routes/traders/login/login"));
 
+app.use("/traders", require("./routes/traders/recoverPassword/recoverPassword"));
+
 app.use("/traders", require("./routes/traders/register/register"));
 
 app.use("/traders", require("./routes/traders/profile/getTrader"));
@@ -279,6 +281,8 @@ app.use("/transportCompanyResponsibles", require("./routes/transportCompanyRespo
 app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/register/setupAccount"));
 
 app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/login/login"));
+
+app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/recoverPassword/recoverPassword"));
 
 app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/profile/getTransportCompanyResponsible"));
 

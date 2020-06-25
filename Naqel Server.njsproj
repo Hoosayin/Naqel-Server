@@ -159,6 +159,7 @@
     <Content Include="routes\traders\questions\addQuestion.js" />
     <Content Include="routes\traders\questions\deleteQuestion.js" />
     <Content Include="routes\traders\questions\getQuestions.js" />
+    <Content Include="routes\traders\recoverPassword\recoverPassword.js" />
     <Content Include="routes\transportCompanyResponsibles\commercialRegisterCertificates\addCommercialRegisterCertificate.js" />
     <Content Include="routes\transportCompanyResponsibles\commercialRegisterCertificates\deleteCommercialRegisterCertificate.js" />
     <Content Include="routes\transportCompanyResponsibles\commercialRegisterCertificates\getCommercialRegisterCertificate.js" />
@@ -170,6 +171,7 @@
     <Content Include="routes\transportCompanyResponsibles\questions\addQuestion.js" />
     <Content Include="routes\transportCompanyResponsibles\questions\deleteQuestion.js" />
     <Content Include="routes\transportCompanyResponsibles\questions\getQuestions.js" />
+    <Content Include="routes\transportCompanyResponsibles\recoverPassword\recoverPassword.js" />
     <Content Include="routes\transportCompanyResponsibles\register\register.js" />
     <Content Include="routes\transportCompanyResponsibles\register\setupAccount.js" />
     <Content Include="routes\transportCompanyResponsibles\serverSideValidators\validateEmail.js" />
@@ -342,12 +344,14 @@
     <Folder Include="routes\administrators\traders\" />
     <Folder Include="routes\drivers\recoverPassword\" />
     <Folder Include="routes\drivers\questions\" />
+    <Folder Include="routes\traders\recoverPassword\" />
     <Folder Include="routes\transportCompanyResponsibles\" />
     <Folder Include="routes\traders\questions\" />
     <Folder Include="routes\transportCompanyResponsibles\commercialRegisterCertificates\" />
     <Folder Include="routes\transportCompanyResponsibles\login\" />
     <Folder Include="routes\transportCompanyResponsibles\financialAccounts\" />
     <Folder Include="routes\transportCompanyResponsibles\questions\" />
+    <Folder Include="routes\transportCompanyResponsibles\recoverPassword\" />
     <Folder Include="routes\transportCompanyResponsibles\truckJobs\" />
     <Folder Include="routes\transportCompanyResponsibles\trucks\" />
     <Folder Include="routes\transportCompanyResponsibles\profile\" />
