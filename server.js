@@ -30,6 +30,8 @@ app.use("/users", require("./routes/users/driverTruck/getTruckProfile"));
 // Drivers' routes.
 app.use("/drivers", require("./routes/drivers/login/login"));
 
+app.use("/drivers", require("./routes/drivers/recoverPassword/recoverPassword"));
+
 app.use("/drivers", require("./routes/drivers/register/register"));
 
 app.use("/drivers", require("./routes/drivers/profile/getDriver"));
