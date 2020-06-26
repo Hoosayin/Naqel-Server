@@ -192,6 +192,8 @@ app.use("/administrators", require("./routes/administrators/register/setupAccoun
 
 app.use("/administrators", require("./routes/administrators/login/login"));
 
+app.use("/administrators", require("./routes/administrators/recoverPassword/recoverPassword"));
+
 app.use("/administrators", require("./routes/administrators/profile/getAdministrator"));
 app.use("/administrators", require("./routes/administrators/profile/uploadProfilePhoto"));
 
