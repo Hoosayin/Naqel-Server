@@ -16,6 +16,8 @@ const Traders = require("../models/traders");
 const Administrators = require("../models/administrators");
 const TransportCompanyResponsibles = require("../models/transportCompanyResponsibles");
 
+const AdminSecretHelper = require("./adminSecretHelper");
+
 const BCRYPT_SALT_ROUNDS = 12;
 const Op = Sequelize.Op;
 
@@ -280,33 +282,42 @@ passport.use("SetupAdministratorAccount", new LocalStrategy({
     passReqToCallback: true,
     session: false,
 }, (request, username, password, onAuthenticated) => {
-    try {
-        if (request.body.AdministratorSecret === "admin123123") {
-            let newAdministrator = {
-                Email: request.body.Email,
-                PhoneNumber: request.body.PhoneNumber,
-                Username: request.body.Username,
-                Password: request.body.Password,
-                FirstName: request.body.FirstName,
-                LastName: request.body.LastName,
-                PhotoURL: null,
-                Created: new Date()
-            };
+        try {
+            AdminSecretHelper.GetAdminSecret(secret => {
+                if (secret) {
+                    if (request.body.AdministratorSecret === secret) {
+                        let newAdministrator = {
+                            Email: request.body.Email,
+                            PhoneNumber: request.body.PhoneNumber,
+                            Username: request.body.Username,
+                            Password: request.body.Password,
+                            FirstName: request.body.FirstName,
+                            LastName: request.body.LastName,
+                            PhotoURL: null,
+                            Created: new Date()
+                        };
 
-            bcrypt.hash(request.body.Password, BCRYPT_SALT_ROUNDS).then(passwordHash => {
-                newAdministrator.Password = passwordHash;
-                Administrators.create(newAdministrator).then(() => {
+                        bcrypt.hash(request.body.Password, BCRYPT_SALT_ROUNDS).then(passwordHash => {
+                            newAdministrator.Password = passwordHash;
+                            Administrators.create(newAdministrator).then(() => {
+                                return onAuthenticated({
+                                    Message: "Administrator created."
+                                });
+                            });
+                        });
+                    }
+                    else {
+                        return onAuthenticated({
+                            Message: "Invalid secret code."
+                        });
+                    }
+                }
+                else {
                     return onAuthenticated({
-                        Message: "Administrator created."
+                        Message: "Admin secret not found."
                     });
-                });
+                }
             });
-        }
-        else {
-            return onAuthenticated({
-                Message: "Invalid secret code."
-            });
-        }
     } catch (error) {
         return onAuthenticated({
             Message: error.message

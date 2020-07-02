@@ -9,16 +9,16 @@ const setAdminSecret = secret => {
     fileStream.writeFile(fileName, json, "utf8", () => { return; })
 };
 
-const getAdminSecret = () => {
+const getAdminSecret = onFileRead => {
     fileStream.exists(fileName, exists => {
         if (exists) {
             fileStream.readFile(fileName, "utf8", (error, data) => {
                 if (error) {
-                    return null;
+                    onFileRead(null);
                 }
                 else {
                     object = JSON.parse(data);
-                    return object.AdminSecret;
+                    onFileRead(object.AdminSecret);
                 }
             });
         }

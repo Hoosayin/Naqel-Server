@@ -1,4 +1,4 @@
-const express = require("express");
+﻿const express = require("express");
 const cors = require("cors");
 const passport = require("../../../../helpers/passportHelper");
 const AdminSecretHelper = require("../../../../helpers/adminSecretHelper");
@@ -11,19 +11,19 @@ router.get("/getAdminSecret", (request, response) => {
     passport.authenticate("AuthenticateAdministrator", { session: false }, result => {
         try {
             if (result.Message === "Administrator found.") {
-                const adminSecret = AdminSecretHelper.GetAdminSecret();
-
-                if (adminSecret) {
-                    response.json({
-                        Message: "Admin secret found.",
-                        AdminSecret: adminSecret
-                    });
-                }
-                else {
-                    response.json({
-                        Message: "Admin secret not found."
-                    });
-                }
+                AdminSecretHelper.GetAdminSecret(secret => {
+                    if (secret) {
+                        response.json({
+                            Message: "Admin secret found.",
+                            AdminSecret: secret
+                        });
+                    }
+                    else {
+                        response.json({
+                            Message: "Admin secret not found."
+                        });
+                    }
+                });
             }
             else {
                 response.json({
