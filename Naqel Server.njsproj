@@ -29,7 +29,9 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="adminSecret.json" />
     <Content Include="globalFeeRate.json" />
+    <Content Include="helpers\adminSecretHelper.js" />
     <Content Include="helpers\mangopay.js" />
     <Content Include="helpers\naqelSettingsHelper.js" />
     <Content Include="helpers\temporaryFeeRateHelper.js" />
@@ -91,6 +93,8 @@
     <Content Include="naqelSettings.json" />
     <Content Include="routes\administrators\accountStatement\getAccountStatement.js" />
     <Content Include="routes\administrators\driverAccountStatements\getDriverAccountStatement.js" />
+    <Content Include="routes\administrators\profile\settings\updateAdminSecret.js" />
+    <Content Include="routes\administrators\profile\settings\getAdminSecret.js" />
     <Content Include="routes\administrators\recoverPassword\recoverPassword.js" />
     <Content Include="routes\administrators\responsibleAccountStatements\getResponsibleAccountStatement.js" />
     <Content Include="routes\administrators\responsibleQuestions\addResponsibleAnswer.js" />

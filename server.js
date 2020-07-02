@@ -202,6 +202,8 @@ app.use("/administrators", require("./routes/administrators/profile/settings/use
 app.use("/administrators", require("./routes/administrators/profile/settings/passwordSettings"));
 app.use("/administrators", require("./routes/administrators/profile/settings/getNaqelSettings"));
 app.use("/administrators", require("./routes/administrators/profile/settings/updateNaqelSettings"));
+app.use("/administrators", require("./routes/administrators/profile/settings/getAdminSecret"));
+app.use("/administrators", require("./routes/administrators/profile/settings/updateAdminSecret"));
 
 app.use("/administrators", require("./routes/administrators/serverSideValidators/validateUsername"));
 app.use("/administrators", require("./routes/administrators/serverSideValidators/validateEmail"));
