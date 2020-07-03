@@ -149,6 +149,7 @@
     <Content Include="routes\administrators\traders\setRefundRate.js" />
     <Content Include="routes\administrators\traders\getTraders.js" />
     <Content Include="routes\administrators\traders\chargeTrader.js" />
+    <Content Include="routes\drivers\accountStatement\getAccountStatement.js" />
     <Content Include="routes\drivers\payments\addDriverPayDetails.js" />
     <Content Include="routes\drivers\payments\getClientSecret.js" />
     <Content Include="routes\drivers\profile\getDashboardData.js" />
@@ -158,6 +159,7 @@
     <Content Include="routes\drivers\recoverPassword\recoverPassword.js" />
     <Content Include="routes\drivers\serverSideValidators\validatePhoneNumber.js" />
     <Content Include="routes\drivers\trucks\getOwner.js" />
+    <Content Include="routes\traders\accountStatement\getAccountStatement.js" />
     <Content Include="routes\traders\payments\requestSpecialBill.js" />
     <Content Include="routes\traders\payments\addTraderPayDetails.js" />
     <Content Include="routes\traders\profile\getDashboardData.js" />
@@ -348,8 +350,10 @@
     <Folder Include="routes\administrators\driverQuestionClasses\" />
     <Folder Include="routes\administrators\traderObjectionReasons\" />
     <Folder Include="routes\administrators\traders\" />
+    <Folder Include="routes\drivers\accountStatement\" />
     <Folder Include="routes\drivers\recoverPassword\" />
     <Folder Include="routes\drivers\questions\" />
+    <Folder Include="routes\traders\accountStatement\" />
     <Folder Include="routes\traders\recoverPassword\" />
     <Folder Include="routes\transportCompanyResponsibles\" />
     <Folder Include="routes\traders\questions\" />

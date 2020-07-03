@@ -114,6 +114,8 @@ app.use("/drivers", require("./routes/drivers/payments/getPaymentDetails"));
 app.use("/drivers", require("./routes/drivers/payments/getClientSecret"));
 app.use("/drivers", require("./routes/drivers/payments/addDriverPayDetails"));
 
+app.use("/drivers", require("./routes/drivers/accountStatement/getAccountStatement"));
+
 app.use("/drivers", require("./routes/drivers/questions/addQuestion"));
 app.use("/drivers", require("./routes/drivers/questions/getQuestions"));
 app.use("/drivers", require("./routes/drivers/questions/deleteQuestion"));
@@ -181,6 +183,8 @@ app.use("/traders", require("./routes/traders/payments/getPaymentDetails"));
 app.use("/traders", require("./routes/traders/payments/getClientSecret"));
 app.use("/traders", require("./routes/traders/payments/addTraderPayDetails"));
 app.use("/traders", require("./routes/traders/payments/requestSpecialBill"));
+
+app.use("/traders", require("./routes/traders/accountStatement/getAccountStatement"));
 
 app.use("/traders", require("./routes/traders/questions/addQuestion"));
 app.use("/traders", require("./routes/traders/questions/deleteQuestion"));
