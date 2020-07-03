@@ -14,7 +14,7 @@ router.get("/getDrivers", (request, response) => {
         try {
             if (result.Message === "Administrator found.") {
                 Drivers.findAll({
-                    attributes: ["DriverID", "Username", "Email", "FirstName", "LastName", "Active"]
+                    attributes: ["DriverID", "Username", "Email", "FirstName", "LastName", "Active", "PhoneNumber"]
                 }).then(async drivers => {
                     if(drivers) {
                         let modifiableDrivers = [];

@@ -15,7 +15,7 @@ router.get("/getTraders", (request, response) => {
         try {
             if (result.Message === "Administrator found.") {
                 Traders.findAll({
-                    attributes: ["TraderID", "Username", "Email", "FirstName", "LastName", "Type"]
+                    attributes: ["TraderID", "Username", "Email", "FirstName", "LastName", "Type", "PhoneNumber"]
                 }).then(async traders => {
                     if(traders) {
                         let modifiableTraders = [];
