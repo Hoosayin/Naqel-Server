@@ -13,7 +13,8 @@ router.post("/generalSettings", (request, response) => {
             if (result.Message === "Administrator found.") {
                 let updatedAdministrator = {
                     FirstName: request.body.FirstName,
-                    LastName: request.body.LastName
+                    LastName: request.body.LastName,
+                    PhoneNumber: request.body.PhoneNumber
                 };
 
                 Administrators.update(updatedAdministrator, { where: { AdministratorID: result.Administrator.AdministratorID } }).then(() => {
