@@ -68,7 +68,6 @@ router.get("/getAccountStatement", (request, response) => {
                                         transaction.TraderPaymentMethod = traderPayProof ? "Bank Transfer" : "Credit Card";
 
                                         let driverEarning = await DriverEarnings.findOne({
-                                            attributes: ["DriverBillID", "Amount"],
                                             where: { CompletedJobID: completedJob.CompletedJobID }
                                         });
 
