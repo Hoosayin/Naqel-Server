@@ -27,7 +27,7 @@ router.post("/addResponsibleAnswer", (request, response) => {
                                     Created: new Date()
                                 };
 
-                                ResponsibleAnswers.update(updatedResponsibleAnswer, { where: { ResponsibleAnswerID: ResponsibleAnswer.ResponsibleAnswerID } }).then(() => {
+                                ResponsibleAnswers.update(updatedResponsibleAnswer, { where: { ResponsibleAnswerID: responsibleAnswer.ResponsibleAnswerID } }).then(() => {
                                     response.json({
                                         Message: "Answer is added."
                                     });
