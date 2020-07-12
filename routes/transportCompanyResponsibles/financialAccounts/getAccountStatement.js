@@ -74,24 +74,24 @@ router.get("/getAccountStatement", (request, response) => {
                                         transaction.Earned = driverEarning.Amount;
                                         transaction.Charged = traderBill.Amount - driverEarning.Amount;
 
-                                        if (driverEarning.DriverBillID) {
-                                            let driverBill = DriverBills.findOne({
-                                                attributes: ["DriverBillID", "Paid", "BillNumber"],
-                                                where: { DriverBillID: driverEarning.DriverBillID }
-                                            });
+                                        //if (driverEarning.DriverBillID) {
+                                        //    let driverBill = DriverBills.findOne({
+                                        //        attributes: ["DriverBillID", "Paid", "BillNumber"],
+                                        //        where: { DriverBillID: driverEarning.DriverBillID }
+                                        //    });
 
-                                            transaction.DriverBillNumber = driverBill.BillNumber;
-                                            transaction.DriverBillPaid = driverBill.Paid;
+                                        //    transaction.DriverBillNumber = driverBill.BillNumber;
+                                        //    transaction.DriverBillPaid = driverBill.Paid;
 
-                                            if (driverBill.Paid) {
-                                                let driverPayProof = await DriverPayProofs.findOne({
-                                                    attributes: ["DriverPayProofID"],
-                                                    where: { DriverBillID: driverBill.DriverBillID }
-                                                });
+                                        //    if (driverBill.Paid) {
+                                        //        let driverPayProof = await DriverPayProofs.findOne({
+                                        //            attributes: ["DriverPayProofID"],
+                                        //            where: { DriverBillID: driverBill.DriverBillID }
+                                        //        });
 
-                                                transaction.DriverPaymentMethod = driverPayProof ? "Bank Transfer" : "Credit Card";
-                                            }
-                                        }
+                                        //        transaction.DriverPaymentMethod = driverPayProof ? "Bank Transfer" : "Credit Card";
+                                        //    }
+                                        //}
                                     }
 
                                     transactions[count++] = transaction;
