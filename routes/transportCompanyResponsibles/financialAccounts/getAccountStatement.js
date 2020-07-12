@@ -68,14 +68,15 @@ router.get("/getAccountStatement", (request, response) => {
                                         transaction.TraderPaymentMethod = traderPayProof ? "Bank Transfer" : "Credit Card";
 
                                         let driverEarning = await DriverEarnings.findOne({
+                                            attributes: ["DriverBillID", "Amount"],
                                             where: { CompletedJobID: completedJob.CompletedJobID }
                                         });
 
                                         transaction.Earned = driverEarning.Amount;
                                         transaction.Charged = traderBill.Amount - driverEarning.Amount;
 
-                                        if (driverEarning.DriverBillID != null) {
-                                            let driverBill = DriverBills.findOne({
+                                        if (driverEarning.DriverBillID) {
+                                            let driverBill = await DriverBills.findOne({
                                                 attributes: ["DriverBillID", "Paid", "BillNumber"],
                                                 where: { DriverBillID: driverEarning.DriverBillID }
                                             });
