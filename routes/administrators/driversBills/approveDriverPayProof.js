@@ -41,7 +41,7 @@ router.post("/approveDriverPayProof", (request, response) => {
                                             Created: new Date()
                                         };
 
-                                        NaqelTransactions.create().then(() => {
+                                        NaqelTransactions.create(newNaqelTransaction).then(() => {
                                             response.json({
                                                 Message: "Driver pay proof is approved."
                                             });
