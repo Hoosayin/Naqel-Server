@@ -73,7 +73,7 @@ router.get("/getTruckAccountStatement", (request, response) => {
                                         transaction.Charged = traderBill.Amount - driverEarning.Amount;
 
                                         if (driverEarning.DriverBillID) {
-                                            let driverBill = DriverBills.findOne({
+                                            let driverBill = await DriverBills.findOne({
                                                 attributes: ["DriverBillID", "Paid", "BillNumber"],
                                                 where: { DriverBillID: driverEarning.DriverBillID }
                                             });
