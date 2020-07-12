@@ -42,12 +42,12 @@ router.post("/addJobOffer", (request, response) => {
             }
             else {
                 response.json({
-                    Message: "Trader not found."
+                    Message: result.Message
                 });
             }
         } catch (error) {
             response.json({
-                Message: error.Message,
+                Message: error.message,
             });
         }
     })(request, response);
