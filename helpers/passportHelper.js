@@ -93,7 +93,7 @@ passport.use("RegisterTrader", new LocalStrategy({
     passwordField: "Password",
     passReqToCallback: true,
     session: false,
-}, (request, username, password, onAuthenticated) => {
+}, async (request, username, password, onAuthenticated) => {
     try {
         await ValidateUsernameAndPhoneNumber(request.body.Username, request.body.PhoneNumber, exists => {
             if (exists) {
@@ -154,7 +154,7 @@ passport.use("RegisterTransportCompanyResponsible", new LocalStrategy({
     passwordField: "Password",
     passReqToCallback: true,
     session: false,
-}, (request, username, password, onAuthenticated) => {
+}, async (request, username, password, onAuthenticated) => {
         try {
             await ValidateUsernameAndPhoneNumber(request.body.Username, request.body.PhoneNumber, exists => {
                 if (exists) {
