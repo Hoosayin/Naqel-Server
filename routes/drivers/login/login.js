@@ -21,7 +21,7 @@ router.post("/login", (request, response) => {
                         TokenID: tokenID
                     };
 
-                    Drivers.update(updatedDriver { where: { DriverID: result.Driver.DriverID } }).then(() => {
+                    Drivers.update(updatedDriver, { where: { DriverID: result.Driver.DriverID } }).then(() => {
                         let JsonPayload = {
                             DriverID: result.Driver.DriverID,
                             TokenID: tokenID
