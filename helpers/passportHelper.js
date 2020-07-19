@@ -21,33 +21,65 @@ const AdminSecretHelper = require("./adminSecretHelper");
 const BCRYPT_SALT_ROUNDS = 12;
 const Op = Sequelize.Op;
 
+const ValidateUsernameAndPhoneNumber = async (username, phoneNumber, onValidation) => {
+    const driver = await Drivers.findOne({
+        attributes: ["DriverID"],
+        where: {
+            [Op.or]: [
+                { Username: username },
+                { PhoneNumber: phoneNumber },
+            ],
+        }
+    });
+
+    const trader = await Traders.findOne({
+        attributes: ["TraderID"],
+        where: {
+            [Op.or]: [
+                { Username: username },
+                { PhoneNumber: phoneNumber },
+            ],
+        }
+    });
+
+    const responsible = await TransportCompanyResponsibles.findOne({
+        attributes: ["TransportCompanyResponsibleID"],
+        where: {
+            [Op.or]: [
+                { Username: username },
+                { PhoneNumber: phoneNumber },
+            ],
+        }
+    });
+
+    if (driver || trader || responsible) {
+        onValidation(false);
+    }
+    else {
+        onValidation(true);
+    }
+};
+
 // Register Driver
 passport.use("RegisterDriver", new LocalStrategy({
     usernameField: "Username",
     passwordField: "Password",
     passReqToCallback: true,
     session: false,
-}, (request, username, password, onAuthenticated) => {
-    try {
-        Drivers.findOne({
-            where: {
-                [Op.or]: [
-                    { Username: request.body.Username },
-                    { PhoneNumber: request.body.PhoneNumber },
-                ],
-            },
-        }).then(driver => {
-            if (driver) {
-                return onAuthenticated({
-                    Message: "Username or phone number is already taken.",
-                });
-            }
-            else {
-                return onAuthenticated({
-                    Message: "Credentials are verified.",
-                });
-            }
-        });
+}, async (request, username, password, onAuthenticated) => {
+        try {
+            await ValidateUsernameAndPhoneNumber(request.body.Username, request.body.PhoneNumber, exists => {
+                if (exists) {
+                    return onAuthenticated({
+                        Message: "Username or phone number is already taken.",
+                    });
+                }
+                else {
+                    return onAuthenticated({
+                        Message: "Credentials are verified.",
+                    });
+                }
+            });
     } catch (error) {
         return onAuthenticated({
             Message: error.message
@@ -63,15 +95,8 @@ passport.use("RegisterTrader", new LocalStrategy({
     session: false,
 }, (request, username, password, onAuthenticated) => {
     try {
-        Traders.findOne({
-            where: {
-                [Op.or]: [
-                    { Username: request.body.Username },
-                    { PhoneNumber: request.body.PhoneNumber },
-                ],
-            },
-        }).then(trader => {
-            if (trader) {
+        await ValidateUsernameAndPhoneNumber(request.body.Username, request.body.PhoneNumber, exists => {
+            if (exists) {
                 return onAuthenticated({
                     Message: "Username or phone number is already taken.",
                 });
@@ -131,25 +156,18 @@ passport.use("RegisterTransportCompanyResponsible", new LocalStrategy({
     session: false,
 }, (request, username, password, onAuthenticated) => {
         try {
-            TransportCompanyResponsibles.findOne({
-            where: {
-                [Op.or]: [
-                    { Username: request.body.Username },
-                    { PhoneNumber: request.body.PhoneNumber },
-                ],
-            },
-            }).then(transportCompanyResponsible => {
-                if (transportCompanyResponsible) {
-                return onAuthenticated({
-                    Message: "Username or phone number is already taken.",
-                });
-            }
-            else {
-                return onAuthenticated({
-                    Message: "Credentials are verified.",
-                });
-            }
-        });
+            await ValidateUsernameAndPhoneNumber(request.body.Username, request.body.PhoneNumber, exists => {
+                if (exists) {
+                    return onAuthenticated({
+                        Message: "Username or phone number is already taken.",
+                    });
+                }
+                else {
+                    return onAuthenticated({
+                        Message: "Credentials are verified.",
+                    });
+                }
+            });
     } catch (error) {
         return onAuthenticated({
             Message: error.message,
