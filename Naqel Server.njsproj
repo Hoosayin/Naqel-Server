@@ -220,6 +220,7 @@
     <Content Include="routes\drivers\payments\getBillData.js" />
     <Content Include="routes\drivers\payments\getBills.js" />
     <Content Include="routes\drivers\payments\getPaymentDetails.js" />
+    <Content Include="routes\users\login.js" />
     <Content Include="routes\users\traderProfile\getTraderDocuments.js" />
     <Content Include="routes\users\traderProfile\getTraderProfile.js" />
     <Content Include="routes\drivers\drivingLicences\getDrivingLicence.js" />

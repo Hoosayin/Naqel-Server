@@ -18,6 +18,7 @@ app.set("json spaces", 4);
 app.use("/users", require("./routes/users/parseToken"));
 app.use("/users", require("./routes/users/accountSetup"));
 app.use("/users", require("./routes/users/sendCode"));
+app.use("/users", require("./routes/users/login"));
 
 app.use("/users", require("./routes/users/driverProfile/getDriverProfile"));
 app.use("/users", require("./routes/users/driverProfile/getDriverDocuments"));

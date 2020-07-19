@@ -379,6 +379,100 @@ passport.use("SetupTransportCompanyResponsibleAccount", new LocalStrategy({
     }
 }));
 
+// Login
+passport.use("Login", new LocalStrategy({
+    usernameField: "PhoneNumberOrUsername",
+    passwordField: "Password",
+    passReqToCallback: true,
+    session: false,
+}, async (request, username, password, onAuthenticated) => {
+        try {
+            const driver = await Drivers.findOne({
+                where: {
+                    [Op.or]: [
+                        { PhoneNumber: request.body.PhoneNumberOrUsername },
+                        { Username: request.body.PhoneNumberOrUsername }
+                    ]
+                }
+            });
+
+            if (driver) {
+                bcrypt.compare(request.body.Password, driver.Password).then(response => {
+                    if (!response) {
+                        onAuthenticated({
+                            Message: "Invalid password."
+                        });
+                    } else {
+                        onAuthenticated({
+                            Message: "User found.",
+                            UserType: "Driver",
+                            Driver: driver.dataValues
+                        });
+                    }
+                });
+            } else {
+                const trader = await Traders.findOne({
+                    where: {
+                        [Op.or]: [
+                            { PhoneNumber: request.body.PhoneNumberOrUsername },
+                            { Username: request.body.PhoneNumberOrUsername }
+                        ]
+                    }
+                });
+
+                if (trader) {
+                    bcrypt.compare(request.body.Password, trader.Password).then(response => {
+                        if (!response) {
+                            onAuthenticated({
+                                Message: "Invalid password."
+                            });
+                        } else {
+                            onAuthenticated({
+                                Message: "User found.",
+                                UserType: "Trader",
+                                Trader: trader.dataValues
+                            });
+                        }
+                    });
+                } else {
+                    const responsible = await TransportCompanyResponsibles.findOne({
+                        where: {
+                            [Op.or]: [
+                                { PhoneNumber: request.body.PhoneNumberOrUsername },
+                                { Username: request.body.PhoneNumberOrUsername }
+                            ]
+                        }
+                    });
+
+                    if (responsible) {
+                        bcrypt.compare(request.body.Password, responsible.Password).then(response => {
+                            if (!response) {
+                                onAuthenticated({
+                                    Message: "Invalid password."
+                                });
+                            } else {
+                                onAuthenticated({
+                                    Message: "User found.",
+                                    UserType: "TC Responsible",
+                                    TCResponsible: responsible.dataValues
+                                });
+                            }
+                        });
+                    } else {
+                        onAuthenticated({
+                            Message: "User not found.",
+                        });
+                    }
+                }
+            }
+    }
+    catch (error) {
+        onAuthenticated({
+            Message: error.message
+        });
+    }
+}));
+
 // Login Driver
 passport.use("LoginDriver", new LocalStrategy({
     usernameField: "PhoneNumberOrUsername",
