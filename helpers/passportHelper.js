@@ -531,21 +531,27 @@ passport.use("AuthenticateDriver", new JWTStrategy({
     secretOrKey: jwtConfiguration.secret,
 }, (JWTPayload, onAuthenticated) => {
         try {
-            console.log(JWTPayload);
-        Drivers.findOne({
-            where: { DriverID: JWTPayload.DriverID },
-        }).then(driver => {
-            if (driver) {
-                onAuthenticated({
-                    Message: "Driver found.",
-                    Driver: driver
-                });
-            } else {
-                onAuthenticated({
-                    Message: "Driver not found."
-                });
-            }
-        });
+            Drivers.findOne({
+                where: { DriverID: JWTPayload.DriverID },
+            }).then(driver => {
+                if (driver) {
+                    if (JWTPayload.TokenID === driver.TokenID) {
+                        onAuthenticated({
+                            Message: "Driver found.",
+                            Driver: driver
+                        });
+                    }
+                    else {
+                        onAuthenticated({
+                            Message: "Token is expired."
+                        });
+                    }
+                } else {
+                    onAuthenticated({
+                        Message: "Driver not found."
+                    });
+                }
+            });
     } catch (error) {
         onAuthenticated({
             Message: error.message
