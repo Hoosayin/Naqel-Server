@@ -42,6 +42,9 @@
     <Content Include="helpers\passportHelper.js" />
     <Content Include="helpers\emailHelper.js" />
     <Content Include="helpers\tokenGenerator.js" />
+    <Content Include="models\truckTypes.js" />
+    <Content Include="models\truckSizes.js" />
+    <Content Include="models\waitingTimes.js" />
     <Content Include="models\exoneratedTraders.js" />
     <Content Include="models\responsibleQuestionClasses.js" />
     <Content Include="models\responsibleAnswers.js" />
@@ -220,6 +223,9 @@
     <Content Include="routes\drivers\payments\getBillData.js" />
     <Content Include="routes\drivers\payments\getBills.js" />
     <Content Include="routes\drivers\payments\getPaymentDetails.js" />
+    <Content Include="routes\users\getTruckTypes.js" />
+    <Content Include="routes\users\getTruckSizes.js" />
+    <Content Include="routes\users\getWaitingTimes.js" />
     <Content Include="routes\users\login.js" />
     <Content Include="routes\users\traderProfile\getTraderDocuments.js" />
     <Content Include="routes\users\traderProfile\getTraderProfile.js" />

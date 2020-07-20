@@ -80,7 +80,7 @@ module.exports = databaseHelper.sequelize.define(
             type: databaseHelper.Sequelize.STRING(100),
             allowNull: true
         },
-        DriverNationality:
+        DriverNationalities:
         {
             type: databaseHelper.Sequelize.TEXT,
             allowNull: true
@@ -93,6 +93,11 @@ module.exports = databaseHelper.sequelize.define(
         AcceptedDelay:
         {
             type: databaseHelper.Sequelize.BIGINT,
+            allowNull: false
+        },
+        PermitType:
+        {
+            type: databaseHelper.Sequelize.STRING(100),
             allowNull: false
         },
         JobOfferType:
