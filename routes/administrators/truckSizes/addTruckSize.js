@@ -6,8 +6,8 @@ const TruckSizes = require("../../../models/truckSizes");
 var router = express.Router();
 router.use(cors());
 
-// POST: addTruckSizes
-router.post("/addTruckSizes", (request, response) => {
+// POST: addTruckSize
+router.post("/addTruckSize", (request, response) => {
     passport.authenticate("AuthenticateAdministrator", { session: false }, result => {
         try {
             if (result.Message === "Administrator found.") {
