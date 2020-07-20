@@ -291,6 +291,12 @@ app.use("/administrators", require("./routes/administrators/accountStatement/get
 app.use("/administrators", require("./routes/administrators/waitingTimes/addWaitingTime"));
 app.use("/administrators", require("./routes/administrators/waitingTimes/deleteWaitingTime"));
 
+app.use("/administrators", require("./routes/administrators/truckSizes/addTruckSize"));
+app.use("/administrators", require("./routes/administrators/truckSizes/deleteTruckSize"));
+
+app.use("/administrators", require("./routes/administrators/truckTypes/addTruckType"));
+app.use("/administrators", require("./routes/administrators/truckTypes/deleteTruckType"));
+
 // Administrators' routes.
 app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/register/register"));
 app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/register/setupAccount"));

@@ -96,6 +96,10 @@
     <Content Include="naqelSettings.json" />
     <Content Include="routes\administrators\accountStatement\getAccountStatement.js" />
     <Content Include="routes\administrators\driverAccountStatements\getDriverAccountStatement.js" />
+    <Content Include="routes\administrators\truckTypes\addTruckType.js" />
+    <Content Include="routes\administrators\truckTypes\deleteTruckType.js" />
+    <Content Include="routes\administrators\truckSizes\addTruckSize.js" />
+    <Content Include="routes\administrators\truckSizes\deleteTruckSize.js" />
     <Content Include="routes\administrators\waitingTimes\addWaitingTime.js" />
     <Content Include="routes\administrators\waitingTimes\deleteWaitingTime.js" />
     <Content Include="routes\administrators\profile\settings\updateAdminSecret.js" />
@@ -339,6 +343,8 @@
     <Folder Include="helpers\" />
     <Folder Include="models\" />
     <Folder Include="routes\" />
+    <Folder Include="routes\administrators\truckTypes\" />
+    <Folder Include="routes\administrators\truckSizes\" />
     <Folder Include="routes\administrators\waitingTimes\" />
     <Folder Include="routes\administrators\driverObjectionReasons\" />
     <Folder Include="routes\administrators\recoverPassword\" />
