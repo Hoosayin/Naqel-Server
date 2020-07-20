@@ -288,6 +288,9 @@ app.use("/administrators", require("./routes/administrators/driverAccountStateme
 app.use("/administrators", require("./routes/administrators/responsibleAccountStatements/getResponsibleAccountStatement"));
 app.use("/administrators", require("./routes/administrators/accountStatement/getAccountStatement"));
 
+app.use("/administrators", require("./routes/administrators/waitingTimes/addWaitingTime"));
+app.use("/administrators", require("./routes/administrators/waitingTimes/deleteWaitingTime"));
+
 // Administrators' routes.
 app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/register/register"));
 app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/register/setupAccount"));

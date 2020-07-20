@@ -96,6 +96,8 @@
     <Content Include="naqelSettings.json" />
     <Content Include="routes\administrators\accountStatement\getAccountStatement.js" />
     <Content Include="routes\administrators\driverAccountStatements\getDriverAccountStatement.js" />
+    <Content Include="routes\administrators\waitingTimes\addWaitingTime.js" />
+    <Content Include="routes\administrators\waitingTimes\deleteWaitingTime.js" />
     <Content Include="routes\administrators\profile\settings\updateAdminSecret.js" />
     <Content Include="routes\administrators\profile\settings\getAdminSecret.js" />
     <Content Include="routes\administrators\recoverPassword\recoverPassword.js" />
@@ -337,6 +339,7 @@
     <Folder Include="helpers\" />
     <Folder Include="models\" />
     <Folder Include="routes\" />
+    <Folder Include="routes\administrators\waitingTimes\" />
     <Folder Include="routes\administrators\driverObjectionReasons\" />
     <Folder Include="routes\administrators\recoverPassword\" />
     <Folder Include="routes\administrators\responsibleAccountStatements\" />
