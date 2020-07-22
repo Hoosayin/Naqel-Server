@@ -19,6 +19,9 @@ router.post("/updateJobOffer", (request, response) => {
                             TripType: request.body.TripType,
                             CargoType: request.body.CargoType,
                             CargoWeight: request.body.CargoWeight,
+                            DriverNationalities: request.body.DriverNationalities,
+                            TruckTypes: request.body.TruckTypes,
+                            TruckSizes: request.body.TruckSizes,
                             LoadingPlace: request.body.LoadingPlace,
                             LoadingLat: request.body.LoadingLat,
                             LoadingLng: request.body.LoadingLng,
@@ -30,6 +33,7 @@ router.post("/updateJobOffer", (request, response) => {
                             EntryExit: request.body.EntryExit,
                             Price: request.body.Price,
                             WaitingTime: request.body.WaitingTime,
+                            PermitType: request.body.PermitType,
                             AcceptedDelay: request.body.AcceptedDelay,
                             JobOfferType: request.body.JobOfferType
                         };
