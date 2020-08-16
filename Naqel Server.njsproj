@@ -232,6 +232,7 @@
     <Content Include="routes\users\getTruckTypes.js" />
     <Content Include="routes\users\getTruckSizes.js" />
     <Content Include="routes\users\getWaitingTimes.js" />
+    <Content Include="routes\users\validateEmail.js" />
     <Content Include="routes\users\login.js" />
     <Content Include="routes\users\traderProfile\getTraderDocuments.js" />
     <Content Include="routes\users\traderProfile\getTraderProfile.js" />
