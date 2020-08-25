@@ -399,7 +399,7 @@ passport.use("Login", new LocalStrategy({
             if (driver) {
                 if (driver.Online) {
                     onAuthenticated({
-                        Message: "Cannot login! You are already logged-in from another device.",
+                        Message: "Cannot login! You are already logged-in.",
                     });
                 } else {
                     bcrypt.compare(request.body.Password, driver.Password).then(response => {
