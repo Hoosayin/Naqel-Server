@@ -397,19 +397,25 @@ passport.use("Login", new LocalStrategy({
             });
 
             if (driver) {
-                bcrypt.compare(request.body.Password, driver.Password).then(response => {
-                    if (!response) {
-                        onAuthenticated({
-                            Message: "Invalid password."
-                        });
-                    } else {
-                        onAuthenticated({
-                            Message: "User found.",
-                            UserType: "Driver",
-                            Driver: driver.dataValues
-                        });
-                    }
-                });
+                if (driver.Online) {
+                    onAuthenticated({
+                        Message: "Cannot login! You are already logged-in from another device.",
+                    });
+                } else {
+                    bcrypt.compare(request.body.Password, driver.Password).then(response => {
+                        if (!response) {
+                            onAuthenticated({
+                                Message: "Invalid password."
+                            });
+                        } else {
+                            onAuthenticated({
+                                Message: "User found.",
+                                UserType: "Driver",
+                                Driver: driver.dataValues
+                            });
+                        }
+                    });
+                }
             } else {
                 const trader = await Traders.findOne({
                     where: {

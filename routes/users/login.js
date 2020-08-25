@@ -17,29 +17,23 @@ router.post("/login", (request, response) => {
                 const userType = result.UserType;
 
                 if (userType === "Driver") {
-                    const driver = result.Driver.DriverID;
+                    const driver = result.Driver;
 
-                    if (driver.Online) {
+                    let updatedDriver = {
+                        Online: true
+                    };
+
+                    Drivers.update(updatedDriver, { where: { DriverID: driver.DriverID } }).then(() => {
+                        let token = jsonWebToken.sign({
+                            DriverID: driver.DriverID,
+                        }, jwtConfiguration.secret);
+
                         response.json({
-                            Message: "Cannot login! You are already logged-in from another device.",
+                            Message: "Login successful.",
+                            LoggedInAs: "Driver",
+                            Token: token
                         });
-                    } else {
-                        let updatedDriver = {
-                            Online: true
-                        };
-
-                        Drivers.update(updatedDriver, { where: { DriverID: result.Driver.DriverID } }).then(() => {
-                            let token = jsonWebToken.sign({
-                                DriverID: result.Driver.DriverID,
-                            }, jwtConfiguration.secret);
-
-                            response.json({
-                                Message: "Login successful.",
-                                LoggedInAs: "Driver",
-                                Token: token
-                            });
-                        });
-                    }
+                    });
                 } else if (userType === "Trader") {
                     let JsonPayload = {
                         TraderID: result.Trader.TraderID
