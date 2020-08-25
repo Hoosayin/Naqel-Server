@@ -427,19 +427,25 @@ passport.use("Login", new LocalStrategy({
                 });
 
                 if (trader) {
-                    bcrypt.compare(request.body.Password, trader.Password).then(response => {
-                        if (!response) {
-                            onAuthenticated({
-                                Message: "Invalid password."
-                            });
-                        } else {
-                            onAuthenticated({
-                                Message: "User found.",
-                                UserType: "Trader",
-                                Trader: trader.dataValues
-                            });
-                        }
-                    });
+                    if (trader.Online) {
+                        onAuthenticated({
+                            Message: "Cannot login! You are already logged-in.",
+                        });
+                    } else {
+                        bcrypt.compare(request.body.Password, trader.Password).then(response => {
+                            if (!response) {
+                                onAuthenticated({
+                                    Message: "Invalid password."
+                                });
+                            } else {
+                                onAuthenticated({
+                                    Message: "User found.",
+                                    UserType: "Trader",
+                                    Trader: trader.dataValues
+                                });
+                            }
+                        });
+                    }
                 } else {
                     const responsible = await TransportCompanyResponsibles.findOne({
                         where: {
@@ -451,19 +457,25 @@ passport.use("Login", new LocalStrategy({
                     });
 
                     if (responsible) {
-                        bcrypt.compare(request.body.Password, responsible.Password).then(response => {
-                            if (!response) {
-                                onAuthenticated({
-                                    Message: "Invalid password."
-                                });
-                            } else {
-                                onAuthenticated({
-                                    Message: "User found.",
-                                    UserType: "TC Responsible",
-                                    TCResponsible: responsible.dataValues
-                                });
-                            }
-                        });
+                        if (responsible.Online) {
+                            onAuthenticated({
+                                Message: "Cannot login! You are already logged-in.",
+                            });
+                        } else {
+                            bcrypt.compare(request.body.Password, responsible.Password).then(response => {
+                                if (!response) {
+                                    onAuthenticated({
+                                        Message: "Invalid password."
+                                    });
+                                } else {
+                                    onAuthenticated({
+                                        Message: "User found.",
+                                        UserType: "TC Responsible",
+                                        TCResponsible: responsible.dataValues
+                                    });
+                                }
+                            });
+                        }
                     } else {
                         onAuthenticated({
                             Message: "User not found.",

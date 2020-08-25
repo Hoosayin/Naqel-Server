@@ -54,7 +54,12 @@ module.exports = databaseHelper.sequelize.define(
         {
             type: databaseHelper.Sequelize.DATEONLY,
             allowNull: false
-        }
+        },
+        Online:
+        {
+            type: databaseHelper.Sequelize.INTEGER(1),
+            allowNull: false
+        },
     },
     {
         tableName: "TransportCompanyResponsibles"

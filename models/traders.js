@@ -95,6 +95,11 @@ module.exports = databaseHelper.sequelize.define(
             type: databaseHelper.Sequelize.STRING(50),
             allowNull: true
         },
+        Online:
+        {
+            type: databaseHelper.Sequelize.INTEGER(1),
+            allowNull: false
+        },
     },
     {
         tableName: "Traders"
