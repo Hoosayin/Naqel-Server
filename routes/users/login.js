@@ -17,26 +17,29 @@ router.post("/login", (request, response) => {
                 const userType = result.UserType;
 
                 if (userType === "Driver") {
-                    let tokenID = uuid().substring(0, 8).toUpperCase();
+                    const driver = result.Driver.DriverID;
 
-                    let updatedDriver = {
-                        TokenID: tokenID
-                    };
-
-                    Drivers.update(updatedDriver, { where: { DriverID: result.Driver.DriverID } }).then(() => {
-                        let JsonPayload = {
-                            DriverID: result.Driver.DriverID,
-                            TokenID: tokenID
+                    if (driver.Online) {
+                        response.json({
+                            Message: "Cannot login! You are already logged-in from another device.",
+                        });
+                    } else {
+                        let updatedDriver = {
+                            Online: true
                         };
 
-                        let token = jsonWebToken.sign(JsonPayload, jwtConfiguration.secret);
+                        Drivers.update(updatedDriver, { where: { DriverID: result.Driver.DriverID } }).then(() => {
+                            let token = jsonWebToken.sign({
+                                DriverID: result.Driver.DriverID,
+                            }, jwtConfiguration.secret);
 
-                        response.json({
-                            Message: "Login successful.",
-                            LoggedInAs: "Driver",
-                            Token: token
+                            response.json({
+                                Message: "Login successful.",
+                                LoggedInAs: "Driver",
+                                Token: token
+                            });
                         });
-                    });
+                    }
                 } else if (userType === "Trader") {
                     let JsonPayload = {
                         TraderID: result.Trader.TraderID

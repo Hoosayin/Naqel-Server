@@ -81,11 +81,11 @@ module.exports = databaseHelper.sequelize.define(
             type: databaseHelper.Sequelize.INTEGER(1),
             allowNull: false
         },
-        TokenID:
+        Online:
         {
-            type: databaseHelper.Sequelize.STRING(50),
-            allowNull: true
-        }
+            type: databaseHelper.Sequelize.INTEGER(1),
+            allowNull: false
+        },
     },
     {
         tableName: "Drivers"

@@ -647,17 +647,10 @@ passport.use("AuthenticateDriver", new JWTStrategy({
                 where: { DriverID: JWTPayload.DriverID },
             }).then(driver => {
                 if (driver) {
-                    if (JWTPayload.TokenID === driver.TokenID) {
-                        onAuthenticated({
-                            Message: "Driver found.",
-                            Driver: driver
-                        });
-                    }
-                    else {
-                        onAuthenticated({
-                            Message: "Token is expired."
-                        });
-                    }
+                    onAuthenticated({
+                        Message: "Driver found.",
+                        Driver: driver
+                    });
                 } else {
                     onAuthenticated({
                         Message: "Driver not found."
