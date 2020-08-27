@@ -52,10 +52,10 @@ const ValidateUsernameAndPhoneNumber = async (username, phoneNumber, onValidatio
     });
 
     if (driver || trader || responsible) {
-        onValidation(false);
+        onValidation(true);
     }
     else {
-        onValidation(true);
+        onValidation(false);
     }
 };
 
