@@ -196,7 +196,8 @@ passport.use("SetupAccount", new LocalStrategy({
                 Nationality: request.body.Nationality,
                 DateOfBirth: request.body.DateOfBirth,
                 Created: new Date(),
-                Active: false
+                Active: false,
+                Online: false
             };
 
             bcrypt.hash(request.body.Password, BCRYPT_SALT_ROUNDS).then(passwordHash => {
@@ -221,7 +222,8 @@ passport.use("SetupAccount", new LocalStrategy({
                 Created: new Date(),
                 BankName: "",
                 IBAN: "",
-                Active: true
+                Active: true,
+                Online: false
             };
 
             bcrypt.hash(request.body.Password, BCRYPT_SALT_ROUNDS).then(passwordHash => {
