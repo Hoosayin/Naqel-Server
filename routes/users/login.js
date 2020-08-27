@@ -1,10 +1,11 @@
 const express = require("express");
 const cors = require("cors");
-const uuid = require("uuid-v4");
 const jsonWebToken = require("jsonwebtoken");
 const jwtConfiguration = require("../../helpers/jwtConfiguration");
 const passport = require("../../helpers/passportHelper");
 const Drivers = require("../../models/drivers");
+const Traders = require("../../models/traders");
+const Responsibles = require("../../models/transportCompanyResponsibles");
 
 var router = express.Router();
 router.use(cors());
@@ -19,44 +20,51 @@ router.post("/login", (request, response) => {
                 if (userType === "Driver") {
                     const driver = result.Driver;
 
-                    let updatedDriver = {
+                    Drivers.update({
                         Online: true
-                    };
-
-                    Drivers.update(updatedDriver, { where: { DriverID: driver.DriverID } }).then(() => {
-                        let token = jsonWebToken.sign({
-                            DriverID: driver.DriverID,
-                        }, jwtConfiguration.secret);
-
+                    }, {
+                        where: { DriverID: driver.DriverID }
+                    }).then(() => {
                         response.json({
                             Message: "Login successful.",
                             LoggedInAs: "Driver",
-                            Token: token
+                            Token: jsonWebToken.sign({
+                                DriverID: driver.DriverID,
+                            }, jwtConfiguration.secret)
                         });
                     });
                 } else if (userType === "Trader") {
-                    let JsonPayload = {
-                        TraderID: result.Trader.TraderID
-                    };
+                    const trader = result.Trader;
 
-                    let token = jsonWebToken.sign(JsonPayload, jwtConfiguration.secret);
-                    response.json({
-                        Message: "Login successful.",
-                        LoggedInAs: "Trader",
-                        Token: token
-                    });
+                    Traders.update({
+                        Online: true
+                    }, {
+                        where: { TraderID: trader.TraderID }
+                    }).then(() => {
+                        response.json({
+                            Message: "Login successful.",
+                            LoggedInAs: "Trader",
+                            Token: jsonWebToken.sign({
+                                TraderID: trader.TraderID
+                            }, jwtConfiguration.secret)
+                        });
+                    });                    
                 } else {
-                    let JsonPayload = {
-                        TransportCompanyResponsibleID: result.TCResponsible.TransportCompanyResponsibleID
-                    };
+                    const responsible = result.TCResponsible;
 
-                    let token = jsonWebToken.sign(JsonPayload, jwtConfiguration.secret);
-
-                    response.json({
-                        Message: "Login successful.",
-                        LoggedInAs: "TC Responsible",
-                        Token: token
-                    });
+                    Responsibles.update({
+                        Online: true
+                    }, {
+                        where: { TransportCompanyResponsibleID: responsible.TransportCompanyResponsibleID }
+                    }).then(() => {
+                        response.json({
+                            Message: "Login successful.",
+                            LoggedInAs: "TC Responsible",
+                            Token: jsonWebToken.sign({
+                                TransportCompanyResponsibleID: responsible.TransportCompanyResponsibleID
+                            }, jwtConfiguration.secret)
+                        });
+                    });                    
                 }
             }
             else {

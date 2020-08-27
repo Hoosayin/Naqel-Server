@@ -24,6 +24,7 @@ app.use("/users", require("./routes/users/getWaitingTimes"));
 app.use("/users", require("./routes/users/getTruckSizes"));
 app.use("/users", require("./routes/users/getTruckTypes"));
 app.use("/users", require("./routes/users/validateEmail"));
+app.use("/users", require("./routes/users/resetSession"));
 
 app.use("/users", require("./routes/users/driverProfile/getDriverProfile"));
 app.use("/users", require("./routes/users/driverProfile/getDriverDocuments"));

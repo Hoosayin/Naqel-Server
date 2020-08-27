@@ -6,7 +6,6 @@ const jwtConfiguration = require("./jwtConfiguration");
 const codeGenerator = require("./codeGenerator");
 
 const passport = require("passport");
-const mangopay = require("./mangopay");
 const LocalStrategy = require("passport-local").Strategy;
 const JWTStrategy = require("passport-jwt").Strategy;
 const ExtractJWT = require("passport-jwt").ExtractJwt;
@@ -185,106 +184,50 @@ passport.use("SetupAccount", new LocalStrategy({
 }, (request, username, password, onAuthenticated) => {
     try {
         if (request.body.RegisterAs === "Driver") {
-            const newMangopayDriver = {
-                Tag: "Driver",
-                PersonType: "NATURAL",
+            let newDriver = {
+                Username: request.body.Username,
+                Password: request.body.Password,
                 Email: request.body.Email,
-                KYCLevel: "LIGHT",
                 FirstName: request.body.FirstName,
                 LastName: request.body.LastName,
-                Birthday: Math.floor(new Date(request.body.DateOfBirth).getTime() / 1000),
-                Nationality: "SA",
-                CountryOfResidence: "SA",
-                Capacity: "NORMAL"
+                Address: request.body.Address,
+                PhoneNumber: request.body.PhoneNumber,
+                Gender: request.body.Gender,
+                Nationality: request.body.Nationality,
+                DateOfBirth: request.body.DateOfBirth,
+                Created: new Date(),
+                Active: false
             };
 
-            mangopay.Users.create(newMangopayDriver).then(mangopayDriver => {
-                const newWallet = {
-                    Owners: [
-                        mangopayDriver.Id
-                    ],
-                    FundsType: "DEFAULT",
-                    Description: `${request.body.FirstName} ${request.body.LastName}'s wallet.`,
-                    Currency: "USD"
-                };
-
-                mangopay.Wallets.create(newWallet, wallet => {
-                    let newDriver = {
-                        Username: request.body.Username,
-                        Password: request.body.Password,
-                        Email: request.body.Email,
-                        FirstName: request.body.FirstName,
-                        LastName: request.body.LastName,
-                        Address: request.body.Address,
-                        PhoneNumber: request.body.PhoneNumber,
-                        Gender: request.body.Gender,
-                        Nationality: request.body.Nationality,
-                        DateOfBirth: request.body.DateOfBirth,
-                        Created: new Date(),
-                        MangopayID: mangopayDriver.Id,
-                        WalletID: wallet.Id,
-                        Active: false
-                    };
-
-                    bcrypt.hash(request.body.Password, BCRYPT_SALT_ROUNDS).then(passwordHash => {
-                        newDriver.Password = passwordHash;
-                        Drivers.create(newDriver).then(driver => {
-                            return onAuthenticated(null, driver);
-                        });
-                    });
+            bcrypt.hash(request.body.Password, BCRYPT_SALT_ROUNDS).then(passwordHash => {
+                newDriver.Password = passwordHash;
+                Drivers.create(newDriver).then(driver => {
+                    return onAuthenticated(null, driver);
                 });
             });
         } else {
-            const newMangopayTrader = {
-                Tag: request.body.RegisterAs,
-                PersonType: "NATURAL",
-                Email: request.body.Email,
-                KYCLevel: "LIGHT",
+            let newTrader = {
+                Username: request.body.Username,
+                Password: request.body.Password,
+                PhoneNumber: request.body.PhoneNumber,
                 FirstName: request.body.FirstName,
                 LastName: request.body.LastName,
-                Birthday: Math.floor(new Date(request.body.DateOfBirth).getTime() / 1000),
-                Nationality: "SA",
-                CountryOfResidence: "SA",
-                Capacity: "NORMAL"
+                Nationality: request.body.Nationality,
+                Email: request.body.Email,
+                Gender: request.body.Gender,
+                DateOfBirth: request.body.DateOfBirth,
+                Address: request.body.Address,
+                Type: request.body.RegisterAs,
+                Created: new Date(),
+                BankName: "",
+                IBAN: "",
+                Active: true
             };
 
-            mangopay.Users.create(newMangopayTrader).then(mangopayTrader => {
-                const newWallet = {
-                    Owners: [
-                        mangopayTrader.Id
-                    ],
-                    FundsType: "DEFAULT",
-                    Description: `${request.body.FirstName} ${request.body.LastName}'s wallet.`,
-                    Currency: "USD"
-                };
-
-                mangopay.Wallets.create(newWallet, wallet => {
-                    let newTrader = {
-                        Username: request.body.Username,
-                        Password: request.body.Password,
-                        PhoneNumber: request.body.PhoneNumber,
-                        FirstName: request.body.FirstName,
-                        LastName: request.body.LastName,
-                        Nationality: request.body.Nationality,
-                        Email: request.body.Email,
-                        Gender: request.body.Gender,
-                        DateOfBirth: request.body.DateOfBirth,
-                        Address: request.body.Address,
-                        Type: request.body.RegisterAs,
-                        Created: new Date(),
-                        BankName: "",
-                        IBAN: "",
-                        MangopayID: mangopayTrader.Id,
-                        WalletID: wallet.Id,
-                        Active: true
-                    };
-
-                    bcrypt.hash(request.body.Password, BCRYPT_SALT_ROUNDS).then(passwordHash => {
-                        newTrader.Password = passwordHash;
-                        Traders.create(newTrader).then(trader => {
-                            return onAuthenticated(null, trader);
-                        });
-                    });
+            bcrypt.hash(request.body.Password, BCRYPT_SALT_ROUNDS).then(passwordHash => {
+                newTrader.Password = passwordHash;
+                Traders.create(newTrader).then(trader => {
+                    return onAuthenticated(null, trader);
                 });
             });
         }
