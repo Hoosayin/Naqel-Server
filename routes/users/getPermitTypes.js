@@ -8,7 +8,7 @@ router.use(cors());
 // GET: getPermitTypes
 router.get("/getPermitTypes", (request, response) => {
     try {
-        PermitTypes.findAll().then(truckTypes => {
+        PermitTypes.findAll().then(permitTypes => {
             if (permitTypes) {
                 response.json({
                     Message: "Permit types found.",
