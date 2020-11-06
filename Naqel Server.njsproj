@@ -42,6 +42,7 @@
     <Content Include="helpers\passportHelper.js" />
     <Content Include="helpers\emailHelper.js" />
     <Content Include="helpers\tokenGenerator.js" />
+    <Content Include="models\permitTypes.js" />
     <Content Include="models\truckTypes.js" />
     <Content Include="models\truckSizes.js" />
     <Content Include="models\waitingTimes.js" />
@@ -96,6 +97,8 @@
     <Content Include="naqelSettings.json" />
     <Content Include="routes\administrators\accountStatement\getAccountStatement.js" />
     <Content Include="routes\administrators\driverAccountStatements\getDriverAccountStatement.js" />
+    <Content Include="routes\administrators\permitTypes\addPermitType.js" />
+    <Content Include="routes\administrators\permitTypes\deletePermitType.js" />
     <Content Include="routes\administrators\truckTypes\addTruckType.js" />
     <Content Include="routes\administrators\truckTypes\deleteTruckType.js" />
     <Content Include="routes\administrators\truckSizes\addTruckSize.js" />
@@ -346,6 +349,7 @@
     <Folder Include="helpers\" />
     <Folder Include="models\" />
     <Folder Include="routes\" />
+    <Folder Include="routes\administrators\permitTypes\" />
     <Folder Include="routes\administrators\truckTypes\" />
     <Folder Include="routes\administrators\truckSizes\" />
     <Folder Include="routes\administrators\waitingTimes\" />
