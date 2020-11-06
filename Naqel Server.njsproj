@@ -232,6 +232,7 @@
     <Content Include="routes\drivers\payments\getBillData.js" />
     <Content Include="routes\drivers\payments\getBills.js" />
     <Content Include="routes\drivers\payments\getPaymentDetails.js" />
+    <Content Include="routes\users\getPermitTypes.js" />
     <Content Include="routes\users\getTruckTypes.js" />
     <Content Include="routes\users\getTruckSizes.js" />
     <Content Include="routes\users\getWaitingTimes.js" />
