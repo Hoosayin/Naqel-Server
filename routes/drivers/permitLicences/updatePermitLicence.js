@@ -19,7 +19,7 @@ router.post("/updatePermitLicence", (request, response) => {
                             PermitNumber: request.body.PermitNumber,
                             ExpiryDate: request.body.ExpiryDate,
                             PhotoURL: request.body.PhotoURL,
-                            Code: request.body.Code,
+                            Type: request.body.Type,
                             Place: request.body.Place
                         };
 
