@@ -20,7 +20,9 @@ router.post("/updatePermitLicence", (request, response) => {
                             ExpiryDate: request.body.ExpiryDate,
                             PhotoURL: request.body.PhotoURL,
                             Type: request.body.Type,
-                            Place: request.body.Place
+                            Place: request.body.Place,
+                            Lat: request.body.Lat,
+                            Lng: request.body.lng,
                         };
 
                         DriverPermitLicences.update(updatedPermitLicence, { where: { PermitLicenceID: driverPermitLicence.PermitLicenceID } }).then(() => {

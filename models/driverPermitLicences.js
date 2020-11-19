@@ -43,7 +43,17 @@ module.exports = databaseHelper.sequelize.define(
         {
             type: databaseHelper.Sequelize.TEXT,
             allowNull: false
-        }
+        },
+        Lat:
+        {
+            type: databaseHelper.Sequelize.DOUBLE,
+            allowNull: false
+        },
+        Lng:
+        {
+            type: databaseHelper.Sequelize.DOUBLE,
+            allowNull: false
+        },
     },
     {
         tableName: "DriverPermitLicences"

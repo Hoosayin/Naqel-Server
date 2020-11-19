@@ -162,6 +162,7 @@
     <Content Include="routes\administrators\traders\getTraders.js" />
     <Content Include="routes\administrators\traders\chargeTrader.js" />
     <Content Include="routes\drivers\accountStatement\getAccountStatement.js" />
+    <Content Include="routes\drivers\jobOffers\getJobOfferPostsBak.js" />
     <Content Include="routes\drivers\payments\addDriverPayDetails.js" />
     <Content Include="routes\drivers\payments\getClientSecret.js" />
     <Content Include="routes\drivers\profile\getDashboardData.js" />
