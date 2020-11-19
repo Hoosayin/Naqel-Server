@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const geolib = require("geolib");
 const { Op } = require("sequelize");
 const passport = require("../../../helpers/passportHelper");
 
@@ -13,11 +14,26 @@ const DriverRequests = require("../../../models/driverRequests");
 var router = express.Router();
 router.use(cors());
 
-function GetArray(itemString) {
-    itemString = itemString.split(" ").join("");
-    itemString = itemString.substring(1, itemString.length - 1);
+function FilterJobsByDriverLocation(driverLocation, jobOffers) {
+    let filteredJobOffers = [];
+    let count = 0;
 
-    return itemString.split("|");
+    if (driverLocation) {
+        for (let jobOffer of jobOffers) {
+            let distance = geolib.getDistance(driverLocation, {
+                lat: jobOffer.LoadingLat,
+                lng: jobOffer.LoadingLng
+            });
+
+            if (distance <= 100) {
+                filteredJobOffers[count++] = jobOffer;
+            }
+        }
+    } else {
+        filteredJobOffers = JobOffers;
+    }
+
+    return filteredJobOffers;
 }
 
 function FilterJobsByNationality(nationality, jobOffers) {
@@ -71,6 +87,40 @@ function FilterJobsByTruckSize(truckSize, jobOffers) {
     return filteredJobOffers;
 }
 
+async function FilterJobsByPermitType(driverID, jobOffers) {
+    const permits = await DriverPermitLicences.findAll({
+        where: { DriverID: driverID }
+    });
+
+    let filteredJobOffers = [];
+    let count = 0;
+
+    for (let jobOffer of jobOffers) {
+        if (jobOffer.PermitType === "None") {
+            filteredJobOffers[count++] = jobOffer;
+        } else if (permits) {
+            for (let permit of permits) {
+                let distance = geolib.getDistance({
+                    lat: permit.Lat,
+                    lng: permit.Lng
+                }, {
+                    lat: jobOffer.UnloadingLat,
+                    lng: jobOffer.UnloadingLng
+                });
+
+                if (distance <= 30) {
+                    if (permit.Type === jobOffer.PermitType) {
+                        filteredJobOffers[count++] = jobOffer;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    return filteredJobOffers;
+}
+
 // GET: getJobOfferPosts
 router.get("/getJobOfferPosts", (request, response) => {
     passport.authenticate("AuthenticateDriver", { session: false }, async result => {
@@ -91,7 +141,7 @@ router.get("/getJobOfferPosts", (request, response) => {
                 }
 
 
-                const jobOffers = await JobOffers.findAll();
+                let jobOffers = await JobOffers.findAll();
 
                 if (!jobOffers) {
                     response.json({
@@ -101,12 +151,17 @@ router.get("/getJobOfferPosts", (request, response) => {
                     return;
                 }
 
-                // Filter jobs by radius.
-                // Filter jobs by Truck Types.
-                // Filter jobs by Truck Sizes.
-                // Filter jobs by Permit Types.
+                let driverLocation = request.query.DriverLat ?
+                    {
+                        lat: request.query.DriverLat,
+                        lng: request.query.DriverLng
+                    } : null;
 
-
+                jobOffers = FilterJobsByDriverLocation(driverLocation, JobOffers);
+                jobOffers = FilterJobsByNationality(driver.Nationality, jobOffers);
+                jobOffers = FilterJobsByTruckType(truck.Type, jobOffers);
+                jobOffers = FilterJobsByTruckSize(truck.MaximumWeight, jobOffers);
+                jobOffers = FilterJobsByPermitType(driver.DriverID, jobOffers);
 
                 let jobOfferPosts = [];
                 let count = 0;
