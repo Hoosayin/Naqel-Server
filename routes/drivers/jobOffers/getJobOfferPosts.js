@@ -111,7 +111,7 @@ async function FilterJobsByPermitType(driverID, jobOffers) {
                     lng: jobOffer.UnloadingLng
                 });
 
-                if (distance <= 30) {
+                if (distance <= 10000) {
                     if (permit.Type === jobOffer.PermitType) {
                         filteredJobOffers[count++] = jobOffer;
                         break;
