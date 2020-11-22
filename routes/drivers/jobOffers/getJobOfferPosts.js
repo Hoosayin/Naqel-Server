@@ -30,7 +30,7 @@ function FilterJobsByDriverLocation(driverLocation, jobOffers) {
             }
         }
     } else {
-        filteredJobOffers = JobOffers;
+        filteredJobOffers = jobOffers;
     }
 
     return filteredJobOffers;
@@ -44,6 +44,7 @@ function FilterJobsByNationality(nationality, jobOffers) {
         const nationalities = jobOffer.DriverNationalities;
 
         if (nationalities === "" ||
+            nationalities === null ||
             nationalities.includes("Any Nationality") ||
             nationalities.includes(nationality)) {
             filteredJobOffers[count++] = jobOffer;
@@ -61,6 +62,7 @@ function FilterJobsByTruckType(truckType, jobOffers) {
         const truckTypes = jobOffer.TruckTypes;
 
         if (truckTypes === "" ||
+            truckTypes === null ||
             truckTypes.includes("Any Truck Type") ||
             truckTypes.includes(truckType)) {
             filteredJobOffers[count++] = jobOffer;
@@ -78,6 +80,7 @@ function FilterJobsByTruckSize(truckSize, jobOffers) {
         const truckSizes = jobOffer.TruckSizes;
 
         if (truckSizes === "" ||
+            truckSizes === null ||
             truckSizes.includes("Any Truck Size") ||
             truckSizes.includes(` ${truckSize} `)) {
             filteredJobOffers[count++] = jobOffer;
@@ -96,7 +99,7 @@ async function FilterJobsByPermitType(driverID, jobOffers) {
     let count = 0;
 
     for (let jobOffer of jobOffers) {
-        if (jobOffer.PermitType === "None") {
+        if (jobOffer.PermitType === "None" || jobOffer.PermitType === null) {
             filteredJobOffers[count++] = jobOffer;
         } else if (permits) {
             for (let permit of permits) {
@@ -151,17 +154,17 @@ router.get("/getJobOfferPosts", (request, response) => {
                     return;
                 }
 
-                let driverLocation = request.query.DriverLat ?
+                let driverLocation = (request.query.DriverLat === null) ?
                     {
                         lat: request.query.DriverLat,
                         lng: request.query.DriverLng
                     } : null;
 
-                jobOffers = FilterJobsByDriverLocation(driverLocation, JobOffers);
+                jobOffers = FilterJobsByDriverLocation(driverLocation, jobOffers);
                 jobOffers = FilterJobsByNationality(driver.Nationality, jobOffers);
                 jobOffers = FilterJobsByTruckType(truck.Type, jobOffers);
                 jobOffers = FilterJobsByTruckSize(truck.MaximumWeight, jobOffers);
-                jobOffers = FilterJobsByPermitType(driver.DriverID, jobOffers);
+                jobOffers = await FilterJobsByPermitType(driver.DriverID, jobOffers);
 
                 let jobOfferPosts = [];
                 let count = 0;
