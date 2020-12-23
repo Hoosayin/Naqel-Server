@@ -163,7 +163,7 @@ router.get("/getJobOfferPosts", (request, response) => {
                 jobOffers = FilterJobsByDriverLocation(driverLocation, jobOffers);
                 jobOffers = FilterJobsByNationality(driver.Nationality, jobOffers);
                 jobOffers = FilterJobsByTruckType(truck.Type, jobOffers);
-                jobOffers = FilterJobsByTruckSize(truck.MaximumWeight, jobOffers);
+                jobOffers = FilterJobsByTruckSize(truck.Capacity, jobOffers);
                 jobOffers = await FilterJobsByPermitType(driver.DriverID, jobOffers);
 
                 let jobOfferPosts = [];

@@ -23,7 +23,7 @@ router.post("/updateTruck", (request, response) => {
                             Brand: request.body.Brand,
                             Model: request.body.Model,
                             Type: request.body.Type,
-                            MaximumWeight: request.body.MaximumWeight
+                            Capacity: request.body.Capacity
                         };
 
                         Trucks.update(updatedTruck, { where: { TruckID: truck.TruckID } }).then(() => {

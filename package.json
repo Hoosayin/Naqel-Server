@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@stripe/stripe-js": "^1.11.0",
-    "bcrypt": "^3.0.8",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
@@ -16,16 +16,16 @@
     "helmet": "^3.23.3",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
-    "mangopay2-nodejs-sdk": "^1.14.3",
+    "mangopay2-nodejs-sdk": "^1.14.5",
     "mysql": "^2.17.1",
     "mysql2": "^2.2.5",
-    "nodemailer": "^6.4.14",
+    "nodemailer": "^6.4.17",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "sequelize": "^5.22.3",
     "sequelize-cli": "^5.5.1",
-    "stripe": "^8.120.0",
+    "stripe": "^8.129.0",
     "uuid-v4": "^0.1.0"
   },
   "devDependencies": {

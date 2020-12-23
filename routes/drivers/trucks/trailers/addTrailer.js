@@ -22,7 +22,7 @@ router.post("/addTrailer", (request, response) => {
                             if (trailers.count < 2) {
                                 let newTrailer = {
                                     TruckID: truck.TruckID,
-                                    MaximumWeight: request.body.MaximumWeight,
+                                    Capacity: request.body.Capacity,
                                     PhotoURL: request.body.PhotoURL,
                                     Type: request.body.Type
                                 };

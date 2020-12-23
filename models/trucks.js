@@ -64,7 +64,7 @@ module.exports = databaseHelper.sequelize.define(
             type: databaseHelper.Sequelize.STRING(100),
             allowNull: false
         },
-        MaximumWeight:
+        Capacity:
         {
             type: databaseHelper.Sequelize.BIGINT,
             allowNull: false

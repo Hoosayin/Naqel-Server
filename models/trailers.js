@@ -20,7 +20,7 @@ module.exports = databaseHelper.sequelize.define(
                 key: "TruckID"
             }
         },
-        MaximumWeight:
+        Capacity:
         {
             type: databaseHelper.Sequelize.BIGINT,
             allowNull: false

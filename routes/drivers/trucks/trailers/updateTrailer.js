@@ -16,7 +16,7 @@ router.post("/updateTrailer", (request, response) => {
                 }).then(trailer => {
                     if (trailer) {
                         let updatedTrailer = {
-                            MaximumWeight: request.body.MaximumWeight,
+                            Capacity: request.body.Capacity,
                             PhotoURL: request.body.PhotoURL,
                             Type: request.body.Type
                         };
