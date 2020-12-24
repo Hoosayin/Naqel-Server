@@ -14,6 +14,23 @@ const DriverRequests = require("../../../models/driverRequests");
 var router = express.Router();
 router.use(cors());
 
+function GetTruckSizesArray(truckSizes) {
+    let truckSizesIntegerArray = [];
+
+    truckSizes = truckSizes.split(" ").join("");
+    truckSizes = truckSizes.split("KG").join("");
+    truckSizes = truckSizes.substring(1, truckSizes.length - 1);
+
+    let truckSizesArray = truckSizes.split("|");
+    let count = 0;
+
+    for (let truckSize of truckSizesArray) {
+        truckSizesIntegerArray[count++] = parseInt(truckSize);
+    }
+
+    return truckSizesIntegerArray;
+}
+
 function FilterJobsByDriverLocation(driverLocation, jobOffers) {
     let filteredJobOffers = [];
     let count = 0;
@@ -72,6 +89,24 @@ function FilterJobsByTruckType(truckType, jobOffers) {
     return filteredJobOffers;
 }
 
+//function FilterJobsByTruckSize(truckSize, jobOffers) {
+//    let filteredJobOffers = [];
+//    let count = 0;
+
+//    for (let jobOffer of jobOffers) {
+//        const truckSizes = jobOffer.TruckSizes;
+
+//        if (truckSizes === "" ||
+//            truckSizes === null ||
+//            truckSizes.includes("Any Truck Size") ||
+//            truckSizes.includes(` ${truckSize} `)) {
+//            filteredJobOffers[count++] = jobOffer;
+//        }
+//    }
+
+//    return filteredJobOffers;
+//}
+
 function FilterJobsByTruckSize(truckSize, jobOffers) {
     let filteredJobOffers = [];
     let count = 0;
@@ -84,6 +119,15 @@ function FilterJobsByTruckSize(truckSize, jobOffers) {
             truckSizes.includes("Any Truck Size") ||
             truckSizes.includes(` ${truckSize} `)) {
             filteredJobOffers[count++] = jobOffer;
+        } else {
+            const truckSizesArray = GetTruckSizesArray(truckSizes);
+
+            for (let truckSizeItem of truckSizesArray) {
+                if (truckSize >= truckSizeItem) {
+                    filteredJobOffers[count++] = jobOffer;
+                    break;
+                }
+            }
         }
     }
 
