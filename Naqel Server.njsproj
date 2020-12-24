@@ -101,6 +101,7 @@
     <Content Include="routes\administrators\driverAccountStatements\getDriverAccountStatement.js" />
     <Content Include="routes\administrators\permitTypes\addPermitType.js" />
     <Content Include="routes\administrators\permitTypes\deletePermitType.js" />
+    <Content Include="routes\administrators\profile\getDashboardData.js" />
     <Content Include="routes\administrators\truckTypes\addTruckType.js" />
     <Content Include="routes\administrators\truckTypes\deleteTruckType.js" />
     <Content Include="routes\administrators\truckSizes\addTruckSize.js" />
