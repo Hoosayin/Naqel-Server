@@ -257,7 +257,8 @@ passport.use("SetupAdministratorAccount", new LocalStrategy({
                             FirstName: request.body.FirstName,
                             LastName: request.body.LastName,
                             PhotoURL: null,
-                            Created: new Date()
+                            Created: new Date(),
+                            IsSuperAdmin: false
                         };
 
                         bcrypt.hash(request.body.Password, BCRYPT_SALT_ROUNDS).then(passwordHash => {

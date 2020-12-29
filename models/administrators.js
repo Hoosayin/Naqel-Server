@@ -50,7 +50,12 @@ module.exports = databaseHelper.sequelize.define(
             type: databaseHelper.Sequelize.DATEONLY,
             defaultValue: databaseHelper.Sequelize.NOW,
             allowNull: false
-        }
+        },
+        IsSuperAdmin:
+        {
+            type: databaseHelper.Sequelize.INTEGER(1),
+            allowNull: false
+        },
     },
     {
         tableName: "Administrators"
