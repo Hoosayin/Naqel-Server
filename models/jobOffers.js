@@ -100,9 +100,9 @@ module.exports = databaseHelper.sequelize.define(
             type: databaseHelper.Sequelize.BIGINT,
             allowNull: false
         },
-        PermitType:
+        PermitTypes:
         {
-            type: databaseHelper.Sequelize.STRING(100),
+            type: databaseHelper.Sequelize.TEXT,
             allowNull: false
         },
         JobOfferType:

@@ -32,7 +32,7 @@ router.post("/addJobOffer", (request, response) => {
                     JobOfferType: request.body.JobOfferType,
                     Price: request.body.Price,
                     WaitingTime: request.body.WaitingTime,
-                    PermitType: request.body.PermitType,
+                    PermitTypes: request.body.PermitTypes,
                     TimeCreated: new Date()
                 };
 
