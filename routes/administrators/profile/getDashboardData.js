@@ -32,7 +32,8 @@ router.get("/getDashboardData", (request, response) => {
 
                 response.json({
                     Message: "Dashboard data found.",
-                    Privileges: privileges
+                    Privileges: privileges,
+                    IsSuperAdmin: result.Administrator.IsSuperAdmin,
                 });
             }
             else {
