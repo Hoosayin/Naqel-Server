@@ -13,7 +13,7 @@ router.get("/getAdminPrivileges", (request, response) => {
             if (result.Message === "Administrator found.") {
                 AdminPrivileges.findAll({
                     where: { AdministratorID: request.query.AdministratorID }
-                }).then(async adminPrivileges => {
+                }).then(adminPrivileges => {
                     if (adminPrivileges) {
                         response.json({
                             Message: "Admin privileges found.",
