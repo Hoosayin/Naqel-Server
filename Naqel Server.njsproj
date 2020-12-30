@@ -98,6 +98,7 @@
     <Content Include="naqelSettings.json" />
     <Content Include="routes\administrators\accountStatement\getAccountStatement.js" />
     <Content Include="routes\administrators\admins\addAdminPrivilege.js" />
+    <Content Include="routes\administrators\admins\getAdminPrivileges.js" />
     <Content Include="routes\administrators\admins\getAdmins.js" />
     <Content Include="routes\administrators\driverAccountStatements\getDriverAccountStatement.js" />
     <Content Include="routes\administrators\permitTypes\addPermitType.js" />
