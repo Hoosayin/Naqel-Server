@@ -116,39 +116,42 @@ function FilterJobsByTruckSize(truckSize, jobOffers) {
     return filteredJobOffers;
 }
 
-//async function FilterJobsByPermitType(driverID, jobOffers) {
-//    const permits = await DriverPermitLicences.findAll({
-//        where: { DriverID: driverID }
-//    });
+async function FilterJobsByPermitType(driverID, jobOffers) {
+    const permits = await DriverPermitLicences.findAll({
+        where: { DriverID: driverID }
+    });
 
-//    let filteredJobOffers = [];
-//    let count = 0;
+    let filteredJobOffers = [];
+    let count = 0;
 
-//    for (let jobOffer of jobOffers) {
-//        if (jobOffer.PermitType === "None" || jobOffer.PermitType === null) {
-//            filteredJobOffers[count++] = jobOffer;
-//        } else if (permits) {
-//            for (let permit of permits) {
-//                let distance = geolib.getDistance({
-//                    lat: permit.Lat,
-//                    lng: permit.Lng
-//                }, {
-//                    lat: jobOffer.UnloadingLat,
-//                    lng: jobOffer.UnloadingLng
-//                });
+    for (let jobOffer of jobOffers) {
+        if (jobOffer.PermitTypes.includes("None") ||
+            jobOffer.PermitTypes === null ||
+            jobOffer.PermitTypes === "") {
+            filteredJobOffers[count++] = jobOffer;
+        } else if (permits) {
+            for (let permit of permits) {
+                let distance = geolib.getDistance({
+                    lat: permit.Lat,
+                    lng: permit.Lng
+                }, {
+                    lat: jobOffer.UnloadingLat,
+                    lng: jobOffer.UnloadingLng
+                });
 
-//                if (distance <= 10000) {
-//                    if (permit.Type === jobOffer.PermitType) {
-//                        filteredJobOffers[count++] = jobOffer;
-//                        break;
-//                    }
-//                }
-//            }
-//        }
-//    }
+                if (distance <= 10000) {
+                    if (jobOffer.PermitTypes.includes(permit.Type) &&
+                        new Date(permitType.ExpiryDate) > new Date()) {
+                        filteredJobOffers[count++] = jobOffer;
+                        break;
+                    }
+                }
+            }
+        }
+    }
 
-//    return filteredJobOffers;
-//}
+    return filteredJobOffers;
+}
 
 // GET: getJobOfferPosts
 router.get("/getJobOfferPosts", (request, response) => {
@@ -190,7 +193,7 @@ router.get("/getJobOfferPosts", (request, response) => {
                 jobOffers = FilterJobsByNationality(driver.Nationality, jobOffers);
                 jobOffers = FilterJobsByTruckType(truck.Type, jobOffers);
                 jobOffers = FilterJobsByTruckSize(truck.Capacity, jobOffers);
-                //jobOffers = await FilterJobsByPermitType(driver.DriverID, jobOffers);
+                jobOffers = await FilterJobsByPermitType(driver.DriverID, jobOffers);
 
                 let jobOfferPosts = [];
                 let count = 0;
