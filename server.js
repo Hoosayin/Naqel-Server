@@ -306,6 +306,7 @@ app.use("/administrators", require("./routes/administrators/permitTypes/addPermi
 app.use("/administrators", require("./routes/administrators/permitTypes/deletePermitType"));
 
 app.use("/administrators", require("./routes/administrators/admins/addAdminPrivilege"));
+app.use("/administrators", require("./routes/administrators/admins/getAdmins"));
 
 // Transport Company Responsibles' routes.
 app.use("/transportCompanyResponsibles", require("./routes/transportCompanyResponsibles/register/register"));
