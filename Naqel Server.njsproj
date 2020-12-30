@@ -97,6 +97,7 @@
     <Content Include="models\trucks.js" />
     <Content Include="naqelSettings.json" />
     <Content Include="routes\administrators\accountStatement\getAccountStatement.js" />
+    <Content Include="routes\administrators\admins\deleteAdminPrivilege.js" />
     <Content Include="routes\administrators\admins\addAdminPrivilege.js" />
     <Content Include="routes\administrators\admins\getAdminPrivileges.js" />
     <Content Include="routes\administrators\admins\getAdmins.js" />
