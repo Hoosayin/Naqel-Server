@@ -17,8 +17,6 @@ router.post("/updateDrivingLicence", (request, response) => {
                     if (drivingLicence) {
                         let updatedDrivingLicence = {
                             LicenceNumber: request.body.LicenceNumber,
-                            Type: request.body.Type,
-                            ReleaseDate: request.body.ReleaseDate,
                             ExpiryDate: request.body.ExpiryDate,
                             PhotoURL: request.body.PhotoURL
                         };

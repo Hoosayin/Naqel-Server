@@ -23,8 +23,8 @@ router.post("/addDrivingLicence", (request, response) => {
                         let newDrivingLicence = {
                             DriverID: result.Driver.DriverID,
                             LicenceNumber: request.body.LicenceNumber,
-                            Type: request.body.Type,
-                            ReleaseDate: request.body.ReleaseDate,
+                            Type: "",
+                            ReleaseDate: new Date(),
                             ExpiryDate: request.body.ExpiryDate,
                             PhotoURL: request.body.PhotoURL,
                             Created: new Date()
