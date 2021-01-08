@@ -14,6 +14,48 @@ const DriverRequests = require("../../../models/driverRequests");
 var router = express.Router();
 router.use(cors());
 
+function editDistance(firstString, secondString) {
+    firstString = firstString.toLowerCase();
+    secondString = secondString.toLowerCase();
+
+    var costs = new Array();
+    for (var i = 0; i <= firstString.length; i++) {
+        var lastValue = i;
+        for (var j = 0; j <= secondString.length; j++) {
+            if (i == 0)
+                costs[j] = j;
+            else {
+                if (j > 0) {
+                    var newValue = costs[j - 1];
+                    if (firstString.charAt(i - 1) != secondString.charAt(j - 1))
+                        newValue = Math.min(Math.min(newValue, lastValue),
+                            costs[j]) + 1;
+                    costs[j - 1] = lastValue;
+                    lastValue = newValue;
+                }
+            }
+        }
+        if (i > 0)
+            costs[secondString.length] = lastValue;
+    }
+    return costs[secondString.length];
+}
+
+function similarity(firstString, secondString) {
+    var longer = firstString;
+    var shorter = secondString;
+    if (firstString.length < secondString.length) {
+        longer = secondString;
+        shorter = firstString;
+    }
+    var longerLength = longer.length;
+    if (longerLength == 0) {
+        return 1.0;
+    }
+
+    return (longerLength - editDistance(longer, shorter)) / parseFloat(longerLength);
+}
+
 function GetTruckSizesArray(truckSizes) {
     let truckSizesIntegerArray = [];
 
@@ -139,9 +181,10 @@ async function FilterJobsByPermitType(driverID, jobOffers) {
                     lng: jobOffer.UnloadingLng
                 });
 
-                if (distance <= 10000) {
+                if (distance <= 10000 ||
+                    similarity(permit.Place, jobOffer.UnloadingPlace) >= 0.40) {
                     if (jobOffer.PermitTypes.includes(permit.Type) &&
-                        new Date(permitType.ExpiryDate) > new Date()) {
+                        new Date(permit.ExpiryDate) > new Date()) {
                         filteredJobOffers[count++] = jobOffer;
                         break;
                     }
