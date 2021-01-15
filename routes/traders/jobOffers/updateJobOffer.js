@@ -30,7 +30,6 @@ router.post("/updateJobOffer", (request, response) => {
                             UnloadingLng: request.body.UnloadingLng,
                             LoadingDate: request.body.LoadingDate,
                             LoadingTime: request.body.LoadingTime,
-                            EntryExit: request.body.EntryExit,
                             Price: request.body.Price,
                             WaitingTime: request.body.WaitingTime,
                             PermitTypes: request.body.PermitTypes,

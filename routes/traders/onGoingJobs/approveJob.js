@@ -52,7 +52,6 @@ router.post("/approveJob", (request, response) => {
                                             UnloadingPlace: onGoingJob.UnloadingPlace,
                                             LoadingDate: onGoingJob.LoadingDate,
                                             LoadingTime: onGoingJob.LoadingTime,
-                                            EntryExit: onGoingJob.EntryExit,
                                             AcceptedDelay: onGoingJob.AcceptedDelay,
                                             Price: onGoingJob.Price,
                                             Created: new Date()

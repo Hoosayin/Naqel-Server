@@ -84,7 +84,7 @@ function FilterJobsByDriverLocation(driverLocation, jobOffers) {
                 lng: jobOffer.LoadingLng
             });
 
-            if (distance <= 100) {
+            if (distance <= 100000) {
                 filteredJobOffers[count++] = jobOffer;
             }
         }

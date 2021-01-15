@@ -63,7 +63,6 @@ router.post("/addOnGoingJobFromJobOffer", (request, response) => {
                                                     LoadingTime: jobOffer.LoadingTime,
                                                     TruckModel: null,
                                                     DriverNationality: null,
-                                                    EntryExit: jobOffer.EntryExit,
                                                     AcceptedDelay: jobOffer.AcceptedDelay,
                                                     Price: driverRequest.Price ? driverRequest.Price : jobOffer.Price,
                                                     CompletedByDriver: false,

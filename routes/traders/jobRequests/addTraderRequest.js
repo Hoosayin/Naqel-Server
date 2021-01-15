@@ -33,7 +33,6 @@ router.post("/addTraderRequest", (request, response) => {
                             CargoWeight: request.body.CargoWeight,
                             LoadingDate: request.body.LoadingDate,
                             LoadingTime: request.body.LoadingTime,
-                            EntryExit: request.body.EntryExit,
                             AcceptedDelay: request.body.AcceptedDelay,
                             Selected: false,
                             Created: new Date()

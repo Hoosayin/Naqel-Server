@@ -27,7 +27,6 @@ router.post("/addJobOffer", (request, response) => {
                     UnloadingLng: request.body.UnloadingLng,
                     LoadingDate: request.body.LoadingDate,
                     LoadingTime: request.body.LoadingTime,
-                    EntryExit: request.body.EntryExit,
                     AcceptedDelay: request.body.AcceptedDelay,
                     JobOfferType: request.body.JobOfferType,
                     Price: request.body.Price,

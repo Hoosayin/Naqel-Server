@@ -80,11 +80,6 @@ module.exports = databaseHelper.sequelize.define(
             type: databaseHelper.Sequelize.TIME,
             allowNull: false
         },
-        EntryExit:
-        {
-            type: databaseHelper.Sequelize.INTEGER(1),
-            allowNull: false
-        },
         AcceptedDelay:
         {
             type: databaseHelper.Sequelize.BIGINT,
