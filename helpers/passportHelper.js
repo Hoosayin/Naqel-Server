@@ -306,6 +306,7 @@ passport.use("SetupTransportCompanyResponsibleAccount", new LocalStrategy({
             InternalNumber: uuid().substring(0, 12).toUpperCase(),
             CommercialRegisterNumber: codeGenerator(10),
             Active: true,
+            Online: false,
             Created: new Date()
         };
 
