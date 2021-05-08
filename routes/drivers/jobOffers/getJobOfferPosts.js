@@ -226,7 +226,7 @@ router.get("/getJobOfferPosts", (request, response) => {
                     return;
                 }
 
-                let driverLocation = (request.query.DriverLat === null) ?
+                let driverLocation = (request.query.DriverLat != null) ?
                     {
                         lat: request.query.DriverLat,
                         lng: request.query.DriverLng
