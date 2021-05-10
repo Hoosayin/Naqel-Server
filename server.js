@@ -164,6 +164,7 @@ app.use("/traders", require("./routes/traders/jobOffers/getJobOfferPackages"));
 app.use("/traders", require("./routes/traders/jobOffers/deleteJobOffer"));
 app.use("/traders", require("./routes/traders/jobOffers/updateJobOffer"));
 app.use("/traders", require("./routes/traders/jobOffers/getDriverRequestPackages"));
+app.use("/traders", require("./routes/traders/jobOffers/denyDriverRequest"));
 
 app.use("/traders", require("./routes/traders/jobRequests/getJobRequestPosts"));
 app.use("/traders", require("./routes/traders/jobRequests/addTraderRequest"));
